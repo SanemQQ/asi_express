@@ -12,14 +12,21 @@ using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
 namespace asi_express
 {
-    /// <summary>
-    /// Summary description for CodedUITest1
-    /// </summary>
+
+//    Dictionary Dict 
+
     [CodedUITest]
     public class CodedUITest1
     {
         public CodedUITest1()
         {
+
+        }
+
+        [TestInitialize]
+        public void TestStartup ()
+        {
+            Console.WriteLine("Hello World!");
         }
 
         [TestMethod]
