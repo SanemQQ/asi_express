@@ -4,6 +4,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Threading;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
@@ -13,47 +15,50 @@ using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 namespace asi_express
 {
 
-//    Dictionary Dict 
+    //    Dictionary Dict 
 
     [CodedUITest]
-    public class CodedUITest1
+    public class asi_express
     {
-        public CodedUITest1()
-        {
 
-        }
+
+        #region Additional test attributes
+        string LocalAppData = Environment.GetEnvironmentVariable("LocalAppData");
+        string WinDir = Environment.GetEnvironmentVariable("WinDir");
 
         [TestInitialize]
-        public void TestStartup ()
+        public void TestStartup()
         {
             Console.WriteLine("Hello World!");
         }
 
-        [TestMethod]
-        public void CodedUITestMethod1()
+        [TestCleanup]
+        public void MyTestCleanup()
         {
-            // To generate code for this test, select "Generate Code for Coded UI Test" from the shortcut menu and select one of the menu items.
+            Console.WriteLine(WinDir + @"\System32\calc.exe");
+        }
+        #endregion
+        [TestMethod]
+        public void Asi_Express_MSSQL ()
+        {
+            Asi_Express_All(5);
         }
 
-        #region Additional test attributes
+        [TestMethod]
+        public void Asi_Express_ORACLE()
+        {
+            Asi_Express_All(15);
+        }
 
-        // You can use the following additional attributes as you write your tests:
 
-        ////Use TestInitialize to run code before running each test 
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{        
-        //    // To generate code for this test, select "Generate Code for Coded UI Test" from the shortcut menu and select one of the menu items.
-        //}
 
-        ////Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{        
-        //    // To generate code for this test, select "Generate Code for Coded UI Test" from the shortcut menu and select one of the menu items.
-        //}
 
-        #endregion
+
+        public void Asi_Express_All(int WaC) // WaC - Waiter Coefficient - коэффициент ожидания, который будет корректировать время ожидания между ораклом и мсскл
+        {
+            Process.Start(WinDir+@"\System32\calc.exe");
+        }
+
 
         /// <summary>
         ///Gets or sets the test context which provides
