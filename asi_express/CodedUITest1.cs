@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Threading;
 using System.Diagnostics;
+using System.IO;
+using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
@@ -24,20 +26,43 @@ namespace asi_express
 
         #region Additional test attributes
         string LocalAppData = Environment.GetEnvironmentVariable("LocalAppData");
-        string WinDir = Environment.GetEnvironmentVariable("WinDir");
+        string Temp = Environment.GetEnvironmentVariable("Temp");
+        string DirectoryName = @"\asi_express_log";
+        CultureInfo lang = new CultureInfo("ru-RU");
+        Dictionary<string, Point> Dots = new Dictionary<string, Point>();
 
         [TestInitialize]
         public void TestStartup()
         {
-            Console.WriteLine("Hello World!");
+            if (!Directory.Exists(Temp + DirectoryName))
+            {
+                Directory.CreateDirectory(Temp + DirectoryName);
+            }
+            if (!File.Exists(Temp+DirectoryName+@"\express_"+this.TestContext.Properties["AgentName"].ToString()+".log"))
+            {
+                File.AppendAllText(Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + ".log","");
+            }
+            else
+            {
+                File.AppendAllText(Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log", "");
+                File.Copy(Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + ".log",
+                            Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log");
+                File.AppendAllText(Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + ".log", "");                
+            }
+
+            Dots.Add("", new Point());
+            
+
         }
 
         [TestCleanup]
         public void MyTestCleanup()
         {
-            Console.WriteLine(WinDir + @"\System32\calc.exe");
+           // Console.WriteLine(@"\System32\calc.exe");
         }
         #endregion
+
+
         [TestMethod]
         public void Asi_Express_MSSQL ()
         {
@@ -60,10 +85,16 @@ namespace asi_express
         }
 
 
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
+
+        public void inputLog (string txt)
+        {
+
+
+        }
+
+
+
+
         public TestContext TestContext
         {
             get
