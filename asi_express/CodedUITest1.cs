@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Threading;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,11 +26,12 @@ namespace asi_express
 
 
         #region Additional test attributes
-        string LocalAppData = Environment.GetEnvironmentVariable("LocalAppData");
-        string Temp = Environment.GetEnvironmentVariable("Temp");
-        string DirectoryName = @"\asi_express_log";
+        readonly string LocalAppData = Environment.GetEnvironmentVariable("LocalAppData");
+        readonly string Temp = Environment.GetEnvironmentVariable("Temp");
+        readonly string DirectoryName = @"\asi_express_log";
         CultureInfo lang = new CultureInfo("ru-RU");
         Dictionary<string, Point> Dots = new Dictionary<string, Point>();
+        readonly string logfile = @"\express.log";
 
         [TestInitialize]
         public void TestStartup()
@@ -38,38 +40,60 @@ namespace asi_express
             {
                 Directory.CreateDirectory(Temp + DirectoryName);
             }
-            if (!File.Exists(Temp+DirectoryName+@"\express_"+this.TestContext.Properties["AgentName"].ToString()+".log"))
+            if (!File.Exists(Temp+DirectoryName+@"\express.log"))
             {
-                File.AppendAllText(Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + ".log","");
+                File.AppendAllText(Temp + DirectoryName + @"\express.log","");
             }
             else
             {
-                File.AppendAllText(Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log", "");
-                File.Copy(Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + ".log",
-                            Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log");
-                File.AppendAllText(Temp + DirectoryName + @"\express_" + this.TestContext.Properties["AgentName"].ToString() + ".log", "");                
+                File.AppendAllText(Temp + DirectoryName + @"\express_"  + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log", "");
+                File.Copy(Temp + DirectoryName + @"\express.log",
+                            Temp + DirectoryName + @"\express_" + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log");
+                File.AppendAllText(Temp + DirectoryName + @"\express.log", "");                
             }
-
+            // Справочник точек, по которым будет проводиться взаимодействие с некоторыми объектами
             Dots.Add("", new Point());
             
 
         }
 
+        public void inputLog(string txt)
+        {
+            File.AppendAllText(Temp + DirectoryName + logfile, txt);
+        }
+
+        public void GetScreen(string imgName)
+        {
+            using (var image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height))
+            {
+                using (var graphics = Graphics.FromImage(image))
+                    graphics.CopyFromScreen(0, 0, 0, 0, image.Size);
+
+                image.Save(Temp+DirectoryName + imgName, System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+        }
+
         [TestCleanup]
         public void MyTestCleanup()
         {
-           // Console.WriteLine(@"\System32\calc.exe");
+            // Console.WriteLine(@"\System32\calc.exe");
+            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString() + ".zip");
+            Directory.Delete(Temp + DirectoryName, true); // удаляем старые данные, так как они нам не нужны больше
         }
         #endregion
 
 
         [TestMethod]
+        [TestProperty("AgenName","ASI-TST-MS12")]
+        [TestProperty("Files","FileToDeploy.txt")]
         public void Asi_Express_MSSQL ()
         {
             Asi_Express_All(5);
         }
 
         [TestMethod]
+        [TestProperty("AgenName", "ASI-TST-12-2")]
+        [TestProperty("Files", "FileToDeploy.txt")]
         public void Asi_Express_ORACLE()
         {
             Asi_Express_All(15);
@@ -81,16 +105,21 @@ namespace asi_express
 
         public void Asi_Express_All(int WaC) // WaC - Waiter Coefficient - коэффициент ожидания, который будет корректировать время ожидания между ораклом и мсскл
         {
-            Process.Start(WinDir+@"\System32\calc.exe");
-        }
 
-
-
-        public void inputLog (string txt)
-        {
-
+            //Process.Start(Temp+@"\System32\calc.exe");
+            
 
         }
+
+
+
+
+        #region UsefulMethods
+
+
+
+        #endregion UsefulMethods
+
 
 
 
