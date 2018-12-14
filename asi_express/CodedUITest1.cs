@@ -114,6 +114,13 @@ namespace asi_express
             Directory.Delete(LocalAppData + @"\JSC Prognoz",true);
         }
 
+        public void start_asi()
+        {
+
+
+
+        }
+
 
         #endregion
 
@@ -141,7 +148,6 @@ namespace asi_express
         public void Asi_Express_All(int WaC) // WaC - Waiter Coefficient - коэффициент ожидания, который будет корректировать время ожидания между ораклом и мсскл
         {
 
-            //Process.Start(Temp+@"\System32\calc.exe");
             try
             {
             
