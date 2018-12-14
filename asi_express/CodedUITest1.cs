@@ -57,12 +57,18 @@ namespace asi_express
 
         }
 
-        public void inputLog(string txt)
+        public void inputLog( string txt , int lvl )  // txt - строка, которую передают для логирования, а lvl - это уровень вложенности
         {
-            File.AppendAllText(Temp + DirectoryName + logfile, txt);
+            string tab = "";
+            for (int i = 0; i < lvl; i++)
+            {
+                tab = tab + "    ";
+            }
+
+            File.AppendAllText(Temp + DirectoryName + logfile, tab + txt);
         }
 
-        public void GetScreen(string imgName)
+        public void GetScreen(string imgName) 
         {
             using (var image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height))
             {
@@ -76,10 +82,39 @@ namespace asi_express
         [TestCleanup]
         public void MyTestCleanup()
         {
-            // Console.WriteLine(@"\System32\calc.exe");
-            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString() + ".zip");
+            Shutdown_asi();
+            Clear_cache();
+            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString()+this.TestContext.CurrentTestOutcome.ToString() + ".zip");
             Directory.Delete(Temp + DirectoryName, true); // удаляем старые данные, так как они нам не нужны больше
+
         }
+
+
+        public void Shutdown_asi()
+        {
+            Process[] p1 = Process.GetProcessesByName("Studio.exe");
+            foreach(Process Proc in p1)
+            {
+                Process[] p2 = Process.GetProcessesByName("ASIBusyIndicator_vas_" + Proc.Handle + ".exe");
+                foreach(Process ProcBusy in p2)
+                {
+                    ProcBusy.Kill();
+                }
+                Proc.Kill();
+            }
+            p1 = Process.GetProcessesByName("WINWORD.exe");
+            foreach (Process Proc in p1)
+            { 
+                Proc.Kill();
+            }
+        }
+
+        public void Clear_cache()
+        {
+            Directory.Delete(LocalAppData + @"\JSC Prognoz",true);
+        }
+
+
         #endregion
 
 
@@ -107,7 +142,16 @@ namespace asi_express
         {
 
             //Process.Start(Temp+@"\System32\calc.exe");
+            try
+            {
             
+
+            }
+            catch (Exception e)
+            {
+                inputLog(e.Message, 0);
+                throw e;
+            }
 
         }
 
@@ -115,6 +159,9 @@ namespace asi_express
 
 
         #region UsefulMethods
+
+
+
 
 
 
