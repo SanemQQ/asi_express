@@ -1324,12 +1324,29 @@ namespace asi_express
                     this.mSchemaNameEdit = new WpfEdit(this);
                     #region Условия поиска
                     this.mSchemaNameEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Db_Safsb_tb";
-                    this.mSchemaNameEdit.SearchProperties[WpfEdit.PropertyNames.Instance] = "2";
+                    //this.mSchemaNameEdit.SearchProperties[WpfEdit.PropertyNames.Instance] = "2";
                     this.mSchemaNameEdit.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
                             "2.3.1.0.13");
                     #endregion
                 }
                 return this.mSchemaNameEdit;
+            }
+        }
+
+        public WpfEdit ServerMSSQLEdit
+        {
+            get
+            {
+                if ((this.mServerMSSQLEdit == null))
+                {
+                    this.mServerMSSQLEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mServerMSSQLEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Server_Safsb_tb";
+                    this.mServerMSSQLEdit.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
+                            "2.3.1.0.13");
+                    #endregion
+                }
+                return this.mServerMSSQLEdit;
             }
         }
         #endregion
@@ -1338,6 +1355,8 @@ namespace asi_express
         private ServerProperties mServerProperties;
 
         private WpfEdit mSchemaNameEdit;
+
+        private WpfEdit mServerMSSQLEdit;
         #endregion
     }
 
