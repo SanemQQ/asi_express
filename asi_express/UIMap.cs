@@ -114,6 +114,18 @@ namespace asi_express
                 return this.mInfoWindow;
             }
         }
+
+        public AcceptWindow AcceptWindow
+        {
+            get
+            {
+                if ((this.mAcceptWindow == null))
+                {
+                    this.mAcceptWindow = new AcceptWindow();
+                }
+                return this.mAcceptWindow;
+            }
+        }
         #endregion
 
         #region Fields
@@ -130,6 +142,8 @@ namespace asi_express
         private UserCreatedWindow mUserCreatedWindow;
 
         private InfoWindow mInfoWindow;
+
+        private AcceptWindow mAcceptWindow;
         #endregion
     }
 
@@ -320,7 +334,7 @@ namespace asi_express
                 base(searchLimitContainer)
         {
             #region Условия поиска
-            this.SearchProperties[WinWindow.PropertyNames.ControlId] = "1";
+            this.SearchProperties.Add(WinWindow.PropertyNames.AccessibleName, "ОК", PropertyExpressionOperator.Contains);
             this.WindowTitles.Add("Регистрация");
             #endregion
         }
@@ -621,15 +635,15 @@ namespace asi_express
             }
         }
 
-        public EditUserButton EditUserButton
+        public EditUserPanel EditUserPanel
         {
             get
             {
-                if ((this.mEditUserButton == null))
+                if ((this.mEditUserPanel == null))
                 {
-                    this.mEditUserButton = new EditUserButton(this);
+                    this.mEditUserPanel = new EditUserPanel(this);
                 }
-                return this.mEditUserButton;
+                return this.mEditUserPanel;
             }
         }
         #endregion
@@ -643,7 +657,7 @@ namespace asi_express
 
         private UserPanel mUserPanel;
 
-        private EditUserButton mEditUserButton;
+        private EditUserPanel mEditUserPanel;
         #endregion
     }
 
@@ -1123,10 +1137,10 @@ namespace asi_express
     }
 
     [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
-    public class EditUserButton : WpfCustom
+    public class EditUserPanel : WpfCustom
     {
 
-        public EditUserButton(UITestControl searchLimitContainer) :
+        public EditUserPanel(UITestControl searchLimitContainer) :
                 base(searchLimitContainer)
         {
             #region Условия поиска
@@ -1205,6 +1219,41 @@ namespace asi_express
                 return this.mRePasswordEdit;
             }
         }
+
+        public WpfRadioButton AsiAutoStart
+        {
+            get
+            {
+                if ((this.mRePasswordEdit == null))
+                {
+                    this.mAsiAutoStart = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mAsiAutoStart.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "AsiAutoStartObject_EditUser_rb";
+                    this.mAsiAutoStart.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
+                            "2.3.1.0.13");
+                    #endregion
+                }
+                return this.mAsiAutoStart;
+            }
+        }
+
+        public WpfButton SaveUserButton
+        {
+            get
+            {
+                if ((this.mSaveUserButton == null))
+                {
+                    this.mSaveUserButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mSaveUserButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "Save_EditUser_bt";
+                    this.mSaveUserButton.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
+                            "2.3.1.0.13");
+                    #endregion
+                }
+                return this.mSaveUserButton;
+            }
+        }
+
         #endregion
 
         #region Fields
@@ -1215,6 +1264,10 @@ namespace asi_express
         private WpfEdit mPasswordEdit;
 
         private WpfEdit mRePasswordEdit;
+
+        private WpfRadioButton mAsiAutoStart;
+
+        private WpfButton mSaveUserButton;
         #endregion
     }
 
@@ -1810,10 +1863,29 @@ namespace asi_express
                 return this.mTextLog;
             }
         }
+
+        public WpfButton Expand
+        {
+            get
+            {
+                if ((this.mExpand == null))
+                {
+                    this.mExpand = new WpfButton(this);
+                    #region Условия поиска
+                    this.mExpand.SearchProperties[WpfButton.PropertyNames.AutomationId] = "HeaderSite";
+                    this.mExpand.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
+                            "2.3.1.0.13");
+                    #endregion
+                }
+                return this.mExpand;
+            }
+        }
         #endregion
 
         #region Fields
         private WpfEdit mTextLog;
+
+        private WpfButton mExpand;
         #endregion
     }
 
@@ -1883,13 +1955,13 @@ namespace asi_express
             }
         }
 
-        public WpfList EmployeeList
+        public EmployeeList EmployeeList
         {
             get
             {
                 if ((this.mEmployeeList == null))
                 {
-                    this.mEmployeeList = new WpfList(this);
+                    this.mEmployeeList = new EmployeeList(this);
                     #region Условия поиска
                     this.mEmployeeList.SearchProperties[WpfList.PropertyNames.AutomationId] = "PersonsListBox";
                     this.mEmployeeList.WindowTitles.Add("Список сотрудников");
@@ -1947,19 +2019,19 @@ namespace asi_express
             }
         }
 
-        public WpfButton UIДобавитьButton
+        public WpfButton AddUserButton
         {
             get
             {
-                if ((this.mUIДобавитьButton == null))
+                if ((this.mAddUserButton == null))
                 {
-                    this.mUIДобавитьButton = new WpfButton(this);
+                    this.mAddUserButton = new WpfButton(this);
                     #region Условия поиска
-                    this.mUIДобавитьButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "AddUser_SelectPersonDialog_bt";
-                    this.mUIДобавитьButton.WindowTitles.Add("Список сотрудников");
+                    this.mAddUserButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "AddUser_SelectPersonDialog_bt";
+                    this.mAddUserButton.WindowTitles.Add("Список сотрудников");
                     #endregion
                 }
-                return this.mUIДобавитьButton;
+                return this.mAddUserButton;
             }
         }
         #endregion
@@ -1967,7 +2039,7 @@ namespace asi_express
         #region Fields
         private WpfButton mAddEmployeeButton;
 
-        private WpfList mEmployeeList;
+        private EmployeeList mEmployeeList;
 
         private WpfButton mSelectButton;
 
@@ -1975,7 +2047,7 @@ namespace asi_express
 
         private WpfEdit mFIOEmployeeEdit;
 
-        private WpfButton mUIДобавитьButton;
+        private WpfButton mAddUserButton;
         #endregion
     }
 
@@ -2033,7 +2105,7 @@ namespace asi_express
                 {
                     this.mOKButton = new WpfButton(this);
                     #region Условия поиска
-                    this.mOKButton.SearchProperties[WpfButton.PropertyNames.Name] = "    OK     ";
+                    this.SearchProperties.Add(WpfButton.PropertyNames.Name,"OK",PropertyExpressionOperator.Contains);
                     this.mOKButton.WindowTitles.Add("Учетные данные АИБа");
                     #endregion
                 }
@@ -2083,21 +2155,21 @@ namespace asi_express
         }
 
         #region Properties
-        public ОКWindow ОКWindow
+        public OKWindow OKWindow
         {
             get
             {
-                if ((this.mОКWindow == null))
+                if ((this.mOKWindow == null))
                 {
-                    this.mОКWindow = new ОКWindow(this);
+                    this.mOKWindow = new OKWindow(this);
                 }
-                return this.mОКWindow;
+                return this.mOKWindow;
             }
         }
         #endregion
 
         #region Fields
-        private ОКWindow mОКWindow;
+        private OKWindow mOKWindow;
         #endregion
     }
 
@@ -2151,57 +2223,264 @@ namespace asi_express
         }
 
         #region Properties
-        public ОКWindow1 ОКWindow
+        public OKWindow2 OKWindow2
         {
             get
             {
-                if ((this.mОКWindow == null))
+                if ((this.mOKWindow2 == null))
                 {
-                    this.mОКWindow = new ОКWindow1(this);
+                    this.mOKWindow2 = new OKWindow2(this);
                 }
-                return this.mОКWindow;
+                return this.mOKWindow2;
             }
         }
         #endregion
 
         #region Fields
-        private ОКWindow1 mОКWindow;
+        private OKWindow2 mOKWindow2;
         #endregion
     }
 
     [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
-    public class ОКWindow1 : WinWindow
+    public class OKWindow2 : WinWindow
     {
-
-        public ОКWindow1(UITestControl searchLimitContainer) :
+        public OKWindow2(UITestControl searchLimitContainer) :
                 base(searchLimitContainer)
         {
             #region Условия поиска
-            this.SearchProperties[WinWindow.PropertyNames.ControlId] = "2";
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "ОК";
             this.WindowTitles.Add("Информация");
             #endregion
         }
 
         #region Properties
-        public WinButton ОКButton
+        public WinButton OKButton
         {
             get
             {
-                if ((this.mОКButton == null))
+                if ((this.mOKButton == null))
                 {
-                    this.mОКButton = new WinButton(this);
+                    this.mOKButton = new WinButton(this);
                     #region Условия поиска
-                    this.mОКButton.SearchProperties[WinButton.PropertyNames.Name] = "ОК";
-                    this.mОКButton.WindowTitles.Add("Информация");
+                    this.mOKButton.SearchProperties[WinButton.PropertyNames.Name] = "ОК";
+                    this.mOKButton.WindowTitles.Add("Информация");
                     #endregion
                 }
-                return this.mОКButton;
+                return this.mOKButton;
             }
         }
         #endregion
 
         #region Fields
-        private WinButton mОКButton;
+        private WinButton mOKButton;
         #endregion
     }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class EmployeeList : WpfList
+    {
+
+        public EmployeeList(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfList.PropertyNames.AutomationId] = "PersonsListBox";
+            this.WindowTitles.Add("Список сотрудников");
+            #endregion
+        }
+
+        #region Properties
+        public WpfListItem RIO_4ListItem
+        {
+            get
+            {
+                if ((this.mRIO_4ListItem == null))
+                {
+                    this.mRIO_4ListItem = new WpfListItem(this);
+                    #region Условия поиска
+                    this.mRIO_4ListItem.SearchProperties[WpfListItem.PropertyNames.AutomationId] = "SelectPersonDialog_RIO_4_lv";
+                    this.mRIO_4ListItem.WindowTitles.Add("Список сотрудников");
+                    #endregion
+                }
+                return this.mRIO_4ListItem;
+            }
+        }
+
+        public WpfListItem RIO_3ListItem
+        {
+            get
+            {
+                if ((this.mRIO_3ListItem == null))
+                {
+                    this.mRIO_3ListItem = new WpfListItem(this);
+                    #region Условия поиска
+                    this.mRIO_3ListItem.SearchProperties[WpfListItem.PropertyNames.AutomationId] = "SelectPersonDialog_RIO_3_lv";
+                    this.mRIO_3ListItem.WindowTitles.Add("Список сотрудников");
+                    #endregion
+                }
+                return this.mRIO_3ListItem;
+            }
+        }
+
+        public WpfListItem RIO_2ListItem
+        {
+            get
+            {
+                if ((this.mRIO_2ListItem == null))
+                {
+                    this.mRIO_2ListItem = new WpfListItem(this);
+                    #region Условия поиска
+                    this.mRIO_2ListItem.SearchProperties[WpfListItem.PropertyNames.AutomationId] = "SelectPersonDialog_РИО_2_lv";
+                    this.mRIO_2ListItem.WindowTitles.Add("Список сотрудников");
+                    #endregion
+                }
+                return this.mRIO_2ListItem;
+            }
+        }
+
+        public WpfListItem RIOListItem
+        {
+            get
+            {
+                if ((this.mRIOListItem == null))
+                {
+                    this.mRIOListItem = new WpfListItem(this);
+                    #region Условия поиска
+                    this.mRIOListItem.SearchProperties[WpfListItem.PropertyNames.AutomationId] = "SelectPersonDialog_РИО_lv";
+                    this.mRIOListItem.WindowTitles.Add("Список сотрудников");
+                    #endregion
+                }
+                return this.mRIOListItem;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfListItem mRIO_4ListItem;
+
+        private WpfListItem mRIO_3ListItem;
+
+        private WpfListItem mRIO_2ListItem;
+
+        private WpfListItem mRIOListItem;
+        #endregion
+    }
+
+    public class AcceptWindow : WinWindow
+    {
+
+        public AcceptWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Подтверждение";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "#32770";
+            this.WindowTitles.Add("Подтверждение");
+            #endregion
+        }
+
+        #region Properties
+        public Acc_YesWindow Acc_YesWindow
+        {
+            get
+            {
+                if ((this.mAcc_YesWindow == null))
+                {
+                    this.mAcc_YesWindow = new Acc_YesWindow(this);
+                }
+                return this.mAcc_YesWindow;
+            }
+        }
+
+        public Acc_NoWindow Acc_NoWindow
+        {
+            get
+            {
+                if ((this.mAcc_NoWindow == null))
+                {
+                    this.mAcc_NoWindow = new Acc_NoWindow(this);
+                }
+                return this.mAcc_NoWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private Acc_YesWindow mAcc_YesWindow;
+
+        private Acc_NoWindow mAcc_NoWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class Acc_YesWindow : WinWindow
+    {
+
+        public Acc_YesWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ControlId] = "6";
+            this.WindowTitles.Add("Подтверждение");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton YesButton
+        {
+            get
+            {
+                if ((this.mYesButton == null))
+                {
+                    this.mYesButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mYesButton.SearchProperties[WinButton.PropertyNames.Name] = "Да";
+                    this.mYesButton.WindowTitles.Add("Подтверждение");
+                    #endregion
+                }
+                return this.mYesButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mYesButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class Acc_NoWindow : WinWindow
+    {
+
+        public Acc_NoWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ControlId] = "7";
+            this.WindowTitles.Add("Подтверждение");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton NoButton
+        {
+            get
+            {
+                if ((this.mNoButton == null))
+                {
+                    this.mNoButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mNoButton.SearchProperties[WinButton.PropertyNames.Name] = "Нет";
+                    this.mNoButton.WindowTitles.Add("Подтверждение");
+                    #endregion
+                }
+                return this.mNoButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mNoButton;
+        #endregion
+    }
+
 }
