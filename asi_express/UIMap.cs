@@ -646,6 +646,18 @@ namespace asi_express
                 return this.mEditUserPanel;
             }
         }
+
+        public SafsbPanel SafsbPanel
+        {
+            get
+            {
+                if ((this.mSafsbPanel == null))
+                {
+                    this.mSafsbPanel = new SafsbPanel(this);
+                }
+                return this.mSafsbPanel;
+            }
+        }
         #endregion
 
         #region Fields
@@ -658,6 +670,8 @@ namespace asi_express
         private UserPanel mUserPanel;
 
         private EditUserPanel mEditUserPanel;
+
+        private SafsbPanel mSafsbPanel;
         #endregion
     }
 
@@ -1134,6 +1148,45 @@ namespace asi_express
 
         private WpfListItem mRIO_4ListItem;
         #endregion
+    }
+
+    public class SafsbPanel : WpfCustom
+    {
+
+        public SafsbPanel(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.Safsb";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "Safsb";
+            this.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
+                    "2.3.1.0.13");
+            #endregion
+        }
+
+        public WpfButton CreateConnectSafsb
+        {
+            get
+            {
+                if ((this.mCreateConnectSafsb == null))
+                {
+                    this.mCreateConnectSafsb = new WpfButton(this);
+                    #region Условия поиска
+                    this.mCreateConnectSafsb.SearchProperties[WpfButton.PropertyNames.AutomationId] = "CreateLinkToSAFSB_Safsb_bt";
+                    this.mCreateConnectSafsb.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
+                            "2.3.1.0.13");
+                    #endregion
+                }
+                return this.mCreateConnectSafsb;
+            }
+        }
+
+        #region Fields
+
+        private WpfButton mCreateConnectSafsb;
+        #endregion
+
+
     }
 
     [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]

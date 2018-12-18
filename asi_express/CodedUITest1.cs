@@ -89,7 +89,7 @@ namespace asi_express
         {
             Shutdown_asi();
             Clear_cache();
-            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString()+ DateTime.Now.ToString("DDMMYYYY_HHmm") + this.TestContext.CurrentTestOutcome.ToString() + ".zip");
+            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString()+ DateTime.Now.ToString("ddMMyyyy_HHmm") + this.TestContext.CurrentTestOutcome.ToString() + ".zip");
             Directory.Delete(Temp + DirectoryName, true); // удаляем старые данные, так как они нам не нужны больше
 
         }
@@ -97,7 +97,7 @@ namespace asi_express
 
         public void Shutdown_asi()
         {
-            Process[] p1 = Process.GetProcessesByName("Studio.exe");
+            Process[] p1 = Process.GetProcessesByName("P5.exe");
             foreach(Process Proc in p1)
             {
                 Process[] p2 = Process.GetProcessesByName("ASIBusyIndicator_vas_" + Proc.Handle + ".exe");
@@ -145,7 +145,7 @@ namespace asi_express
             if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
             {
                 InputLog("Выберем схему "+ SchemaName , lvl);
-                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + "@ ASITST11";
+                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + " @ ASITST11";
                 InputLog("Введём  логин", lvl);
                 this.UIMap.StudioConnectWindow.LoginWindow.LoginEdit.Text = User;
                 InputLog("Введём  Пароль", lvl);
@@ -156,7 +156,7 @@ namespace asi_express
             else
             {
                 InputLog("Выберем схему " + SchemaName, lvl);
-                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + "@ asi-tst-ms12\\MSSQLSERVER2012";
+                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + " @ asi-tst-ms12\\MSSQLSERVER2012";
                 InputLog("Введём  логин", lvl);
                 this.UIMap.StudioConnectWindow.LoginWindow.LoginEdit.Text = User;
                 InputLog("Введём  Пароль", lvl);
@@ -268,7 +268,7 @@ namespace asi_express
             this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.WaitForControlExist(15 * WaC);
             Mouse.Click(this.UIMap.ARM_AdminWindow.Tree.TreeLvL1);
             Keyboard.SendKeys("{DOWN}");
-            Keyboard.SendKeys("{RIGTH}");
+            Keyboard.SendKeys("{RIGHT}");
             this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.TreeLvL2.WaitForControlExist(1 * WaC);
 
             if (this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.SelectedIndex == 118 ||
@@ -296,14 +296,14 @@ namespace asi_express
                 this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.HostEdit.Text = "10.7.0.33";
                 this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.PortEdit.Text = "1521";
                 this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.ServiceEdit.Text = "ASITST11";
-                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("DDMMYYYY_HHmm");
-                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserPasswordEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("DDMMYYYY_HHmm");
+                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
+                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserPasswordEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
             }
             else
             {
-                this.UIMap.ARM_AdminWindow.SAFSBData.ServerMSSQLEdit.Text = "10.7.0.32";
-                this.UIMap.ARM_AdminWindow.SAFSBData.SchemaNameEdit.Text = "RDATU71_DATA";
-                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("DDMMYYYY_HHmm");
+                Keyboard.SendKeys(this.UIMap.ARM_AdminWindow.SAFSBData.ServerMSSQLEdit, "10.7.0.32");
+                Keyboard.SendKeys(this.UIMap.ARM_AdminWindow.SAFSBData.SchemaNameEdit, "RDATU71_DATA");
+                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
                 this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserPasswordEdit.Text = "Qwerty1";
             }
 
@@ -315,6 +315,7 @@ namespace asi_express
                 this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemPasswordEdit.Text = this.TestContext.Properties["SysPassword"].ToString();
             }
 
+            Mouse.Click();
             this.UIMap.OKWindow.OKButton.WaitForControlExist(60 * WaC);
             Mouse.Click(this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.Expand);
             if (this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.Text.Contains("Ошибка:"))
@@ -335,6 +336,7 @@ namespace asi_express
 
         public void PrepareAsi(int WaC, int lvl, string SchemaName)
         {
+            Clear_cache();
             InputLog("Запустим прогноз", lvl);
             Start_prognoz(WaC, lvl + 1);
             InputLog("Подключимся под Администратором и проверим/восстановим все настройки", lvl);
@@ -353,27 +355,19 @@ namespace asi_express
         #endregion
 
 
-
+        [TestMethod]
+        [TestProperty("AgentName", "ASI-TST-MS12")]
+        [TestProperty("Files", "FileToDeploy.txt")]
+        [TestProperty("SysLogin", "sa")]
+        [TestProperty("SysPassword", "Qwerty1")]
+        public void Asi_Express_MSSQL() => Asi_Express_All(1000);
 
         [TestMethod]
         [TestProperty("AgentName", "ASI-TST-12-2")]
         [TestProperty("Files", "FileToDeploy.txt")]
         [TestProperty("SysLogin", "SYSTEM")]
         [TestProperty("SysPassword", "ASITST11")]
-        public void Asi_Express_ORACLE()
-        {
-            Asi_Express_All(4000);
-        }
-
-        [TestMethod]
-        [TestProperty("AgentName", "ASI-TST-MS12")]
-        [TestProperty("Files", "FileToDeploy.txt")]
-        [TestProperty("SysLogin", "sa")]
-        [TestProperty("SysPassword", "Qwerty1")]
-        public void Asi_Express_MSSQL()
-        {
-            Asi_Express_All(1000);
-        }
+        public void Asi_Express_ORACLE() => Asi_Express_All(4000);
 
 
 
