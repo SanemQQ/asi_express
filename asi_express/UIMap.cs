@@ -355,8 +355,8 @@ namespace asi_express
         public ARM_AdminWindow()
         {
             #region Условия поиска
-            this.SearchProperties[WpfWindow.PropertyNames.Name] = "Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
-                "2.3.1.0.13";
+            //this.SearchProperties[WpfWindow.PropertyNames.Name] = "Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия 2.3.1.0.13";
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.Name, "Рабочее место Администратора", PropertyExpressionOperator.Contains));
             this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
             this.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
                     "2.3.1.0.13");
@@ -784,7 +784,8 @@ namespace asi_express
                 {
                     this.mNameTextBlock = new WpfText(this);
                     #region Условия поиска
-                    this.mNameTextBlock.SearchProperties[WpfText.PropertyNames.Name] = "ГУ Банка России по Красноярскому краю (04)";
+                    this.mNameTextBlock.SearchProperties[WpfText.PropertyNames.ClassName] = "Uia.TextBlock";
+                    this.SearchProperties.Add(WpfText.PropertyNames.Name, "ГУ Банка России", PropertyExpressionOperator.Contains);
                     this.mNameTextBlock.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
                             "2.3.1.0.13");
                     #endregion

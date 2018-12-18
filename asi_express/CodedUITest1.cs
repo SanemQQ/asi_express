@@ -19,9 +19,12 @@ namespace asi_express
 {
 
     //    Dictionary Dict 
+    // Комментарии к параметрам методов
+    // WaC - коэффициент ожидания в зависимости от  оракла/мсскл
+    // lvl - вложенность лога в текстовом файле
 
     [CodedUITest]
-    public class asi_express
+    public class Asi_express
     {
 
 
@@ -29,7 +32,7 @@ namespace asi_express
         readonly string LocalAppData = Environment.GetEnvironmentVariable("LocalAppData");
         readonly string Temp = Environment.GetEnvironmentVariable("Temp");
         readonly string DirectoryName = @"\asi_express_log";
-        CultureInfo lang = new CultureInfo("ru-RU");
+        readonly CultureInfo lang = new CultureInfo("ru-RU");
         Dictionary<string, Point> Dots = new Dictionary<string, Point>();
         readonly string logfile = @"\express.log";
 
@@ -57,7 +60,7 @@ namespace asi_express
 
         }
 
-        public void inputLog( string txt , int lvl )  // txt - строка, которую передают для логирования, а lvl - это уровень вложенности
+        public void InputLog( string txt , int lvl )  // txt - строка, которую передают для логирования, а lvl - это уровень вложенности
         {
             string tab = "";
             for (int i = 0; i < lvl; i++)
@@ -114,11 +117,118 @@ namespace asi_express
             Directory.Delete(LocalAppData + @"\JSC Prognoz",true);
         }
 
-        public void start_asi()
+        public void Start_prognoz(int Wac, int lvl)
         {
+            if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
+            {
+                Process.Start(@"C:\Program Files\JSC Prognoz\Prognoz 5.26\P5.exe");
+                InputLog("Открываем прогноз x64", lvl);
+            }
+            else
+            {
+                Process.Start(@"C:\Program Files (x86)\JSC Prognoz\Prognoz 5.26\P5.exe");
+                InputLog("Открываем прогноз x86", lvl);
+            }
+
+        }
+
+        public void StartASI(int WaC, int lvl,string SchemaName, string User)
+        {
+            this.UIMap.StudioConnectWindow.WaitForControlExist(4000 * WaC);
+            if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
+            {
+                InputLog("Выберем схему "+ SchemaName , lvl);
+                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + "@ ASITST11";
+                InputLog("Введём  логин", lvl);
+                this.UIMap.StudioConnectWindow.LoginWindow.LoginEdit.Text = User;
+                InputLog("Введём  Пароль", lvl);
+                this.UIMap.StudioConnectWindow.PasswordWindow.PasswordEdit.Text = User;
+                InputLog("Подтвердим выбор", lvl);
+                Mouse.Click(this.UIMap.StudioConnectWindow.OKWindow.OKButton);
+            }
+            else
+            {
+                InputLog("Выберем схему " + SchemaName, lvl);
+                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + "@ asi-tst-ms12\\MSSQLSERVER2012";
+                InputLog("Введём  логин", lvl);
+                this.UIMap.StudioConnectWindow.LoginWindow.LoginEdit.Text = User;
+                InputLog("Введём  Пароль", lvl);
+                this.UIMap.StudioConnectWindow.PasswordWindow.PasswordEdit.Text = User;
+                InputLog("Подтвердим выбор", lvl);
+                Mouse.Click(this.UIMap.StudioConnectWindow.OKWindow.OKButton);
+            }
+        }
+
+        public void StatsArm(int WaC, int lvl)
+        {
+            InputLog("Ждём открытия АРМ Админа на стационарном уровне", lvl);
+            this.UIMap.ARM_AdminWindow.WaitForControlExist(30000 * WaC);
+            InputLog("Раскроем панель подготовки", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
+            InputLog("Выберем регион базирования", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.TuPropButton);
+            InputLog(":l`v", lvl);
+            this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.WaitForControlExist(15000 * WaC);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox);
+            if (this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.SelectedIndex == 118 ||
+                    this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.SelectedIndex == - 1)
+            {
+                Mouse.Click(this.UIMap.ARM_AdminWindow.Tree.TreeLvL1);
+                Keyboard.SendKeys("{DOWN}");
+                Keyboard.SendKeys("{RIGTH}");
+                this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.TreeLvL2.WaitForControlExist(1000 * WaC);
+                Keyboard.SendKeys("{DOWN}");
+                Keyboard.SendKeys("{ENTER}");
+
+            }
+            else
+            {
+                Mouse.Click(this.UIMap.ARM_AdminWindow.Tree.TreeLvL1);
+                Keyboard.SendKeys("{DOWN}");
+                Keyboard.SendKeys("{RIGTH}");
+                this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.TreeLvL2.WaitForControlExist(1000 * WaC);
+                Keyboard.SendKeys("{DOWN}");
+                Keyboard.SendKeys("{DOWN}");
+                Keyboard.SendKeys("{ENTER}");
+            }
+
+            this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.NameTextBlock.WaitForControlExist(1500 * WaC);
 
 
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.SAFSBButton);
+            this.UIMap.ARM_AdminWindow.SAFSBData.WaitForControlExist(10000 * WaC);
+            if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
+            {
 
+            }
+            else
+            {
+               // this.UIMap.
+            }
+        }
+
+        public void MobArm(int WaC, int lvl)
+        {
+            InputLog("Ждём открытия АРМ Админа на мобильном уровне", lvl);
+            this.UIMap.ARM_AdminWindow.WaitForControlExist(30000 * WaC);
+        }
+
+
+        public void PrepareAsi(int WaC, int lvl, string SchemaName)
+        {
+            InputLog("Запустим прогноз", lvl);
+            Start_prognoz(WaC, lvl + 1);
+            InputLog("Подключимся под Администратором и проверим/восстановим все настройки", lvl);
+            StartASI(WaC, lvl + 1, SchemaName, SchemaName); 
+            if (SchemaName == "ASISTA_UI")
+            {
+                StatsArm(WaC, lvl + 1);
+            }
+            else
+            {
+                MobArm(WaC, lvl + 1);
+            }
         }
 
 
@@ -126,19 +236,19 @@ namespace asi_express
 
 
         [TestMethod]
-        [TestProperty("AgenName","ASI-TST-MS12")]
+        [TestProperty("AgentName","ASI-TST-MS12")]
         [TestProperty("Files","FileToDeploy.txt")]
         public void Asi_Express_MSSQL ()
         {
-            Asi_Express_All(5);
+            Asi_Express_All(2);
         }
 
         [TestMethod]
-        [TestProperty("AgenName", "ASI-TST-12-2")]
+        [TestProperty("AgentName", "ASI-TST-12-2")]
         [TestProperty("Files", "FileToDeploy.txt")]
         public void Asi_Express_ORACLE()
         {
-            Asi_Express_All(15);
+            Asi_Express_All(8);
         }
 
 
@@ -150,12 +260,13 @@ namespace asi_express
 
             try
             {
-            
+                InputLog("Начнём подготовку к экспресс-тестированию", 0);
+                PrepareAsi(WaC, 1, "ASISTA_UI");
 
             }
             catch (Exception e)
             {
-                inputLog(e.Message, 0);
+                InputLog(e.Message, 0);
                 throw e;
             }
 
@@ -202,7 +313,6 @@ namespace asi_express
                 return this.map;
             }
         }
-
         private UIMap map;
     }
 }
