@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TestSettings name="Локальные" id="147cafa8-ee83-47ab-8d78-62cf18d23f64" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Description>Это - параметры по умолчанию для локального тестового запуска.</Description>
-  <Execution>
+  <RemoteController name="ASV-DEF-MABS" />
+  <Execution location="Remote">
     <Timeouts testTimeout="0" />
     <TestTypeSpecific>
       <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
@@ -20,7 +21,7 @@
         </Browser>
       </WebTestRunConfiguration>
     </TestTypeSpecific>
-    <AgentRule name="LocalMachineDefaultRole">
+    <AgentRule name="AllAgentsDefaultRole">
     </AgentRule>
   </Execution>
   <Properties>

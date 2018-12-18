@@ -53,7 +53,7 @@ namespace asi_express
             {
                 File.AppendAllText(Temp + DirectoryName + @"\express_"  + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log", "");
                 File.Copy(Temp + DirectoryName + @"\express.log",
-                            Temp + DirectoryName + @"\express_" + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log");
+                            Temp + DirectoryName + @"\express_" + DateTime.Now.ToString("DDMMYYYY_HHmm") + ".log");
                 File.AppendAllText(Temp + DirectoryName + @"\express.log", "");                
             }
             // Справочник точек, по которым будет проводиться взаимодействие с некоторыми объектами
@@ -70,7 +70,7 @@ namespace asi_express
                 tab = tab + "    ";
             }
 
-            File.AppendAllText(Temp + DirectoryName + logfile, tab + txt);
+            File.AppendAllText(Temp + DirectoryName + logfile, tab + txt + "\r\n");
         }
 
         public void GetScreen(string imgName) 
@@ -89,7 +89,7 @@ namespace asi_express
         {
             Shutdown_asi();
             Clear_cache();
-            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString()+this.TestContext.CurrentTestOutcome.ToString() + ".zip");
+            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString()+ DateTime.Now.ToString("DDMMYYYY_HHmm") + this.TestContext.CurrentTestOutcome.ToString() + ".zip");
             Directory.Delete(Temp + DirectoryName, true); // удаляем старые данные, так как они нам не нужны больше
 
         }
@@ -116,18 +116,23 @@ namespace asi_express
 
         public void Clear_cache()
         {
-            Directory.Delete(LocalAppData + @"\JSC Prognoz",true);
+            if (Directory.Exists(LocalAppData + @"\JSC Prognoz"))
+            {
+                Directory.Delete(LocalAppData + @"\JSC Prognoz", true);
+            }
         }
 
         public void Start_prognoz(int Wac, int lvl)
         {
             if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
             {
+                InputLog(this.TestContext.Properties["AgentName"].ToString(), lvl);
                 Process.Start(@"C:\Program Files\JSC Prognoz\Prognoz 5.26\P5.exe");
                 InputLog("Открываем прогноз x64", lvl);
             }
             else
             {
+                InputLog(this.TestContext.Properties["AgentName"].ToString(), lvl);
                 Process.Start(@"C:\Program Files (x86)\JSC Prognoz\Prognoz 5.26\P5.exe");
                 InputLog("Открываем прогноз x86", lvl);
             }
@@ -348,15 +353,7 @@ namespace asi_express
         #endregion
 
 
-        [TestMethod]
-        [TestProperty("AgentName","ASI-TST-MS12")]
-        [TestProperty("Files","FileToDeploy.txt")]
-        [TestProperty("SysLogin","sa")]
-        [TestProperty("SysPassword", "Qwerty1")]
-        public void Asi_Express_MSSQL ()
-        {
-            Asi_Express_All(1000);
-        }
+
 
         [TestMethod]
         [TestProperty("AgentName", "ASI-TST-12-2")]
@@ -368,7 +365,15 @@ namespace asi_express
             Asi_Express_All(4000);
         }
 
-
+        [TestMethod]
+        [TestProperty("AgentName", "ASI-TST-MS12")]
+        [TestProperty("Files", "FileToDeploy.txt")]
+        [TestProperty("SysLogin", "sa")]
+        [TestProperty("SysPassword", "Qwerty1")]
+        public void Asi_Express_MSSQL()
+        {
+            Asi_Express_All(1000);
+        }
 
 
 
