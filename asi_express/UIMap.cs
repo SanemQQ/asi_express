@@ -13,9 +13,9 @@ namespace asi_express
     using System;
     using System.CodeDom.Compiler;
     using System.Collections.Generic;
-    using System.Drawing;
+    using System.Globalization;
     using System.Text.RegularExpressions;
-    using System.Windows.Input;
+    using System.Windows.Forms;
     using Microsoft.VisualStudio.TestTools.UITest.Extension;
     using Microsoft.VisualStudio.TestTools.UITesting;
     using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
@@ -24,6 +24,7 @@ namespace asi_express
     using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
     using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
     using MouseButtons = System.Windows.Forms.MouseButtons;
+    
 
 
     [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
@@ -126,6 +127,31 @@ namespace asi_express
                 return this.mAcceptWindow;
             }
         }
+
+        public ASI_Window ASI_Window
+        {
+            get
+            {
+                if ((this.mASI_Window == null))
+                {
+                    this.mASI_Window = new ASI_Window();
+                }
+                return this.mASI_Window;
+            }
+        }
+
+        public LogWindow1 LogWindow
+        {
+            get
+            {
+                if ((this.mLogWindow == null))
+                {
+                    this.mLogWindow = new LogWindow1();
+                }
+                return this.mLogWindow;
+            }
+        }
+
         #endregion
 
         #region Fields
@@ -144,6 +170,10 @@ namespace asi_express
         private InfoWindow mInfoWindow;
 
         private AcceptWindow mAcceptWindow;
+
+        private ASI_Window mASI_Window;
+
+        private LogWindow1 mLogWindow;
         #endregion
     }
 
@@ -334,7 +364,7 @@ namespace asi_express
                 base(searchLimitContainer)
         {
             #region Условия поиска
-            this.SearchProperties.Add(WinWindow.PropertyNames.AccessibleName, "ОК", PropertyExpressionOperator.Contains);
+            this.SearchProperties.Add(WinWindow.PropertyNames.AccessibleName, "OK", PropertyExpressionOperator.Contains);
             this.WindowTitles.Add("Регистрация");
             #endregion
         }
@@ -348,7 +378,8 @@ namespace asi_express
                 {
                     this.mOKButton = new WinButton(this);
                     #region Условия поиска
-                    this.mOKButton.SearchProperties[WinButton.PropertyNames.Name] = "OK";
+
+                        this.mOKButton.SearchProperties[WinButton.PropertyNames.Name] = "OK";
                     this.mOKButton.WindowTitles.Add("Регистрация");
                     #endregion
                 }
@@ -1273,20 +1304,21 @@ namespace asi_express
             }
         }
 
-        public WpfRadioButton AsiAutoStart
+
+        public WpfRadioButton AsiAutoStartRadioButton
         {
             get
             {
-                if ((this.mRePasswordEdit == null))
+                if ((this.mAsiAutoStartRadioButton == null))
                 {
-                    this.mAsiAutoStart = new WpfRadioButton(this);
+                    this.mAsiAutoStartRadioButton = new WpfRadioButton(this);
                     #region Условия поиска
-                    this.mAsiAutoStart.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "AsiAutoStartObject_EditUser_rb";
-                    this.mAsiAutoStart.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
+                    this.mAsiAutoStartRadioButton.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "AsiAutoStartObject_EditUser_rb";
+                    this.mAsiAutoStartRadioButton.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
                             "2.3.1.0.13");
                     #endregion
                 }
-                return this.mAsiAutoStart;
+                return this.mAsiAutoStartRadioButton;
             }
         }
 
@@ -1318,7 +1350,7 @@ namespace asi_express
 
         private WpfEdit mRePasswordEdit;
 
-        private WpfRadioButton mAsiAutoStart;
+        private WpfRadioButton mAsiAutoStartRadioButton;
 
         private WpfButton mSaveUserButton;
         #endregion
@@ -1388,10 +1420,31 @@ namespace asi_express
                 return this.mTreeLvL2;
             }
         }
+
+        public WpfTreeItem TreeLvL2Selected
+        {
+            get
+            {
+                if ((this.mTreeLvL2Selected == null))
+                {
+                    this.mTreeLvL2Selected = new WpfTreeItem(this);
+                    #region Условия поиска
+                    this.mTreeLvL2Selected.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+                    this.mTreeLvL2Selected.SearchConfigurations.Add(SearchConfiguration.DisambiguateChild);
+                    this.mTreeLvL2Selected.SearchProperties[WpfTreeItem.PropertyNames.Selected] = "True";
+                    this.mTreeLvL2Selected.WindowTitles.Add("Рабочее место Администратора на ASISTA_UI_ASITST11 (ASISTA_UI @ ASITST11) Версия " +
+                            "2.3.1.0.13");
+                    #endregion
+                }
+                return this.mTreeLvL2Selected;
+            }
+        }
         #endregion
 
         #region Fields
         private WpfTreeItem mTreeLvL2;
+
+        private WpfTreeItem mTreeLvL2Selected;
         #endregion
     }
 
@@ -2158,7 +2211,7 @@ namespace asi_express
                 {
                     this.mOKButton = new WpfButton(this);
                     #region Условия поиска
-                    this.SearchProperties.Add(WpfButton.PropertyNames.Name,"OK",PropertyExpressionOperator.Contains);
+                    this.mOKButton.SearchProperties[WpfButton.PropertyNames.Name] = "    OK     ";
                     this.mOKButton.WindowTitles.Add("Учетные данные АИБа");
                     #endregion
                 }
@@ -2208,21 +2261,21 @@ namespace asi_express
         }
 
         #region Properties
-        public OKWindow OKWindow
+        public OKWindow2 OKWindow2
         {
             get
             {
-                if ((this.mOKWindow == null))
+                if ((this.mOKWindow2 == null))
                 {
-                    this.mOKWindow = new OKWindow(this);
+                    this.mOKWindow2 = new OKWindow2(this);
                 }
-                return this.mOKWindow;
+                return this.mOKWindow2;
             }
         }
         #endregion
 
         #region Fields
-        private OKWindow mOKWindow;
+        private OKWindow2 mOKWindow2;
         #endregion
     }
 
@@ -2533,6 +2586,286 @@ namespace asi_express
 
         #region Fields
         private WinButton mNoButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ASI_Window : WinWindow
+    {
+
+        public ASI_Window()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                "екционного подразделения - [Реестр проверок]";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVWS_MAINFORMForm";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Импорт из АФСБ]");
+            #endregion
+        }
+
+        #region Properties
+        public WinWindow ReestrWindow
+        {
+            get
+            {
+                if ((this.mReestrWindow == null))
+                {
+                    this.mReestrWindow = new WinWindow(this);
+                    #region Условия поиска
+                    this.mReestrWindow.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Реестр проверок";
+                    this.mReestrWindow.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Реестр проверок]");
+                    #endregion
+                }
+                return this.mReestrWindow;
+            }
+        }
+
+        public CalcSpr CalcSpr
+        {
+            get
+            {
+                if ((this.mCalcSpr == null))
+                {
+                    this.mCalcSpr = new CalcSpr(this);
+                    #region Условия поиска
+
+                    #endregion
+                }
+                return this.mCalcSpr;
+            }
+        }
+
+        public ImportAFSB ImportAFSB
+        {
+            get
+            {
+                if ((this.mImportAFSB == null))
+                {
+                    this.mImportAFSB = new ImportAFSB(this);
+                }
+                return this.mImportAFSB;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinWindow mReestrWindow;
+
+        private CalcSpr mCalcSpr;
+
+        private ImportAFSB mImportAFSB;
+        #endregion
+    }
+
+    public class CalcSpr : WinWindow
+    {
+        public CalcSpr(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Загрузка данных в cправочники";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Загрузка данных в cправочники]");
+            #endregion
+        }
+
+
+        #region Properties
+        public UploadWindow UploadWindow
+        {
+            get
+            {
+                if ((this.mUploadWindow == null))
+                {
+                    this.mUploadWindow = new UploadWindow(this);
+                }
+                return this.mUploadWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private UploadWindow mUploadWindow;
+        #endregion
+
+    }
+
+    public class UploadWindow : WinWindow
+    {
+
+        public UploadWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Загрузить";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Загрузка данных в cправочники]");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton UploadButton
+        {
+            get
+            {
+                if ((this.mUploadButton == null))
+                {
+                    this.mUploadButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mUploadButton.SearchProperties[WinButton.PropertyNames.Name] = "Загрузить";
+                    this.mUploadButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Загрузка данных в cправочники]");
+                    #endregion
+                }
+                return this.mUploadButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mUploadButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ImportAFSB : WinWindow
+    {
+
+        public ImportAFSB(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Импорт из АФСБ";
+            //this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVFrmMDIChildForm";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Импорт из АФСБ]");
+            #endregion
+        }
+
+        #region Properties
+        public ImportWindow ImportWindow
+        {
+            get
+            {
+                if ((this.mImportWindow == null))
+                {
+                    this.mImportWindow = new ImportWindow(this);
+                }
+                return this.mImportWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ImportWindow mImportWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ImportWindow : WinWindow
+    {
+
+        public ImportWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Импорт";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Импорт из АФСБ]");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton ImportButton
+        {
+            get
+            {
+                if ((this.mImportButton == null))
+                {
+                    this.mImportButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mImportButton.SearchProperties[WinButton.PropertyNames.Name] = "Импорт";
+                    this.mImportButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Импорт из АФСБ]");
+                    #endregion
+                }
+                return this.mImportButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mImportButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class LogWindow1 : WinWindow
+    {
+
+        public LogWindow1()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Текущий протокол";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVADM_CURRENTLOGForm";
+            this.WindowTitles.Add("Текущий протокол");
+            #endregion
+        }
+
+        #region Properties
+        public CloseWindow CloseWindow
+        {
+            get
+            {
+                if ((this.mCloseWindow == null))
+                {
+                    this.mCloseWindow = new CloseWindow(this);
+                }
+                return this.mCloseWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private CloseWindow mCloseWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class CloseWindow : WinWindow
+    {
+
+        public CloseWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Закрыть";
+            this.WindowTitles.Add("Текущий протокол");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton CloseButton
+        {
+            get
+            {
+                if ((this.mCloseButton == null))
+                {
+                    this.mCloseButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mCloseButton.SearchProperties[WinButton.PropertyNames.Name] = "Закрыть";
+                    this.mCloseButton.WindowTitles.Add("Текущий протокол");
+                    #endregion
+                }
+                return this.mCloseButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mCloseButton;
         #endregion
     }
 
