@@ -62,7 +62,9 @@ namespace asi_express
                                                                             + CultureInfo.CurrentUICulture.ToString());                
             }
             // Справочник точек, по которым будет проводиться взаимодействие с некоторыми объектами
-            //Ribbon
+            //RibbonUpperButtons
+            Dots.Add("InfoManag", new Point(305,45));
+            //RibbonButtons
             Dots.Add("AFSBButton", new Point(165,80));
             Dots.Add("SPRButton", new Point(55, 80));
 
@@ -78,9 +80,20 @@ namespace asi_express
             Dots.Add("UpperCalendar", new Point(195, 220));
             Dots.Add("BottomCalendar", new Point(195, 250));
 
+            //CalcSPR
+
             Dots.Add("SprAFSBCalc", new Point(65, 250));
 
             // InputLog(Environment.OSVersion.ToString(), 0);
+
+            //FormSetQuest
+            Dots.Add("AddTask", new Point(95, 205));
+            Dots.Add("ChangeCode", new Point(445, 230));
+            Dots.Add("ChangeEmp", new Point(1230, 230));
+            Dots.Add("131Code", new Point(683, 478));
+            Dots.Add("FirstEmp", new Point(595, 365));
+            Dots.Add("SecondEmp", new Point(595, 380));
+            Dots.Add("SaveCode", new Point(50, 80));
 
 
         }
@@ -119,8 +132,92 @@ namespace asi_express
 
         public void OpenAFSB(int WaC, int lvl)
         {
-
+            InputLog("Раскроем вкладку информационное обеспечение", lvl);
+            Mouse.Click(Dots["InfoManag"]);
+            Thread.Sleep(3 * WaC);
+            InputLog("Нажмём кнопку загрузки данных из АФСБ", lvl);
+            Mouse.Click(Dots["AFSBButton"]);
+            Thread.Sleep(3 * WaC);
+            InputLog("Дождёмся её появления", lvl);
+            this.UIMap.ASI_Window.ImportAFSB.WaitForControlExist(60 * WaC);
         }
+
+        public void DownloadSpr(int WaC, int lvl)
+        {
+            InputLog("Открываем вкладку загрузки АФСБ", lvl);
+            OpenAFSB(WaC, lvl+1);
+            InputLog("Перешли к первой точке", lvl);
+            Mouse.Move(Dots["FirstPointScroll"]);
+            InputLog("Тащим скролл", lvl);
+            Mouse.StartDragging();
+            InputLog("До этой точки", lvl);
+            Mouse.StopDragging(Dots["SecondPointScroll"]);
+            InputLog("Ждём пока отстроится", lvl);
+            Thread.Sleep(2 * WaC);
+            InputLog("Выделяем чекбокс справочной информации", lvl);
+            Mouse.Click(Dots["SPRF"]);
+            InputLog("Жмём кнопку загрузки", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.ImportAFSB.ImportWindow.ImportButton);
+            InputLog("Ждём подтверждающего окна", lvl);
+            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(20 * WaC);
+            InputLog("Соглашаемся", lvl);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            InputLog("Ждём окно протокола", lvl);
+            this.UIMap.LogWindow.WaitForControlExist(3000 * WaC);
+            InputLog("Скриним", lvl);
+            GetScreen("FinishDownload");
+            InputLog("Закрываем", lvl);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
+        }
+
+        public void CalcSpr(int WaC, int lvl)
+        {
+            InputLog("Раскроем вкладку информационное обеспечение", lvl);
+            Mouse.Click(Dots["InfoManag"]);
+            Thread.Sleep(3 * WaC);
+            InputLog("Нажмём на кнопку справочники", lvl);
+            Mouse.Click(Dots["SPRButton"]);
+            InputLog("Дождёмся появления формы расчета справочников", lvl);
+            this.UIMap.ASI_Window.CalcSpr.WaitForControlExist(60 * WaC);
+            Thread.Sleep(3 * WaC);
+            InputLog("Нажмём на чекбокс расчёта справочников на основании АФСБ", lvl);
+            Mouse.Click(Dots["SprAFSBCalc"]);
+            InputLog("Рассчитаем данные", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.CalcSpr.UploadWindow.UploadButton);
+            InputLog("Ждём окно с логами", lvl);
+            this.UIMap.LogWindow.WaitForControlExist(3000 * WaC);
+            InputLog("Скриним", lvl);
+            GetScreen("FinishСфдс");
+            InputLog("Закрываем", lvl);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
+            Mouse.Click(Dots["SaveCode"]);
+            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlNotExist(60 * WaC);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+        }
+
+        public void CreateQuestions(int WaC, int lvl)
+        {
+            Mouse.Click(Dots["AddTask"]);
+            Thread.Sleep(1 * WaC);
+            Mouse.Click(Dots["ChangeCode"]);
+            this.UIMap.SelectCode.WaitForControlExist(60 * WaC);
+            Mouse.Click(Dots["131Code"]);
+            Thread.Sleep(1 * WaC);
+            Mouse.Click(this.UIMap.SelectCode.OKWindow.OKButton);
+            this.UIMap.SelectCode.WaitForControlNotExist(60 * WaC);
+            Mouse.Click(Dots["ChangeEmp"]);
+            this.UIMap.FormSprEmp.WaitForControlExist(60 * WaC);
+            Mouse.Click(Dots["FirstEmp"]);
+            Thread.Sleep(1 * WaC);
+            Mouse.Click(Dots["SecondEmp"]);
+            Mouse.Click(this.UIMap.FormSprEmp.OKWindow.OKButton);
+            this.UIMap.FormSprEmp.WaitForControlNotExist(60 * WaC);
+        }
+
 
 
         public void Shutdown_asi()
@@ -232,6 +329,7 @@ namespace asi_express
                 Mouse.Click(this.UIMap.InfoWindow.OKWindow2.OKButton);
             }
         }
+
         public void RecreateObjects(int WaC, int lvl)
         {
             Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
@@ -259,6 +357,7 @@ namespace asi_express
 
             Mouse.Click(this.UIMap.OKWindow.OKButton);
         }
+
         public void CreateUser(int WaC, int lvl, WpfListItem listitem, string UserName,int Try,string SchemaName) // Try - порядок запуска, если при 0 запуске вводятся данные АИБа, то при последующих уже нет
         {
             InputLog("Раскроем панель пользователей", lvl);
@@ -318,6 +417,7 @@ namespace asi_express
             InputLog("Подтвердим выполнение", lvl);
             Mouse.Click(this.UIMap.UserCreatedWindow.OKWindow2.OKButton);
         }
+
         public void SelectTU(int WaC, int lvl)
         {
             InputLog("Раскроем панель подготовки", lvl);
@@ -446,7 +546,6 @@ namespace asi_express
             this.UIMap.ARM_AdminWindow.WaitForControlExist(30 * WaC);
         }
 
-
         public void PrepareAsi(int WaC, int lvl, string SchemaName)
         {
             Clear_cache();
@@ -495,8 +594,12 @@ namespace asi_express
                     + CultureInfo.CurrentCulture.ToString() + "\r\n"
                     + CultureInfo.CurrentUICulture.ToString() + "\r\n", 0);
                 InputLog("Начнём подготовку к экспресс-тестированию", 0);
-                PrepareAsi(WaC, 1, "ASISTA_UI");
 
+                //PrepareAsi(WaC, 1, "ASISTA_UI");
+
+               // DownloadSpr(WaC, 1);
+
+                CalcSpr(WaC, 1);
             }
             catch (Exception e)
             {

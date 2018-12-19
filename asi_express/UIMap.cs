@@ -152,6 +152,29 @@ namespace asi_express
             }
         }
 
+        public SelectCode SelectCode
+        {
+            get
+            {
+                if ((this.mSelectCode == null))
+                {
+                    this.mSelectCode = new SelectCode();
+                }
+                return this.mSelectCode;
+            }
+        }
+
+        public FormSprEmp FormSprEmp
+        {
+            get
+            {
+                if ((this.mFormSprEmp == null))
+                {
+                    this.mFormSprEmp = new FormSprEmp();
+                }
+                return this.mFormSprEmp;
+            }
+        }
         #endregion
 
         #region Fields
@@ -174,6 +197,10 @@ namespace asi_express
         private ASI_Window mASI_Window;
 
         private LogWindow1 mLogWindow;
+
+        private SelectCode mSelectCode;
+
+        private FormSprEmp mFormSprEmp;
         #endregion
     }
 
@@ -2287,7 +2314,7 @@ namespace asi_express
                 base(searchLimitContainer)
         {
             #region Условия поиска
-            this.SearchProperties[WinWindow.PropertyNames.ControlId] = "2";
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "ОК";
             this.WindowTitles.Add("Пользователь успешно сохранен");
             #endregion
         }
@@ -2622,6 +2649,23 @@ namespace asi_express
             }
         }
 
+        public WinWindow GivingTask
+        {
+            get
+            {
+                if ((this.mGivingTask == null))
+                {
+                    this.mGivingTask = new WinWindow(this);
+                    #region Условия поиска
+                    this.mGivingTask.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Распределение задания";
+                    this.mGivingTask.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Реестр проверок]");
+                    #endregion
+                }
+                return this.mGivingTask;
+            }
+        }
+
         public CalcSpr CalcSpr
         {
             get
@@ -2629,9 +2673,6 @@ namespace asi_express
                 if ((this.mCalcSpr == null))
                 {
                     this.mCalcSpr = new CalcSpr(this);
-                    #region Условия поиска
-
-                    #endregion
                 }
                 return this.mCalcSpr;
             }
@@ -2652,6 +2693,8 @@ namespace asi_express
 
         #region Fields
         private WinWindow mReestrWindow;
+
+        private WinWindow mGivingTask;
 
         private CalcSpr mCalcSpr;
 
@@ -2869,4 +2912,66 @@ namespace asi_express
         #endregion
     }
 
+
+    public class FormSprEmp : WinWindow
+    {
+
+        public FormSprEmp()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Form";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P4Form";
+            this.WindowTitles.Add("Form");
+            #endregion
+        }
+
+        #region Properties
+        public OKWindow2 OKWindow
+        {
+            get
+            {
+                if ((this.mOKWindow == null))
+                {
+                    this.mOKWindow = new OKWindow2(this);
+                }
+                return this.mOKWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private OKWindow2 mOKWindow;
+        #endregion
+    }
+
+        public class SelectCode : WinWindow
+    {
+        
+        public SelectCode()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Выбор проверяемых кодов вопросов";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVFrmQuestionSelectForm";
+            this.WindowTitles.Add("Выбор проверяемых кодов вопросов");
+            #endregion
+        }
+        
+        #region Properties
+        public OKWindow OKWindow
+        {
+            get
+            {
+                if ((this.mOKWindow == null))
+                {
+                    this.mOKWindow = new OKWindow(this);
+                }
+                return this.mOKWindow;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private OKWindow mOKWindow;
+        #endregion
+    }
 }
