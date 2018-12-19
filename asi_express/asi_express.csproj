@@ -70,7 +70,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LocalSet.testsettings" />
+    <None Include="Local.testsettings" />
+    <None Include="Remote.testsettings" />
     <None Include="packages.config" />
     <None Include="UIMap.uitest" />
   </ItemGroup>

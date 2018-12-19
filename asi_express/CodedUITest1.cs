@@ -38,6 +38,7 @@ namespace asi_express
         readonly string logfile = @"\express.log";
 
 
+
         [TestInitialize]
         public void TestStartup()
         {
@@ -97,17 +98,17 @@ namespace asi_express
 
         public void Shutdown_asi()
         {
-            Process[] p1 = Process.GetProcessesByName("P5.exe");
+            Process[] p1 = Process.GetProcessesByName("P5");
             foreach(Process Proc in p1)
             {
-                Process[] p2 = Process.GetProcessesByName("ASIBusyIndicator_vas_" + Proc.Handle + ".exe");
+                Process[] p2 = Process.GetProcessesByName("ASIBusyIndicator_vas_" + Proc.Handle);
                 foreach(Process ProcBusy in p2)
                 {
                     ProcBusy.Kill();
                 }
                 Proc.Kill();
             }
-            p1 = Process.GetProcessesByName("WINWORD.exe");
+            p1 = Process.GetProcessesByName("WINWORD");
             foreach (Process Proc in p1)
             { 
                 Proc.Kill();
@@ -124,7 +125,7 @@ namespace asi_express
 
         public void Start_prognoz(int Wac, int lvl)
         {
-            if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
+            if (this.TestContext.Properties["AgentName"].ToString() != "ASI-TST-12-2")
             {
                 InputLog(this.TestContext.Properties["AgentName"].ToString(), lvl);
                 Process.Start(@"C:\Program Files\JSC Prognoz\Prognoz 5.26\P5.exe");
@@ -169,8 +170,9 @@ namespace asi_express
         public void StatsArm(int WaC, int lvl, string SchemaName)
         {
             InputLog("Ждём открытия АРМ Админа на стационарном уровне", lvl);
-            this.UIMap.ARM_AdminWindow.WaitForControlExist(30 * WaC);            
-            SelectTU(WaC, lvl+1);
+            this.UIMap.ARM_AdminWindow.WaitForControlExist(60 * WaC);
+            InputLog("Выберем ТУ", lvl);
+            SelectTU(WaC, lvl + 1);
             SetAFSB(WaC, lvl + 1);
             CreateUser(WaC, lvl + 1, this.UIMap.EmployeeWindow.EmployeeList.RIO_3ListItem, "RIO_3", 0, SchemaName);
             DeleteUser(WaC, lvl + 1, this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.UserList.RIO_3ListItem);
@@ -266,60 +268,111 @@ namespace asi_express
             Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox);
             InputLog("Ткнём в него", lvl);
             this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.WaitForControlExist(15 * WaC);
+            InputLog("Ткнём в первый уровень дерева элементов", lvl);
             Mouse.Click(this.UIMap.ARM_AdminWindow.Tree.TreeLvL1);
+            InputLog("Спустимся ниже", lvl);
+            WaiterForMSSQL(2);
             Keyboard.SendKeys("{DOWN}");
+            InputLog("Раскроем второй уровень дерева элементов", lvl);
+            WaiterForMSSQL(2);
             Keyboard.SendKeys("{RIGHT}");
+            InputLog("Дождёмся его появления", lvl);
             this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.TreeLvL2.WaitForControlExist(1 * WaC);
-
+            InputLog("В зависимости от выбранного элемента выберем 117 или 118 ID ", lvl);
+            WaiterForMSSQL(2);
             if (this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.SelectedIndex == 118 ||
                     this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.SelectedIndex == -1)
             {
+                InputLog("Спустимся ниже", lvl);
+                WaiterForMSSQL(2);
                 Keyboard.SendKeys("{DOWN}");
             }
             else
             {
+                InputLog("Спустимся ниже", lvl);
+                WaiterForMSSQL(2);
                 Keyboard.SendKeys("{DOWN}");
+                InputLog("Спустимся ниже", lvl);
+                WaiterForMSSQL(2);
                 Keyboard.SendKeys("{DOWN}");
             }
+            InputLog("Подтвердим свой выбор", lvl);
             Keyboard.SendKeys("{ENTER}");
+            InputLog("Дождёмся появления текстовой надписи на форме с названием региона", lvl);
             this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.NameTextBlock.WaitForControlExist(1500 * WaC);
+            InputLog("Дождёмся исчезновния дерева элементов", lvl);
             this.UIMap.ARM_AdminWindow.Tree.WaitForControlNotExist(10 * WaC);
         }
+
+        private void WaiterForMSSQL(int Time)
+        {
+            if (this.TestContext.Properties["AgentName"].ToString() != "ASI-TST-12-2") { Thread.Sleep(Time*1000); }
+        }
+
         public void SetAFSB(int WaC, int lvl)
         {
+            InputLog("Нажмём кнопку подготовки системы", lvl);
             Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
+            InputLog("Нажмём кнопку настройки соединения с САФСБ", lvl);
             Mouse.Click(this.UIMap.ARM_AdminWindow.SAFSBButton);
+            InputLog("Ждём появления элементов для ввода данных", lvl);
             this.UIMap.ARM_AdminWindow.SAFSBData.WaitForControlExist(10 * WaC);
             if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
             {
+                InputLog("Ввёдем TCP", lvl);
                 this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.ProtocolEdit.Text = "TCP";
+                InputLog("Ввёдем HOST", lvl);
                 this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.HostEdit.Text = "10.7.0.33";
+                InputLog("Ввёдем Port", lvl);
                 this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.PortEdit.Text = "1521";
+                InputLog("Ввёдем SID", lvl);
                 this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.ServiceEdit.Text = "ASITST11";
+                InputLog("Ввёдем название схемы тех.пользователя", lvl);
                 this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
+                InputLog("Ввёдем пароль схемы тех.пользователя", lvl);
                 this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserPasswordEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
             }
             else
             {
+                InputLog("Сбросим данные в IP сервера", lvl);
+                this.UIMap.ARM_AdminWindow.SAFSBData.ServerMSSQLEdit.Text = "";
+                InputLog("Сбросим данные в названии схемы", lvl);
+                this.UIMap.ARM_AdminWindow.SAFSBData.SchemaNameEdit.Text = "";
+                InputLog("Ввёдем данные IP сервера", lvl);
                 Keyboard.SendKeys(this.UIMap.ARM_AdminWindow.SAFSBData.ServerMSSQLEdit, "10.7.0.32");
+                InputLog("Ввёдем данные названия схемы", lvl);
                 Keyboard.SendKeys(this.UIMap.ARM_AdminWindow.SAFSBData.SchemaNameEdit, "RDATU71_DATA");
+                InputLog("Ввёдем данные логина тех.пользователя", lvl);
                 this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
+                InputLog("Ввёдем данные пароля тех.пользователя", lvl);
                 this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserPasswordEdit.Text = "Qwerty1";
             }
-
+            InputLog("Проверим выбран ли комбобокс на создания тех.пользователя", lvl);
             if (!this.UIMap.ARM_AdminWindow.TechUserData.NeedCreateTechUserCheckBox.Checked)
             {
+                InputLog("Выберем его", lvl);
                 Mouse.Click(this.UIMap.ARM_AdminWindow.TechUserData.NeedCreateTechUserCheckBox);
+                InputLog("Ждём появления поля для ввода системный параметров", lvl);
                 this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemLoginEdit.WaitForControlExist(1 * WaC);
+                InputLog("Ввёдем логин суперпользователя", lvl);
                 this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemLoginEdit.Text = this.TestContext.Properties["SysLogin"].ToString();
+                InputLog("Ввёдем пароль суперпользователя", lvl);
                 this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemPasswordEdit.Text = this.TestContext.Properties["SysPassword"].ToString();
             }
-
-            Mouse.Click();
-            this.UIMap.OKWindow.OKButton.WaitForControlExist(60 * WaC);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.Expand);
+            InputLog("Создадим подключение", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.SafsbPanel.CreateConnectSafsb);
+            InputLog("Ожидаем завершения создания подключения", lvl);
+            this.UIMap.OKWindow.OKButton.WaitForControlExist(120 * WaC);
+            InputLog("Проверим, раскрыто ли окно с логами", lvl);
+            if (!this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.Expanded)
+            {
+                InputLog("Раскроем", lvl+1);
+                this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.Expanded = true;
+            }
+            InputLog("Проверим, есть ли там ошибки", lvl);
             if (this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.Text.Contains("Ошибка:"))
             {
+                InputLog("Ошибки есть", lvl +1);
                 InputLog(this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.Text, lvl + 1);
                 this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.WaitForControlNotExist(1 * WaC);
                 GetScreen("Error_after_set_settings_AFSB" + this.TestContext.Properties["AgentName"].ToString());
