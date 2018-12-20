@@ -341,8 +341,6 @@ namespace asi_express
 
         public void AddBorrower(int WaC, int lvl)
         {
-            try
-            {
                 Mouse.Click(Dots["ProccesInfo"]);
                 Thread.Sleep(3 * WaC);
                 Mouse.Click(Dots["InfoBorrower"]);
@@ -352,24 +350,10 @@ namespace asi_express
                 this.UIMap.SelectDateWindow.WaitForControlExist(60 * WaC);
                 Mouse.Click(this.UIMap.SelectDateWindow.OKWindow.OKButton);
                 this.UIMap.BorrowerListWindow.WaitForControlExist(60 * WaC);
-                /*
-                if(this.UIMap.BorrowerListWindow.ComboBoxWindow.ComboBox.Name != "30 наиболее крупных заемщиков, в том числе учитываемых в отчетности по форме 0409117")
-                {
-
-                }
-                */
-
                 Mouse.Click(this.UIMap.BorrowerListWindow.OKWindow.OKButton);
                 this.UIMap.InfoWindow.OKWindow.OKButton.WaitForControlExist(300 * WaC);
                 Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
                 GetScreen("Added_Borrower");
-            }
-            catch (Exception ee)
-            {
-                throw ee;
-            }
-
-
         }
 
         public void Shutdown_asi()
