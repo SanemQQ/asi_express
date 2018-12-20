@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TestSettings name="Локальные" id="147cafa8-ee83-47ab-8d78-62cf18d23f64" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Description>Это - параметры по умолчанию для локального тестового запуска.</Description>
+  <Deployment>
+    <DeploymentItem filename="asi_express\FileToDeploy.txt" />
+  </Deployment>
   <Execution>
     <Timeouts testTimeout="0" />
     <TestTypeSpecific>

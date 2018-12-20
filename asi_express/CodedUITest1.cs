@@ -62,11 +62,18 @@ namespace asi_express
                                                                             + CultureInfo.CurrentUICulture.ToString());                
             }
             // Справочник точек, по которым будет проводиться взаимодействие с некоторыми объектами
+
             //RibbonUpperButtons
             Dots.Add("InfoManag", new Point(305,45));
+
             //RibbonButtons
             Dots.Add("AFSBButton", new Point(165,80));
             Dots.Add("SPRButton", new Point(55, 80));
+
+            //LeftPanel
+            Dots.Add("Material", new Point(20, 335));
+            Dots.Add("PinMaterial", new Point(305, 160));
+            Dots.Add("FirstFolderMaterial", new Point(150, 215));
 
             //ImportFromAFSB
             Dots.Add("101F", new Point(235, 290));
@@ -79,21 +86,28 @@ namespace asi_express
             Dots.Add("SecondPointScroll", new Point(1865, 830));
             Dots.Add("UpperCalendar", new Point(195, 220));
             Dots.Add("BottomCalendar", new Point(195, 250));
+            Dots.Add("UpperJanuary", new Point(110, 250));
+            Dots.Add("Bottom2015", new Point(195, 410));
 
             //CalcSPR
 
             Dots.Add("SprAFSBCalc", new Point(65, 250));
 
-            // InputLog(Environment.OSVersion.ToString(), 0);
-
             //FormSetQuest
             Dots.Add("AddTask", new Point(95, 205));
             Dots.Add("ChangeCode", new Point(445, 230));
-            Dots.Add("ChangeEmp", new Point(1230, 230));
+            Dots.Add("ChangeEmp", new Point(1200, 230));
             Dots.Add("131Code", new Point(683, 478));
             Dots.Add("FirstEmp", new Point(595, 365));
             Dots.Add("SecondEmp", new Point(595, 380));
             Dots.Add("SaveCode", new Point(50, 80));
+
+            //DistribTask
+            Dots.Add("SaveDisk", new Point(380, 210));
+            Dots.Add("OpenFolder", new Point(302, 232));
+            Dots.Add("FirstTask", new Point(95, 225));
+            Dots.Add("FirstFolder", new Point(350, 250));
+
 
 
         }
@@ -120,7 +134,7 @@ namespace asi_express
             }
         }
 
-        [TestCleanup]
+       // [TestCleanup]
         public void MyTestCleanup()
         {
             Shutdown_asi();
@@ -201,6 +215,7 @@ namespace asi_express
 
         public void CreateQuestions(int WaC, int lvl)
         {
+            this.UIMap.ASI_Window.CreateTaskWindow.WaitForControlExist(60 * WaC);
             Mouse.Click(Dots["AddTask"]);
             Thread.Sleep(1 * WaC);
             Mouse.Click(Dots["ChangeCode"]);
@@ -216,9 +231,110 @@ namespace asi_express
             Mouse.Click(Dots["SecondEmp"]);
             Mouse.Click(this.UIMap.FormSprEmp.OKWindow.OKButton);
             this.UIMap.FormSprEmp.WaitForControlNotExist(60 * WaC);
+            Mouse.Click(Dots["SaveCode"]);
+            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
         }
 
+        public void DistribTask(int WaC,int lvl)
+        {
+            this.UIMap.ASI_Window.GivingTaskWindow.WaitForControlExist(60 * WaC);
+            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            Thread.Sleep(5 * WaC);
+            Mouse.DoubleClick(Dots["OpenFolder"]);
+            Thread.Sleep(1 * WaC);
+            Mouse.Move(Dots["FirstTask"]);
+            Thread.Sleep(1 * WaC);
+            Mouse.StartDragging();
+            Mouse.StopDragging(Dots["FirstFolder"]);
+            this.UIMap.SettingTask.WaitForControlExist(60 * WaC);
+            Keyboard.SendKeys(this.UIMap.SettingTask.ClarifTaskWindow.ClarifTaskMemo, "Hello World");
+            GetScreen("HelloWorld_in_settingtask");
+            this.UIMap.SettingTask.SaveWindow.SaveButton.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.SettingTask.SaveWindow.SaveButton);
+            this.UIMap.SettingTask.WaitForControlNotExist(60 * WaC);
+            Mouse.Click(Dots["SaveDisk"]);
+            Thread.Sleep(20 * WaC);
+        }
 
+        public void DownloadReports(int WaC, int lvl)
+        {
+            InputLog("Открываем вкладку загрузки АФСБ", lvl);
+            OpenAFSB(WaC, lvl + 1);
+            InputLog("Выбрали форму 101", lvl);
+            Mouse.Click(Dots["101F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбрали форму 102", lvl);
+            Mouse.Click(Dots["102F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбрали форму 117", lvl);
+            Mouse.Click(Dots["117F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбрали форму 118", lvl);
+            Mouse.Click(Dots["118F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбрали форму 501", lvl);
+            Mouse.Click(Dots["501F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Открываем нижний календарь", lvl);
+            Mouse.Click(Dots["BottomCalendar"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбираем 2015 год", lvl);
+            Mouse.Click(Dots["Bottom2015"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Закрываем нижний календарь", lvl);
+            Mouse.Click(Dots["BottomCalendar"]);
+            Thread.Sleep(1 * WaC);
+
+            InputLog("Открываем верхний календарь", lvl);
+            Mouse.Click(Dots["UpperCalendar"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбираем Январь", lvl);
+            Mouse.Click(Dots["UpperJanuary"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Закрываем верхний календарь", lvl);
+            Mouse.Click(Dots["UpperCalendar"]);
+            Thread.Sleep(1 * WaC);
+
+            InputLog("Жмём кнопку загрузки", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.ImportAFSB.ImportWindow.ImportButton);
+            InputLog("Ждём подтверждающего окна", lvl);
+            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(20 * WaC);
+            InputLog("Соглашаемся", lvl);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            InputLog("Ждём окно протокола", lvl);
+            this.UIMap.LogWindow.WaitForControlExist(3000 * WaC);
+            InputLog("Скриним", lvl);
+            GetScreen("FinishDownload");
+            InputLog("Закрываем", lvl);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
+        }
+
+        public void AddFile(int WaC, int lvl)
+        {
+            Mouse.Click(Dots["Material"]);
+            Thread.Sleep(6 * WaC);
+            Mouse.Click(Dots["PinMaterial"]);
+            Mouse.Click(MouseButtons.Right,ModifierKeys.None, Dots["FirstFolderMaterial"]);
+            if(this.UIMap.ContextMenuMaterial.Exists)
+            {
+                Mouse.Click(this.UIMap.ContextMenuMaterial.MenuItem.UploadFileMenuItem);
+            }
+            this.UIMap.OpenFileDialog.WaitForControlExist(60 * WaC);
+            Keyboard.SendKeys(this.UIMap.OpenFileDialog.FileNameWindow.FileNameEdit, this.TestContext.TestDeploymentDir + "\\" + this.TestContext.Properties["File"].ToString()+".txt");
+            Mouse.Click(this.UIMap.OpenFileDialog.OpenWindow.OpenButton);
+            this.UIMap.OpenFileDialog.WaitForControlNotExist(60 * WaC);
+            this.UIMap.ASI_Window.MaterialWindow.MaterialClient.MaterialPanel.MaterialCustomTree.SearchEdit.Text = this.TestContext.Properties["File"].ToString();
+            Thread.Sleep(5 * WaC);
+            this.UIMap.ASI_Window.MaterialWindow.MaterialClient.MaterialPanel.MaterialCustomTree.Tree.ASITreeFirstlvl.ASITreeSecondlvl.ItemInSecondlvl.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.ASI_Window.MaterialWindow.MaterialClient.MaterialPanel.MaterialCustomTree.ClearFilter);
+            Thread.Sleep(5 * WaC);
+            GetScreen("AddedFile");
+            Mouse.Click(Dots["PinMaterial"]);
+
+        }
 
         public void Shutdown_asi()
         {
@@ -569,14 +685,14 @@ namespace asi_express
 
         [TestMethod]
         [TestProperty("AgentName", "ASI-TST-MS12")]
-        [TestProperty("Files", "FileToDeploy.txt")]
+        [TestProperty("File", "FileToDeploy")]
         [TestProperty("SysLogin", "sa")]
         [TestProperty("SysPassword", "Qwerty1")]
         public void Asi_Express_MSSQL() => Asi_Express_All(1000);
 
         [TestMethod]
         [TestProperty("AgentName", "ASI-TST-12-2")]
-        [TestProperty("Files", "FileToDeploy.txt")]
+        [TestProperty("File", "FileToDeploy")]
         [TestProperty("SysLogin", "SYSTEM")]
         [TestProperty("SysPassword", "ASITST11")]
         public void Asi_Express_ORACLE() => Asi_Express_All(4000);
@@ -597,9 +713,14 @@ namespace asi_express
 
                 //PrepareAsi(WaC, 1, "ASISTA_UI");
 
-               // DownloadSpr(WaC, 1);
+                // DownloadSpr(WaC, 1);
 
-                CalcSpr(WaC, 1);
+                // CalcSpr(WaC, 1);
+                // CreateQuestions(WaC, 1);
+                // DistribTask(WaC, 1);
+
+                // DownloadReports(WaC, 1);
+                AddFile(WaC, 1);
             }
             catch (Exception e)
             {

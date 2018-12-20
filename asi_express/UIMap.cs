@@ -175,6 +175,42 @@ namespace asi_express
                 return this.mFormSprEmp;
             }
         }
+
+        public SettingTask SettingTask
+        {
+            get
+            {
+                if ((this.mSettingTask == null))
+                {
+                    this.mSettingTask = new SettingTask();
+                }
+                return this.mSettingTask;
+            }
+        }
+
+        public ContextMenuMaterial ContextMenuMaterial
+        {
+            get
+            {
+                if ((this.mContextMenuMaterial == null))
+                {
+                    this.mContextMenuMaterial = new ContextMenuMaterial();
+                }
+                return this.mContextMenuMaterial;
+            }
+        }
+
+        public OpenFileDialog OpenFileDialog
+        {
+            get
+            {
+                if ((this.mOpenFileDialog == null))
+                {
+                    this.mOpenFileDialog = new OpenFileDialog();
+                }
+                return this.mOpenFileDialog;
+            }
+        }
         #endregion
 
         #region Fields
@@ -201,6 +237,12 @@ namespace asi_express
         private SelectCode mSelectCode;
 
         private FormSprEmp mFormSprEmp;
+
+        private SettingTask mSettingTask;
+
+        private ContextMenuMaterial mContextMenuMaterial;
+
+        private OpenFileDialog mOpenFileDialog;
         #endregion
     }
 
@@ -2649,20 +2691,37 @@ namespace asi_express
             }
         }
 
-        public WinWindow GivingTask
+        public WinWindow GivingTaskWindow
         {
             get
             {
-                if ((this.mGivingTask == null))
+                if ((this.mGivingTaskWindow == null))
                 {
-                    this.mGivingTask = new WinWindow(this);
+                    this.mGivingTaskWindow = new WinWindow(this);
                     #region Условия поиска
-                    this.mGivingTask.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Распределение задания";
-                    this.mGivingTask.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    this.mGivingTaskWindow.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Распределение задания";
+                    this.mGivingTaskWindow.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
                             "екционного подразделения - [Реестр проверок]");
                     #endregion
                 }
-                return this.mGivingTask;
+                return this.mGivingTaskWindow;
+            }
+        }
+
+        public WinWindow CreateTaskWindow
+        {
+            get
+            {
+                if ((this.mCreateTaskWindow == null))
+                {
+                    this.mCreateTaskWindow = new WinWindow(this);
+                    #region Условия поиска
+                    this.mCreateTaskWindow.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Формирование заданий";
+                    this.mCreateTaskWindow.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Реестр проверок]");
+                    #endregion
+                }
+                return this.mCreateTaskWindow;
             }
         }
 
@@ -2689,16 +2748,32 @@ namespace asi_express
                 return this.mImportAFSB;
             }
         }
+
+        public MaterialWindow MaterialWindow
+        {
+            get
+            {
+                if ((this.mMaterialWindow == null))
+                {
+                    this.mMaterialWindow = new MaterialWindow(this);
+                }
+                return this.mMaterialWindow;
+            }
+        }
         #endregion
 
         #region Fields
         private WinWindow mReestrWindow;
 
-        private WinWindow mGivingTask;
+        private WinWindow mGivingTaskWindow;
 
         private CalcSpr mCalcSpr;
 
         private ImportAFSB mImportAFSB;
+
+        private WinWindow mCreateTaskWindow;
+
+        private MaterialWindow mMaterialWindow;
         #endregion
     }
 
@@ -2972,6 +3047,597 @@ namespace asi_express
         
         #region Fields
         private OKWindow mOKWindow;
+        #endregion
+    }
+
+    public class SettingTask : WinWindow
+    {
+
+        public SettingTask()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Настройки задачи";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVFRM_SET_TASK_PROPForm";
+            this.WindowTitles.Add("Настройки задачи");
+            #endregion
+        }
+
+        #region Properties
+        public ClarifTaskWindow ClarifTaskWindow
+        {
+            get
+            {
+                if ((this.mClarifTaskWindow == null))
+                {
+                    this.mClarifTaskWindow = new ClarifTaskWindow(this);
+                }
+                return this.mClarifTaskWindow;
+            }
+        }
+
+        public SaveWindow SaveWindow
+        {
+            get
+            {
+                if ((this.mSaveWindow == null))
+                {
+                    this.mSaveWindow = new SaveWindow(this);
+                }
+                return this.mSaveWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ClarifTaskWindow mClarifTaskWindow;
+
+        private SaveWindow mSaveWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ClarifTaskWindow : WinWindow
+    {
+
+        public ClarifTaskWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P4Memo";
+            this.WindowTitles.Add("Настройки задачи");
+            #endregion
+        }
+
+        #region Properties
+        public WinEdit ClarifTaskMemo
+        {
+            get
+            {
+                if ((this.mClarifTaskMemo == null))
+                {
+                    this.mClarifTaskMemo = new WinEdit(this);
+                    #region Условия поиска
+                    this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P4Memo";
+                    this.mClarifTaskMemo.WindowTitles.Add("Настройки задачи");
+                    #endregion
+                }
+                return this.mClarifTaskMemo;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinEdit mClarifTaskMemo;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class SaveWindow : WinWindow
+    {
+
+        public SaveWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Сохранить";
+            this.WindowTitles.Add("Настройки задачи");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton SaveButton
+        {
+            get
+            {
+                if ((this.mSaveButton == null))
+                {
+                    this.mSaveButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mSaveButton.SearchProperties[WinButton.PropertyNames.Name] = "Сохранить";
+                    this.mSaveButton.WindowTitles.Add("Настройки задачи");
+                    #endregion
+                }
+                return this.mSaveButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mSaveButton;
+        #endregion
+    }
+
+    public class ContextMenuMaterial : WpfWindow
+    {
+
+        public ContextMenuMaterial()
+        {
+            #region Условия поиска
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            #endregion
+        }
+
+        #region Properties
+        public MenuItem MenuItem
+        {
+            get
+            {
+                if ((this.mMenuItem == null))
+                {
+                    this.mMenuItem = new MenuItem(this);
+                }
+                return this.mMenuItem;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private MenuItem mMenuItem;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class MenuItem : WpfMenu
+    {
+
+        public MenuItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfMenu.PropertyNames.ClassName] = "Uia.ContextMenu";
+            #endregion
+        }
+
+        #region Properties
+        public WpfMenuItem CreateMenuItem
+        {
+            get
+            {
+                if ((this.mCreateMenuItem == null))
+                {
+                    this.mCreateMenuItem = new WpfMenuItem(this);
+                    #region Условия поиска
+                    this.mCreateMenuItem.SearchProperties[WpfMenuItem.PropertyNames.AutomationId] = "createMenuItem";
+                    #endregion
+                }
+                return this.mCreateMenuItem;
+            }
+        }
+
+        public WpfMenuItem UploadFileMenuItem
+        {
+            get
+            {
+                if ((this.mUploadFileMenuItem == null))
+                {
+                    this.mUploadFileMenuItem = new WpfMenuItem(this);
+                    #region Условия поиска
+                    this.mUploadFileMenuItem.SearchProperties[WpfMenuItem.PropertyNames.Name] = "Загрузить внешний документ";
+                    #endregion
+                }
+                return this.mUploadFileMenuItem;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfMenuItem mCreateMenuItem;
+
+        private WpfMenuItem mUploadFileMenuItem;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class OpenFileDialog : WinWindow
+    {
+
+        public OpenFileDialog()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Открытие";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "#32770";
+            this.WindowTitles.Add("Открытие");
+            #endregion
+        }
+
+        #region Properties
+        public FileNameWindow FileNameWindow
+        {
+            get
+            {
+                if ((this.mFileNameWindow == null))
+                {
+                    this.mFileNameWindow = new FileNameWindow(this);
+                }
+                return this.mFileNameWindow;
+            }
+        }
+
+        public OpenWindow OpenWindow
+        {
+            get
+            {
+                if ((this.mOpenWindow == null))
+                {
+                    this.mOpenWindow = new OpenWindow(this);
+                }
+                return this.mOpenWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private FileNameWindow mFileNameWindow;
+
+        private OpenWindow mOpenWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class FileNameWindow : WinWindow
+    {
+
+        public FileNameWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ControlId] = "1148";
+            this.SearchProperties[WinWindow.PropertyNames.Instance] = "3";
+            this.WindowTitles.Add("Открытие");
+            #endregion
+        }
+
+        #region Properties
+        public WinEdit FileNameEdit
+        {
+            get
+            {
+                if ((this.mFileNameEdit == null))
+                {
+                    this.mFileNameEdit = new WinEdit(this);
+                    #region Условия поиска
+                    this.mFileNameEdit.SearchProperties[WinEdit.PropertyNames.Name] = "Имя файла:";
+                    this.mFileNameEdit.WindowTitles.Add("Открытие");
+                    #endregion
+                }
+                return this.mFileNameEdit;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinEdit mFileNameEdit;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class OpenWindow : WinWindow
+    {
+
+        public OpenWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ControlId] = "1";
+            this.WindowTitles.Add("Открытие");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton OpenButton
+        {
+            get
+            {
+                if ((this.mOpenButton == null))
+                {
+                    this.mOpenButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mOpenButton.SearchProperties[WinButton.PropertyNames.Name] = "Открыть";
+                    this.mOpenButton.WindowTitles.Add("Открытие");
+                    #endregion
+                }
+                return this.mOpenButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mOpenButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class MaterialWindow : WinWindow
+    {
+
+        public MaterialWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ControlName] = "ControlAxSourcingSite";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public MaterialClient MaterialClient
+        {
+            get
+            {
+                if ((this.mMaterialClient == null))
+                {
+                    this.mMaterialClient = new MaterialClient(this);
+                }
+                return this.mMaterialClient;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private MaterialClient mMaterialClient;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class MaterialClient : WinClient
+    {
+
+        public MaterialClient(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public MaterialPanel MaterialPanel
+        {
+            get
+            {
+                if ((this.mMaterialPanel == null))
+                {
+                    this.mMaterialPanel = new MaterialPanel(this);
+                }
+                return this.mMaterialPanel;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private MaterialPanel mMaterialPanel;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class MaterialPanel : WpfPane
+    {
+
+        public MaterialPanel(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public MaterialCustomTree MaterialCustomTree
+        {
+            get
+            {
+                if ((this.mMaterialCustomTree == null))
+                {
+                    this.mMaterialCustomTree = new MaterialCustomTree(this);
+                }
+                return this.mMaterialCustomTree;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private MaterialCustomTree mMaterialCustomTree;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class MaterialCustomTree : WpfCustom
+    {
+
+        public MaterialCustomTree(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.ASIObjectsTree";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit SearchEdit
+        {
+            get
+            {
+                if ((this.mSearchEdit == null))
+                {
+                    this.mSearchEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mSearchEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "filterTextBox";
+                    this.mSearchEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mSearchEdit;
+            }
+        }
+
+        public Tree1 Tree
+        {
+            get
+            {
+                if ((this.mTree == null))
+                {
+                    this.mTree = new Tree1(this);
+                }
+                return this.mTree;
+            }
+        }
+
+        public WpfButton ClearFilter
+        {
+            get
+            {
+                if ((this.mClearFilter == null))
+                {
+                    this.mClearFilter = new WpfButton(this);
+                    #region Условия поиска
+                    this.mClearFilter.SearchProperties[WpfButton.PropertyNames.HelpText] = "Очистить быстрый фильтр";
+                    this.mClearFilter.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mClearFilter;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mSearchEdit;
+
+        private Tree1 mTree;
+
+        private WpfButton mClearFilter;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class Tree1 : WpfTree
+    {
+
+        public Tree1(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfTree.PropertyNames.AutomationId] = "objectsTreeView";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public ASITreeFirstlvl ASITreeFirstlvl
+        {
+            get
+            {
+                if ((this.mASITreeFirstlvl == null))
+                {
+                    this.mASITreeFirstlvl = new ASITreeFirstlvl(this);
+                }
+                return this.mASITreeFirstlvl;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ASITreeFirstlvl mASITreeFirstlvl;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ASITreeFirstlvl : WpfTreeItem
+    {
+
+        public ASITreeFirstlvl(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "ASIObjectsForms.ASIObjectTreeItem";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public ASITreeSecondlvl ASITreeSecondlvl
+        {
+            get
+            {
+                if ((this.mASITreeSecondlvl == null))
+                {
+                    this.mASITreeSecondlvl = new ASITreeSecondlvl(this);
+                }
+                return this.mASITreeSecondlvl;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ASITreeSecondlvl mASITreeSecondlvl;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ASITreeSecondlvl : WpfTreeItem
+    {
+
+        public ASITreeSecondlvl(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "ASIObjectsForms.ASIObjectTreeItem";
+            this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+            this.SearchConfigurations.Add(SearchConfiguration.DisambiguateChild);
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WpfControl ItemInSecondlvl
+        {
+            get
+            {
+                if ((this.mItemInSecondlvl == null))
+                {
+                    this.mItemInSecondlvl = new WpfControl(this);
+                    #region Условия поиска
+                    this.mItemInSecondlvl.SearchProperties[WpfControl.PropertyNames.ControlType] = "Indicator";
+                    this.mItemInSecondlvl.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+                    this.mItemInSecondlvl.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mItemInSecondlvl;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfControl mItemInSecondlvl;
         #endregion
     }
 }

@@ -75,6 +75,11 @@
     <None Include="packages.config" />
     <None Include="UIMap.uitest" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="FileToDeploy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
