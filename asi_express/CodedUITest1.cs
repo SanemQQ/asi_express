@@ -65,10 +65,13 @@ namespace asi_express
 
             //RibbonUpperButtons
             Dots.Add("InfoManag", new Point(305,45));
+            Dots.Add("ProccesInfo", new Point(670, 45));
 
             //RibbonButtons
             Dots.Add("AFSBButton", new Point(165,80));
             Dots.Add("SPRButton", new Point(55, 80));
+            Dots.Add("InfoBorrower", new Point(745, 80));
+            Dots.Add("AddBorrowerFromReports", new Point(60, 80));
 
             //LeftPanel
             Dots.Add("Material", new Point(20, 335));
@@ -336,6 +339,39 @@ namespace asi_express
 
         }
 
+        public void AddBorrower(int WaC, int lvl)
+        {
+            try
+            {
+                Mouse.Click(Dots["ProccesInfo"]);
+                Thread.Sleep(3 * WaC);
+                Mouse.Click(Dots["InfoBorrower"]);
+                this.UIMap.ASI_Window.BorrowerWindow.WaitForControlExist(60 * WaC);
+                Thread.Sleep(5 * WaC);
+                Mouse.Click(Dots["AddBorrowerFromReports"]);
+                this.UIMap.SelectDateWindow.WaitForControlExist(60 * WaC);
+                Mouse.Click(this.UIMap.SelectDateWindow.OKWindow.OKButton);
+                this.UIMap.BorrowerListWindow.WaitForControlExist(60 * WaC);
+                /*
+                if(this.UIMap.BorrowerListWindow.ComboBoxWindow.ComboBox.Name != "30 наиболее крупных заемщиков, в том числе учитываемых в отчетности по форме 0409117")
+                {
+
+                }
+                */
+
+                Mouse.Click(this.UIMap.BorrowerListWindow.OKWindow.OKButton);
+                this.UIMap.InfoWindow.OKWindow.OKButton.WaitForControlExist(300 * WaC);
+                Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
+                GetScreen("Added_Borrower");
+            }
+            catch (Exception ee)
+            {
+                throw ee;
+            }
+
+
+        }
+
         public void Shutdown_asi()
         {
             Process[] p1 = Process.GetProcessesByName("P5");
@@ -442,7 +478,7 @@ namespace asi_express
                 InputLog("Ждём подтверждения удаления", lvl + 1);
                 this.UIMap.InfoWindow.WaitForControlExist(100 * WaC);
                 InputLog("Нажмём ОК", lvl + 1);
-                Mouse.Click(this.UIMap.InfoWindow.OKWindow2.OKButton);
+                Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
             }
         }
 
@@ -720,7 +756,8 @@ namespace asi_express
                 // DistribTask(WaC, 1);
 
                 // DownloadReports(WaC, 1);
-                AddFile(WaC, 1);
+                // AddFile(WaC, 1);
+                AddBorrower(WaC, 1);
             }
             catch (Exception e)
             {

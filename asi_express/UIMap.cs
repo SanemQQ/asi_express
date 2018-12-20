@@ -211,6 +211,30 @@ namespace asi_express
                 return this.mOpenFileDialog;
             }
         }
+
+        public SelectDateWindow SelectDateWindow
+        {
+            get
+            {
+                if ((this.mSelectDateWindow == null))
+                {
+                    this.mSelectDateWindow = new SelectDateWindow();
+                }
+                return this.mSelectDateWindow;
+            }
+        }
+
+        public BorrowerListWindow BorrowerListWindow
+        {
+            get
+            {
+                if ((this.mBorrowerListWindow == null))
+                {
+                    this.mBorrowerListWindow = new BorrowerListWindow();
+                }
+                return this.mBorrowerListWindow;
+            }
+        }
         #endregion
 
         #region Fields
@@ -243,6 +267,10 @@ namespace asi_express
         private ContextMenuMaterial mContextMenuMaterial;
 
         private OpenFileDialog mOpenFileDialog;
+
+        private SelectDateWindow mSelectDateWindow;
+
+        private BorrowerListWindow mBorrowerListWindow;
         #endregion
     }
 
@@ -2398,7 +2426,7 @@ namespace asi_express
         }
 
         #region Properties
-        public OKWindow2 OKWindow2
+        public OKWindow2 OKWindow
         {
             get
             {
@@ -2665,8 +2693,7 @@ namespace asi_express
         public ASI_Window()
         {
             #region Условия поиска
-            this.SearchProperties[WinWindow.PropertyNames.Name] = "АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
-                "екционного подразделения - [Реестр проверок]";
+            this.SearchProperties.Add(WinWindow.PropertyNames.Name,"АС Инспектора ",PropertyExpressionOperator.Contains);
             this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVWS_MAINFORMForm";
             this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
                     "екционного подразделения - [Импорт из АФСБ]");
@@ -2688,6 +2715,23 @@ namespace asi_express
                     #endregion
                 }
                 return this.mReestrWindow;
+            }
+        }
+
+        public WinWindow BorrowerWindow
+        {
+            get
+            {
+                if ((this.mBorrowerWindow == null))
+                {
+                    this.mBorrowerWindow = new WinWindow(this);
+                    #region Условия поиска
+                    this.mBorrowerWindow.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Информация о заемщиках";
+                    this.mBorrowerWindow.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Реестр проверок]");
+                    #endregion
+                }
+                return this.mBorrowerWindow;
             }
         }
 
@@ -2766,6 +2810,8 @@ namespace asi_express
         private WinWindow mReestrWindow;
 
         private WinWindow mGivingTaskWindow;
+
+        private WinWindow mBorrowerWindow;
 
         private CalcSpr mCalcSpr;
 
@@ -3638,6 +3684,207 @@ namespace asi_express
 
         #region Fields
         private WpfControl mItemInSecondlvl;
+        #endregion
+    }
+
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class SelectDateWindow : WinWindow
+    {
+
+        public SelectDateWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Выбор даты";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVFRM_ADD_DEBTORSForm";
+            this.WindowTitles.Add("Выбор даты");
+            #endregion
+        }
+
+        #region Properties
+        public ComboBoxDateWindow ComboBoxDateWindow
+        {
+            get
+            {
+                if ((this.mComboBoxDateWindow == null))
+                {
+                    this.mComboBoxDateWindow = new ComboBoxDateWindow(this);
+                }
+                return this.mComboBoxDateWindow;
+            }
+        }
+
+        public OKWindow2 OKWindow
+        {
+            get
+            {
+                if ((this.mOKWindow == null))
+                {
+                    this.mOKWindow = new OKWindow2(this);
+                }
+                return this.mOKWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ComboBoxDateWindow mComboBoxDateWindow;
+
+        private OKWindow2 mOKWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ComboBoxDateWindow : WinWindow
+    {
+
+        public ComboBoxDateWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P4DimensionCombo";
+            this.WindowTitles.Add("Выбор даты");
+            #endregion
+        }
+
+        #region Properties
+        public WinClient ComoBoxClient
+        {
+            get
+            {
+                if ((this.mComoBoxClient == null))
+                {
+                    this.mComoBoxClient = new WinClient(this);
+                    #region Условия поиска
+                    this.mComoBoxClient.SearchProperties[WinControl.PropertyNames.ClassName] = "P4DimensionCombo";
+                    this.mComoBoxClient.WindowTitles.Add("Выбор даты");
+                    #endregion
+                }
+                return this.mComoBoxClient;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinClient mComoBoxClient;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class BorrowerListWindow : WinWindow
+    {
+
+        public BorrowerListWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties.Add(WinWindow.PropertyNames.Name, "Список заемщиков для добавления", PropertyExpressionOperator.Contains);
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVFRM_TREE_NEW_DEBTORSForm";
+            this.WindowTitles.Add("Список заемщиков для добавления на 01.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public ComboBoxWindow ComboBoxWindow
+        {
+            get
+            {
+                if ((this.mComboBoxWindow == null))
+                {
+                    this.mComboBoxWindow = new ComboBoxWindow(this);
+                }
+                return this.mComboBoxWindow;
+            }
+        }
+
+        public OKWindow5 OKWindow
+        {
+            get
+            {
+                if ((this.mOKWindow == null))
+                {
+                    this.mOKWindow = new OKWindow5(this);
+                }
+                return this.mOKWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ComboBoxWindow mComboBoxWindow;
+
+        private OKWindow5 mOKWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ComboBoxWindow : WinWindow
+    {
+
+        public ComboBoxWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P4DimensionCombo";
+            this.WindowTitles.Add("Список заемщиков для добавления на 01.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public WinClient ComboBox
+        {
+            get
+            {
+                if ((this.mComboBox == null))
+                {
+                    this.mComboBox = new WinClient(this);
+                    #region Условия поиска
+                    this.mComboBox.SearchProperties[WinControl.PropertyNames.ClassName] = "P4DimensionCombo";
+                    this.mComboBox.WindowTitles.Add("Список заемщиков для добавления на 01.12.2015");
+                    #endregion
+                }
+                return this.mComboBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinClient mComboBox;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class OKWindow5 : WinWindow // Ок - все русскими
+    {
+
+        public OKWindow5(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Ок";
+            this.WindowTitles.Add("Список заемщиков для добавления на 01.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton OKButton
+        {
+            get
+            {
+                if ((this.mOKButton == null))
+                {
+                    this.mOKButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mOKButton.SearchProperties[WinButton.PropertyNames.Name] = "Ок";
+                    this.mOKButton.WindowTitles.Add("Список заемщиков для добавления на 01.12.2015");
+                    #endregion
+                }
+                return this.mOKButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mOKButton;
         #endregion
     }
 }
