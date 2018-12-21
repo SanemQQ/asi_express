@@ -36,8 +36,10 @@ namespace asi_express
         readonly CultureInfo lang = new CultureInfo("ru-RU");
         Dictionary<string, Point> Dots = new Dictionary<string, Point>();
         readonly string logfile = @"\express.log";
-
-
+        readonly string InnBorrower = "123456700063";
+        readonly string NameBorrower = "118_New";
+        readonly string KppBorrower = "123456789";
+        readonly string OgrnBorrower = "313132804400022";
 
         [TestInitialize]
         public void TestStartup()
@@ -46,32 +48,34 @@ namespace asi_express
             {
                 Directory.CreateDirectory(Temp + DirectoryName);
             }
-            if (!File.Exists(Temp+DirectoryName+@"\express.log"))
+            if (!File.Exists(Temp + DirectoryName + @"\express.log"))
             {
-                File.AppendAllText(Temp + DirectoryName + @"\express.log","");
+                File.AppendAllText(Temp + DirectoryName + @"\express.log", "");
             }
             else
             {
-                File.AppendAllText(Temp + DirectoryName + @"\express_"  + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log", "");
+                File.AppendAllText(Temp + DirectoryName + @"\express_" + DateTime.UtcNow.ToShortDateString().ToString(lang) + ".log", "");
                 File.Copy(Temp + DirectoryName + @"\express.log",
-                            Temp + DirectoryName + @"\express_" + DateTime.Now.ToString("ddMMyyyy_HHmm") + ".log");
-                File.AppendAllText(Temp + DirectoryName + logfile , Temp + DirectoryName + " \r\n " +
-                                                                            LocalAppData +"\r\n"+ InputLanguage.CurrentInputLanguage.ToString()
-                                                                            +"\r\n" + InputLanguage.DefaultInputLanguage.ToString()
+                            Temp + DirectoryName + @"\express_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".log");
+                File.AppendAllText(Temp + DirectoryName + logfile, Temp + DirectoryName + " \r\n " +
+                                                                            LocalAppData + "\r\n" + InputLanguage.CurrentInputLanguage.ToString()
+                                                                            + "\r\n" + InputLanguage.DefaultInputLanguage.ToString()
                                                                             + CultureInfo.CurrentCulture.ToString()
-                                                                            + CultureInfo.CurrentUICulture.ToString());                
+                                                                            + CultureInfo.CurrentUICulture.ToString());
             }
             // Справочник точек, по которым будет проводиться взаимодействие с некоторыми объектами
 
             //RibbonUpperButtons
-            Dots.Add("InfoManag", new Point(305,45));
-            Dots.Add("ProccesInfo", new Point(670, 45));
+            Dots.Add("InfoManag", new Point(305, 45));
+            Dots.Add("ProccesInfoStat", new Point(670, 45));
+            Dots.Add("ProccesInfoMob", new Point(470, 45));
 
             //RibbonButtons
-            Dots.Add("AFSBButton", new Point(165,80));
+            Dots.Add("AFSBButton", new Point(165, 80));
             Dots.Add("SPRButton", new Point(55, 80));
             Dots.Add("InfoBorrower", new Point(745, 80));
             Dots.Add("AddBorrowerFromReports", new Point(60, 80));
+            Dots.Add("AddCustomBorrower", new Point(125, 80));
 
             //LeftPanel
             Dots.Add("Material", new Point(20, 335));
@@ -93,7 +97,6 @@ namespace asi_express
             Dots.Add("Bottom2015", new Point(195, 410));
 
             //CalcSPR
-
             Dots.Add("SprAFSBCalc", new Point(65, 250));
 
             //FormSetQuest
@@ -111,11 +114,40 @@ namespace asi_express
             Dots.Add("FirstTask", new Point(95, 225));
             Dots.Add("FirstFolder", new Point(350, 250));
 
+            //AddCustomBorrower
+            Dots.Add("EditName", new Point(340, 265));
+            Dots.Add("TypeBorrower", new Point(340, 300));
+            Dots.Add("TypeBorrowerYl", new Point(340, 325));
+            Dots.Add("TypeConnect", new Point(340, 330));
+            Dots.Add("TypeConnectSsyda", new Point(340, 355));
+            Dots.Add("DropFocus", new Point(235, 235)); //123456700063
+            Dots.Add("FullName", new Point(420, 450));
+            Dots.Add("INN", new Point(420, 480));
+            Dots.Add("KPP", new Point(420, 510));
+            Dots.Add("OGRN", new Point(420, 540));
+            Dots.Add("IP", new Point(510, 540));
+            Dots.Add("SelectAdress", new Point(1800, 600));
+            Dots.Add("EqualAdress", new Point(210, 625));
+            Dots.Add("AddAccounts", new Point(205, 255));
+            
 
+            //AddAdress
+            Dots.Add("Paremeter_0", new Point(940, 460)); // Регион
+            Dots.Add("Paremeter_1", new Point(940, 485)); // Район
+            Dots.Add("Paremeter_2", new Point(940, 510)); //
+            Dots.Add("Paremeter_3", new Point(940, 535)); //
+            Dots.Add("Paremeter_4", new Point(940, 560)); //
+            Dots.Add("Paremeter_5", new Point(940, 585)); //
+            Dots.Add("Paremeter_6", new Point(940, 610)); //
+
+            //SetTextOnCreateMaterial
+            Dots.Add("SetText", new Point(1020, 440));
+            //AddAccountsBorrower
+            Dots.Add("AcceptAccountsBorrower", new Point(905, 840));
 
         }
 
-        public void InputLog( string txt , int lvl )  // txt - строка, которую передают для логирования, а lvl - это уровень вложенности
+        public void InputLog(string txt, int lvl)  // txt - строка, которую передают для логирования, а lvl - это уровень вложенности
         {
             string tab = "";
             for (int i = 0; i < lvl; i++)
@@ -126,7 +158,7 @@ namespace asi_express
             File.AppendAllText(Temp + DirectoryName + logfile, tab + txt + "\r\n");
         }
 
-        public void GetScreen(string imgName) 
+        public void GetScreen(string imgName)
         {
             using (var image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height))
             {
@@ -137,13 +169,13 @@ namespace asi_express
             }
         }
 
-       // [TestCleanup]
+        // [TestCleanup]
         public void MyTestCleanup()
         {
             Shutdown_asi();
             Thread.Sleep(10000);
             Clear_cache();
-            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString()+ DateTime.Now.ToString("ddMMyyyy_HHmm") + this.TestContext.CurrentTestOutcome.ToString() + ".zip");
+            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString() + DateTime.Now.ToString("ddMMyyyy_HHmm") + this.TestContext.CurrentTestOutcome.ToString() + ".zip");
             Directory.Delete(Temp + DirectoryName, true); // удаляем старые данные, так как они нам не нужны больше
         }
 
@@ -162,7 +194,7 @@ namespace asi_express
         public void DownloadSpr(int WaC, int lvl)
         {
             InputLog("Открываем вкладку загрузки АФСБ", lvl);
-            OpenAFSB(WaC, lvl+1);
+            OpenAFSB(WaC, lvl + 1);
             InputLog("Перешли к первой точке", lvl);
             Mouse.Move(Dots["FirstPointScroll"]);
             InputLog("Тащим скролл", lvl);
@@ -239,7 +271,7 @@ namespace asi_express
             Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
         }
 
-        public void DistribTask(int WaC,int lvl)
+        public void DistribTask(int WaC, int lvl)
         {
             this.UIMap.ASI_Window.GivingTaskWindow.WaitForControlExist(60 * WaC);
             this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(60 * WaC);
@@ -320,13 +352,13 @@ namespace asi_express
             Mouse.Click(Dots["Material"]);
             Thread.Sleep(6 * WaC);
             Mouse.Click(Dots["PinMaterial"]);
-            Mouse.Click(MouseButtons.Right,ModifierKeys.None, Dots["FirstFolderMaterial"]);
-            if(this.UIMap.ContextMenuMaterial.Exists)
+            Mouse.Click(MouseButtons.Right, ModifierKeys.None, Dots["FirstFolderMaterial"]);
+            if (this.UIMap.ContextMenuMaterial.Exists)
             {
                 Mouse.Click(this.UIMap.ContextMenuMaterial.MenuItem.UploadFileMenuItem);
             }
             this.UIMap.OpenFileDialog.WaitForControlExist(60 * WaC);
-            Keyboard.SendKeys(this.UIMap.OpenFileDialog.FileNameWindow.FileNameEdit, this.TestContext.TestDeploymentDir + "\\" + this.TestContext.Properties["File"].ToString()+".txt");
+            Keyboard.SendKeys(this.UIMap.OpenFileDialog.FileNameWindow.FileNameEdit, this.TestContext.TestDeploymentDir + "\\" + this.TestContext.Properties["File"].ToString() + ".txt");
             Mouse.Click(this.UIMap.OpenFileDialog.OpenWindow.OpenButton);
             this.UIMap.OpenFileDialog.WaitForControlNotExist(60 * WaC);
             this.UIMap.ASI_Window.MaterialWindow.MaterialClient.MaterialPanel.MaterialCustomTree.SearchEdit.Text = this.TestContext.Properties["File"].ToString();
@@ -341,19 +373,193 @@ namespace asi_express
 
         public void AddBorrower(int WaC, int lvl)
         {
-                Mouse.Click(Dots["ProccesInfo"]);
-                Thread.Sleep(3 * WaC);
-                Mouse.Click(Dots["InfoBorrower"]);
-                this.UIMap.ASI_Window.BorrowerWindow.WaitForControlExist(60 * WaC);
-                Thread.Sleep(5 * WaC);
-                Mouse.Click(Dots["AddBorrowerFromReports"]);
-                this.UIMap.SelectDateWindow.WaitForControlExist(60 * WaC);
-                Mouse.Click(this.UIMap.SelectDateWindow.OKWindow.OKButton);
-                this.UIMap.BorrowerListWindow.WaitForControlExist(60 * WaC);
-                Mouse.Click(this.UIMap.BorrowerListWindow.OKWindow.OKButton);
-                this.UIMap.InfoWindow.OKWindow.OKButton.WaitForControlExist(300 * WaC);
-                Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
-                GetScreen("Added_Borrower");
+            Mouse.Click(Dots["ProccesInfoStat"]);
+            Thread.Sleep(3 * WaC);
+            Mouse.Click(Dots["InfoBorrower"]);
+            this.UIMap.ASI_Window.BorrowerWindow.WaitForControlExist(60 * WaC);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(Dots["AddBorrowerFromReports"]);
+            this.UIMap.SelectDateWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.SelectDateWindow.OKWindow.OKButton);
+            this.UIMap.BorrowerListWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.BorrowerListWindow.OKWindow.OKButton);
+            this.UIMap.InfoWindow.OKWindow.OKButton.WaitForControlExist(300 * WaC);
+            Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
+            GetScreen("Added_Borrower");
+        }
+
+        public void AddCustomBorrower(int WaC, int lvl)
+        {
+            AddCustomBorrower1Stage(WaC, lvl + 1);
+            AddCustomBorrower2Stage(WaC, lvl + 1);
+        }
+
+        public void AddTextOnList(int WaC, int lvl,string txt)
+        {
+            Mouse.Click(Dots["SetText"]);
+            Keyboard.SendKeys(txt);
+            Thread.Sleep(1 * WaC);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+
+        }
+
+        public void AddCustomBorrowerAbsData(int WaC, int lvl)
+        {
+            Mouse.Click(Dots["AddAccounts"]);
+            this.UIMap.SelectAccBorrower.WaitForControlExist(60 * WaC);
+            this.UIMap.SelectAccBorrower.SetFocus();
+            Keyboard.SendKeys("{TAB}{TAB}{TAB}");
+            Keyboard.SendKeys(NameBorrower);
+            Mouse.Click(this.UIMap.SelectAccBorrower.ShowAccountsWindow.ShowAccountButton);
+            Thread.Sleep(4 * WaC);
+            Mouse.Click(Dots["AcceptAccountsBorrower"]);
+            Mouse.Click(this.UIMap.SelectAccBorrower.OKWindow.OKButton);
+            this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            Thread.Sleep(5 * WaC);
+            if(this.UIMap.SelectAccBorrower.Exists)
+            {
+                Mouse.Click(this.UIMap.SelectAccBorrower.OKWindow.OKButton);
+            }
+            Thread.Sleep(10 * WaC);
+            this.UIMap.SelectAccBorrower.WaitForControlNotExist(60 * WaC);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+        }
+
+        public void AddCustomBorrowerCalcAbsData(int WaC, int lvl, string txt)
+        {
+            this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon);
+            this.UIMap.SelectDateAbsWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.SelectDateAbsWindow.OnThatDayWindow.OnThatDayRadioButton);
+            Mouse.Click(this.UIMap.SelectDateAbsWindow.OKWindow.OKButton);
+            this.UIMap.InfoWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
+            AddTextOnList(WaC, lvl + 1, txt);
+        }
+
+        public void AddCustomBorrowerCreateReport(int WaC, int lvl)
+        {
+            try
+            {
+                this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton.WaitForControlExist(60 * WaC);
+                Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton);
+                this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
+                Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+                this.UIMap.AcceptWindow.WaitForControlNotExist(60 * WaC);
+                this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
+                Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+                this.UIMap.AcceptWindow.WaitForControlNotExist(60 * WaC);
+                this.UIMap.RefreshSheetBorrower.WaitForControlExist(60 * WaC);
+                this.UIMap.RefreshSheetBorrower.WaitForControlNotExist(600 * WaC);
+                this.UIMap.ReportBorrower.WaitForControlExist(120 * WaC);
+                Thread.Sleep(90 * WaC);
+               // this.UIMap.ReportBorrower.SetFocus();
+                Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
+                this.UIMap.ReportBorrower.WaitForControlNotExist(120 * WaC);
+                Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+                this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton.WaitForControlExist(60 * WaC);
+                Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void AddCustomBorrower2Stage(int WaC,int lvl)
+        {
+            for (int i = 0; i <=12; i++)
+            {
+                switch (i)
+                {
+                    case 1:
+                        AddCustomBorrowerAbsData(WaC, lvl + 1);
+                        break;
+                    case 2:
+                        AddCustomBorrowerCalcAbsData(WaC, lvl + 1,"Hello World " + i.ToString());
+                        break;
+                    case 10:
+                        Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+                        break;
+                    case 11:
+                        Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+                        break;
+                    case 12:
+                        AddCustomBorrowerCreateReport(WaC, lvl + 1);
+                        break;
+                    default:
+                        AddTextOnList(WaC, lvl + 1, "Hello World " + i.ToString());
+                        break;
+                }
+                Thread.Sleep(1 * WaC);
+                InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(new System.Globalization.CultureInfo("en-US"));
+            }
+
+        }
+
+        public void AddCustomBorrower1Stage(int WaC, int lvl)
+        {
+            Mouse.Click(Dots["ProccesInfoMob"]);
+            Thread.Sleep(3 * WaC);
+            Mouse.Click(Dots["InfoBorrower"]);
+            this.UIMap.ASI_Window.BorrowerWindow.WaitForControlExist(60 * WaC);
+            Thread.Sleep(3 * WaC);
+            Mouse.Click(Dots["AddCustomBorrower"]);
+            this.UIMap.ASI_Window.AddCustomBorrowerWindow.WaitForControlExist(120 * WaC);
+            Thread.Sleep(15 * WaC);
+            Mouse.Click(Dots["TypeBorrower"]);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(Dots["TypeBorrowerYl"]);
+            Mouse.Click(Dots["DropFocus"]);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(Dots["EditName"]);
+            Thread.Sleep(5 * WaC);
+            Keyboard.SendKeys(NameBorrower);
+            Mouse.Click(Dots["DropFocus"]);
+            Thread.Sleep(3 * WaC);
+            Mouse.Click(Dots["TypeConnect"]);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(Dots["TypeConnectSsyda"]);
+            Mouse.Click(Dots["DropFocus"]);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(Dots["FullName"]);
+            Thread.Sleep(2 * WaC);
+            Keyboard.SendKeys(NameBorrower + "_Full");
+            Mouse.Click(Dots["IP"]);
+            Thread.Sleep(6 * WaC);
+            Mouse.Click(Dots["EqualAdress"]);
+            Thread.Sleep(2 * WaC);
+            Mouse.Click(Dots["INN"]);
+            Thread.Sleep(2 * WaC);
+            Keyboard.SendKeys(InnBorrower);
+            Mouse.Click(Dots["KPP"]);
+            Thread.Sleep(2 * WaC);
+            Keyboard.SendKeys(KppBorrower);
+            Mouse.Click(Dots["OGRN"]);
+            Thread.Sleep(2 * WaC);
+            Keyboard.SendKeys(OgrnBorrower);
+            Mouse.Click(Dots["SelectAdress"]);
+            this.UIMap.AddAdressWindow.WaitForControlExist(60 * WaC);
+
+            for (int i = 0; i < 7; i++) //i - 7, количество комбиков/эдиток на форме выбора адреса, так как с ними нельзя работать, приходится извращаться
+            {
+                if(i<3)
+                {
+                    Mouse.Click(Dots["Paremeter_" + i.ToString()]);
+                    Keyboard.SendKeys("{DOWN}");
+                    Thread.Sleep(1 * WaC);
+                }
+                else
+                {
+                    Mouse.Click(Dots["Paremeter_" + i.ToString()]);
+                    Keyboard.SendKeys(i.ToString());
+                    Thread.Sleep(1 * WaC);
+                }
+            }
+            Mouse.Click(this.UIMap.AddAdressWindow.OKWindow.OKButton);
+
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
         }
 
         public void Shutdown_asi()
@@ -699,7 +905,6 @@ namespace asi_express
             }
         }
 
-
         #endregion
 
 
@@ -730,6 +935,7 @@ namespace asi_express
                     + CultureInfo.CurrentCulture.ToString() + "\r\n"
                     + CultureInfo.CurrentUICulture.ToString() + "\r\n", 0);
                 InputLog("Начнём подготовку к экспресс-тестированию", 0);
+                InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(new System.Globalization.CultureInfo("en-US"));
 
                 //PrepareAsi(WaC, 1, "ASISTA_UI");
 
@@ -741,7 +947,11 @@ namespace asi_express
 
                 // DownloadReports(WaC, 1);
                 // AddFile(WaC, 1);
-                AddBorrower(WaC, 1);
+                // AddBorrower(WaC, 1);
+
+                // AddCustomBorrower(WaC, 1);
+
+                AddCustomBorrowerCreateReport(WaC, 1);
             }
             catch (Exception e)
             {

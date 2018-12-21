@@ -1716,6 +1716,68 @@
                 </UIObject>
               </Descendants>
             </UIObject>
+            <UIObject ControlType="Window" Id="OKWindow1" FriendlyName="OK" SpecialControlType="None">
+              <TechnologyName>MSAA</TechnologyName>
+              <WindowTitles>
+                <WindowTitle>Form</WindowTitle>
+              </WindowTitles>
+              <SearchConfigurations>
+                <SearchConfiguration>VisibleOnly</SearchConfiguration>
+              </SearchConfigurations>
+              <AndCondition Id="SearchCondition">
+                <PropertyCondition Name="ControlId">25155</PropertyCondition>
+                <PropertyCondition Name="ControlType">Window</PropertyCondition>
+              </AndCondition>
+              <SupportLevel>1</SupportLevel>
+              <Descendants>
+                <UIObject ControlType="Button" Id="OKButton" FriendlyName="OK" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>Form</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="Name">OK</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Button</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants />
+                </UIObject>
+              </Descendants>
+            </UIObject>
+            <UIObject ControlType="Window" Id="ShowAccountsWindow" FriendlyName="Показать счета" SpecialControlType="None">
+              <TechnologyName>MSAA</TechnologyName>
+              <WindowTitles>
+                <WindowTitle>Form</WindowTitle>
+              </WindowTitles>
+              <SearchConfigurations>
+                <SearchConfiguration>VisibleOnly</SearchConfiguration>
+              </SearchConfigurations>
+              <AndCondition Id="SearchCondition">
+                <PropertyCondition Name="ControlId">25150</PropertyCondition>
+                <PropertyCondition Name="ControlType">Window</PropertyCondition>
+              </AndCondition>
+              <SupportLevel>1</SupportLevel>
+              <Descendants>
+                <UIObject ControlType="Button" Id="ShowAccountButton" FriendlyName="Показать счета" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>Form</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="Name">Показать счета</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Button</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants />
+                </UIObject>
+              </Descendants>
+            </UIObject>
           </Descendants>
         </TopLevelWindow>
         <TopLevelWindow ControlType="Window" Id="SettingTask" FriendlyName="Настройки задачи" SpecialControlType="None" SessionId="985722">
@@ -2250,6 +2312,348 @@
               </Descendants>
             </UIObject>
           </Descendants>
+        </TopLevelWindow>
+        <TopLevelWindow ControlType="Window" Id="UIАСИнспектораВерсия23Window1" FriendlyName="АС Инспектора. Версия 2.3.1.0. Мобильная региональ..." SpecialControlType="None" SessionId="10095842">
+          <TechnologyName>MSAA</TechnologyName>
+          <WindowTitles>
+            <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+          </WindowTitles>
+          <SearchConfigurations>
+            <SearchConfiguration>VisibleOnly</SearchConfiguration>
+          </SearchConfigurations>
+          <AndCondition Id="SearchCondition">
+            <PropertyCondition Name="Name">АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</PropertyCondition>
+            <PropertyCondition Name="ClassName">P5FRAME_DEVWS_MAINFORMForm</PropertyCondition>
+            <PropertyCondition Name="ControlType">Window</PropertyCondition>
+          </AndCondition>
+          <SupportLevel>1</SupportLevel>
+          <Descendants>
+            <UIObject ControlType="Window" Id="AddCustomBorrowerWindow" FriendlyName="Мастер ввода данных о контрагенте" SpecialControlType="None">
+              <TechnologyName>MSAA</TechnologyName>
+              <WindowTitles>
+                <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+              </WindowTitles>
+              <SearchConfigurations>
+                <SearchConfiguration>VisibleOnly</SearchConfiguration>
+              </SearchConfigurations>
+              <AndCondition Id="SearchCondition">
+                <PropertyCondition Name="ControlId">65282</PropertyCondition>
+                <PropertyCondition Name="ControlType">Window</PropertyCondition>
+              </AndCondition>
+              <SupportLevel>1</SupportLevel>
+              <Descendants>
+                <UIObject ControlType="Window" Id="NameEditWindow" FriendlyName="" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="ControlId">1240706488</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Window</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants>
+                    <UIObject ControlType="Edit" Id="NameEdit" SpecialControlType="None">
+                      <TechnologyName>MSAA</TechnologyName>
+                      <WindowTitles>
+                        <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                      </WindowTitles>
+                      <SearchConfigurations>
+                        <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                      </SearchConfigurations>
+                      <AndCondition Id="SearchCondition">
+                        <PropertyCondition Name="ControlType">Edit</PropertyCondition>
+                      </AndCondition>
+                      <SupportLevel>1</SupportLevel>
+                      <Descendants />
+                    </UIObject>
+                  </Descendants>
+                </UIObject>
+                <UIObject ControlType="Window" Id="TypeContragenWindow" FriendlyName="" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="ControlId">1240928920</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Window</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants>
+                    <UIObject ControlType="Client" Id="TypeContragentComboBox" FriendlyName="Базовые сведения" SpecialControlType="None">
+                      <TechnologyName>MSAA</TechnologyName>
+                      <WindowTitles>
+                        <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                      </WindowTitles>
+                      <SearchConfigurations>
+                        <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                      </SearchConfigurations>
+                      <AndCondition Id="SearchCondition">
+                        <PropertyCondition Name="ControlType">Client</PropertyCondition>
+                      </AndCondition>
+                      <SupportLevel>1</SupportLevel>
+                      <Descendants />
+                    </UIObject>
+                  </Descendants>
+                </UIObject>
+                <UIObject ControlType="Window" Id="TypeConnectWindow" FriendlyName="" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="ControlId">1240836568</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Window</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants>
+                    <UIObject ControlType="Client" Id="TypeConnectComboBox" FriendlyName="Базовые сведения" SpecialControlType="None">
+                      <TechnologyName>MSAA</TechnologyName>
+                      <WindowTitles>
+                        <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                      </WindowTitles>
+                      <SearchConfigurations>
+                        <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                      </SearchConfigurations>
+                      <AndCondition Id="SearchCondition">
+                        <PropertyCondition Name="ControlType">Client</PropertyCondition>
+                      </AndCondition>
+                      <SupportLevel>1</SupportLevel>
+                      <Descendants />
+                    </UIObject>
+                  </Descendants>
+                </UIObject>
+                <UIObject ControlType="Window" Id="NextWindow" FriendlyName="Далее &gt;" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="ControlId">25044</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Window</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants>
+                    <UIObject ControlType="Button" Id="NextButton" FriendlyName="Далее &gt;" SpecialControlType="None">
+                      <TechnologyName>MSAA</TechnologyName>
+                      <WindowTitles>
+                        <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                      </WindowTitles>
+                      <SearchConfigurations>
+                        <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                      </SearchConfigurations>
+                      <AndCondition Id="SearchCondition">
+                        <PropertyCondition Name="Name">Далее &gt;</PropertyCondition>
+                        <PropertyCondition Name="ControlType">Button</PropertyCondition>
+                      </AndCondition>
+                      <SupportLevel>1</SupportLevel>
+                      <Descendants />
+                    </UIObject>
+                  </Descendants>
+                </UIObject>
+                <UIObject ControlType="Window" Id="CalcFromAbsWindow" FriendlyName="Рассчитать по АБС" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="ControlId">25056</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Window</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants>
+                    <UIObject ControlType="Button" Id="CalcFromAbsButon" FriendlyName="Рассчитать по АБС" SpecialControlType="None">
+                      <TechnologyName>MSAA</TechnologyName>
+                      <WindowTitles>
+                        <WindowTitle>АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015</WindowTitle>
+                      </WindowTitles>
+                      <SearchConfigurations>
+                        <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                      </SearchConfigurations>
+                      <AndCondition Id="SearchCondition">
+                        <PropertyCondition Name="Name">Рассчитать по АБС</PropertyCondition>
+                        <PropertyCondition Name="ControlType">Button</PropertyCondition>
+                      </AndCondition>
+                      <SupportLevel>1</SupportLevel>
+                      <Descendants />
+                    </UIObject>
+                  </Descendants>
+                </UIObject>
+              </Descendants>
+            </UIObject>
+          </Descendants>
+        </TopLevelWindow>
+        <TopLevelWindow ControlType="Window" Id="AddAdressWindow" FriendlyName="Ввод адреса" SpecialControlType="None" SessionId="1379996">
+          <TechnologyName>MSAA</TechnologyName>
+          <WindowTitles>
+            <WindowTitle>Ввод адреса</WindowTitle>
+          </WindowTitles>
+          <SearchConfigurations>
+            <SearchConfiguration>VisibleOnly</SearchConfiguration>
+          </SearchConfigurations>
+          <AndCondition Id="SearchCondition">
+            <PropertyCondition Name="Name">Ввод адреса</PropertyCondition>
+            <PropertyCondition Name="ClassName">P5FRAME_DEVFRM_INPUT_ADDRESSForm</PropertyCondition>
+            <PropertyCondition Name="ControlType">Window</PropertyCondition>
+          </AndCondition>
+          <SupportLevel>1</SupportLevel>
+          <Descendants>
+            <UIObject ControlType="Window" Id="OKWindow" FriendlyName="ОК" SpecialControlType="None">
+              <TechnologyName>MSAA</TechnologyName>
+              <WindowTitles>
+                <WindowTitle>Ввод адреса</WindowTitle>
+              </WindowTitles>
+              <SearchConfigurations>
+                <SearchConfiguration>VisibleOnly</SearchConfiguration>
+              </SearchConfigurations>
+              <AndCondition Id="SearchCondition">
+                <PropertyCondition Name="ControlId">25079</PropertyCondition>
+                <PropertyCondition Name="ControlType">Window</PropertyCondition>
+              </AndCondition>
+              <SupportLevel>1</SupportLevel>
+              <Descendants>
+                <UIObject ControlType="Button" Id="OKButton" FriendlyName="ОК" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>Ввод адреса</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="Name">ОК</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Button</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants />
+                </UIObject>
+              </Descendants>
+            </UIObject>
+          </Descendants>
+        </TopLevelWindow>
+        <TopLevelWindow ControlType="Window" Id="SelectDateAbsWindow" FriendlyName="Выбор даты" SpecialControlType="None" SessionId="1053626">
+          <TechnologyName>MSAA</TechnologyName>
+          <WindowTitles>
+            <WindowTitle>Выбор даты</WindowTitle>
+          </WindowTitles>
+          <SearchConfigurations>
+            <SearchConfiguration>VisibleOnly</SearchConfiguration>
+          </SearchConfigurations>
+          <AndCondition Id="SearchCondition">
+            <PropertyCondition Name="Name">Выбор даты</PropertyCondition>
+            <PropertyCondition Name="ClassName">P5FRAME_DEVFRM_SELECT_DATEForm</PropertyCondition>
+            <PropertyCondition Name="ControlType">Window</PropertyCondition>
+          </AndCondition>
+          <SupportLevel>1</SupportLevel>
+          <Descendants>
+            <UIObject ControlType="Window" Id="OnThatDayWindow" FriendlyName="На выбранную дату:" SpecialControlType="None">
+              <TechnologyName>MSAA</TechnologyName>
+              <WindowTitles>
+                <WindowTitle>Выбор даты</WindowTitle>
+              </WindowTitles>
+              <SearchConfigurations>
+                <SearchConfiguration>VisibleOnly</SearchConfiguration>
+              </SearchConfigurations>
+              <AndCondition Id="SearchCondition">
+                <PropertyCondition Name="ControlId">1450870040</PropertyCondition>
+                <PropertyCondition Name="ControlType">Window</PropertyCondition>
+              </AndCondition>
+              <SupportLevel>1</SupportLevel>
+              <Descendants>
+                <UIObject ControlType="RadioButton" Id="OnThatDayRadioButton" FriendlyName="На выбранную дату:" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>Выбор даты</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="Name">На выбранную дату:</PropertyCondition>
+                    <PropertyCondition Name="ControlType">RadioButton</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants />
+                </UIObject>
+              </Descendants>
+            </UIObject>
+            <UIObject ControlType="Window" Id="OKWindow" FriendlyName="ОК" SpecialControlType="None">
+              <TechnologyName>MSAA</TechnologyName>
+              <WindowTitles>
+                <WindowTitle>Выбор даты</WindowTitle>
+              </WindowTitles>
+              <SearchConfigurations>
+                <SearchConfiguration>VisibleOnly</SearchConfiguration>
+              </SearchConfigurations>
+              <AndCondition Id="SearchCondition">
+                <PropertyCondition Name="ControlId">25079</PropertyCondition>
+                <PropertyCondition Name="ControlType">Window</PropertyCondition>
+              </AndCondition>
+              <SupportLevel>1</SupportLevel>
+              <Descendants>
+                <UIObject ControlType="Button" Id="OKButton" FriendlyName="ОК" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>Выбор даты</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="Name">ОК</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Button</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>1</SupportLevel>
+                  <Descendants />
+                </UIObject>
+              </Descendants>
+            </UIObject>
+          </Descendants>
+        </TopLevelWindow>
+        <TopLevelWindow ControlType="Window" Id="RefreshSheetBorrower" FriendlyName="Обновление листов материалов по заемщику..." SpecialControlType="None" SessionId="3149090">
+          <TechnologyName>UIA</TechnologyName>
+          <WindowTitles>
+            <WindowTitle>Обновление листов материалов по заемщику...</WindowTitle>
+          </WindowTitles>
+          <AndCondition>
+            <PropertyCondition Name="ControlType">Window</PropertyCondition>
+            <PropertyCondition Name="Name">Обновление листов материалов по заемщику...</PropertyCondition>
+            <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+            <PropertyCondition Name="ClassName" Operator="Contains">HwndWrapper</PropertyCondition>
+          </AndCondition>
+          <SupportLevel>0</SupportLevel>
+          <Descendants />
+        </TopLevelWindow>
+        <TopLevelWindow ControlType="Window" Id="ReportBorrower" FriendlyName="&quot;Материалы по заемщику 118_New (РИО)&quot; - Редактиров..." SpecialControlType="None" SessionId="1510816">
+          <TechnologyName>MSAA</TechnologyName>
+          <WindowTitles>
+            <WindowTitle>"Материалы по заемщику 118_New (РИО)" - Редактирование</WindowTitle>
+          </WindowTitles>
+          <SearchConfigurations>
+            <SearchConfiguration>VisibleOnly</SearchConfiguration>
+          </SearchConfigurations>
+          <AndCondition Id="SearchCondition">
+            <PropertyCondition Name="Name">"Материалы по заемщику 118_New (РИО)" - Редактирование</PropertyCondition>
+            <PropertyCondition Name="ClassName">AfxFrameOrView100u</PropertyCondition>
+            <PropertyCondition Name="ControlType">Window</PropertyCondition>
+          </AndCondition>
+          <SupportLevel>1</SupportLevel>
+          <Descendants />
         </TopLevelWindow>
       </TopLevelWindows>
     </UIMap>

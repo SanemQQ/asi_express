@@ -235,6 +235,66 @@ namespace asi_express
                 return this.mBorrowerListWindow;
             }
         }
+
+        public AddAdressWindow AddAdressWindow
+        {
+            get
+            {
+                if ((this.mAddAdressWindow == null))
+                {
+                    this.mAddAdressWindow = new AddAdressWindow();
+                }
+                return this.mAddAdressWindow;
+            }
+        }
+
+        public SelectAccBorrower SelectAccBorrower
+        {
+            get
+            {
+                if ((this.mSelectAccBorrower == null))
+                {
+                    this.mSelectAccBorrower = new SelectAccBorrower();
+                }
+                return this.mSelectAccBorrower;
+            }
+        }
+
+        public SelectDateAbsWindow SelectDateAbsWindow
+        {
+            get
+            {
+                if ((this.mSelectDateAbsWindow == null))
+                {
+                    this.mSelectDateAbsWindow = new SelectDateAbsWindow();
+                }
+                return this.mSelectDateAbsWindow;
+            }
+        }
+
+        public RefreshSheetBorrower RefreshSheetBorrower
+        {
+            get
+            {
+                if ((this.mRefreshSheetBorrower == null))
+                {
+                    this.mRefreshSheetBorrower = new RefreshSheetBorrower();
+                }
+                return this.mRefreshSheetBorrower;
+            }
+        }
+
+        public ReportBorrower ReportBorrower
+        {
+            get
+            {
+                if ((this.mReportBorrower == null))
+                {
+                    this.mReportBorrower = new ReportBorrower();
+                }
+                return this.mReportBorrower;
+            }
+        }
         #endregion
 
         #region Fields
@@ -271,6 +331,16 @@ namespace asi_express
         private SelectDateWindow mSelectDateWindow;
 
         private BorrowerListWindow mBorrowerListWindow;
+
+        private AddAdressWindow mAddAdressWindow;
+
+        private SelectAccBorrower mSelectAccBorrower;
+
+        private SelectDateAbsWindow mSelectDateAbsWindow;
+
+        private RefreshSheetBorrower mRefreshSheetBorrower;
+
+        private ReportBorrower mReportBorrower;
         #endregion
     }
 
@@ -2804,6 +2874,18 @@ namespace asi_express
                 return this.mMaterialWindow;
             }
         }
+
+        public AddCustomBorrowerWindow AddCustomBorrowerWindow
+        {
+            get
+            {
+                if ((this.mAddCustomBorrowerWindow == null))
+                {
+                    this.mAddCustomBorrowerWindow = new AddCustomBorrowerWindow(this);
+                }
+                return this.mAddCustomBorrowerWindow;
+            }
+        }
         #endregion
 
         #region Fields
@@ -2820,6 +2902,8 @@ namespace asi_express
         private WinWindow mCreateTaskWindow;
 
         private MaterialWindow mMaterialWindow;
+
+        private AddCustomBorrowerWindow mAddCustomBorrowerWindow;
         #endregion
     }
 
@@ -3886,5 +3970,606 @@ namespace asi_express
         #region Fields
         private WinButton mOKButton;
         #endregion
+    }
+
+    public class AddCustomBorrowerWindow : WinWindow
+    {
+
+        public AddCustomBorrowerWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Мастер ввода данных о контрагенте";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                    "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public NameEditWindow NameEditWindow
+        {
+            get
+            {
+                if ((this.mNameEditWindow == null))
+                {
+                    this.mNameEditWindow = new NameEditWindow(this);
+                }
+                return this.mNameEditWindow;
+            }
+        }
+
+        public TypeContragenWindow TypeContragenWindow
+        {
+            get
+            {
+                if ((this.mTypeContragenWindow == null))
+                {
+                    this.mTypeContragenWindow = new TypeContragenWindow(this);
+                }
+                return this.mTypeContragenWindow;
+            }
+        }
+
+        public TypeConnectWindow TypeConnectWindow
+        {
+            get
+            {
+                if ((this.mTypeConnectWindow == null))
+                {
+                    this.mTypeConnectWindow = new TypeConnectWindow(this);
+                }
+                return this.mTypeConnectWindow;
+            }
+        }
+
+        public NextWindow NextWindow
+        {
+            get
+            {
+                if ((this.mNextWindow == null))
+                {
+                    this.mNextWindow = new NextWindow(this);
+                }
+                return this.mNextWindow;
+            }
+        }
+
+        public ReadyWindow ReadyWindow
+        {
+            get
+            {
+                if ((this.mReadyWindow == null))
+                {
+                    this.mReadyWindow = new ReadyWindow(this);
+                }
+                return this.mReadyWindow;
+            }
+        }
+
+        public CalcFromAbsWindow CalcFromAbsWindow
+        {
+            get
+            {
+                if ((this.mCalcFromAbsWindow == null))
+                {
+                    this.mCalcFromAbsWindow = new CalcFromAbsWindow(this);
+                }
+                return this.mCalcFromAbsWindow;
+            }
+        }
+
+        public CreateReportWindow CreateReportWindow
+        {
+            get
+            {
+                if ((this.mCreateReportWindow == null))
+                {
+                    this.mCreateReportWindow = new CreateReportWindow(this);
+                }
+                return this.mCreateReportWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private NameEditWindow mNameEditWindow;
+
+        private TypeContragenWindow mTypeContragenWindow;
+
+        private TypeConnectWindow mTypeConnectWindow;
+
+        private NextWindow mNextWindow;
+
+        private CalcFromAbsWindow mCalcFromAbsWindow;
+
+        private CreateReportWindow mCreateReportWindow;
+
+        private ReadyWindow mReadyWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class NameEditWindow : WinWindow
+    {
+
+        public NameEditWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P4Edit";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                    "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public WinEdit NameEdit
+        {
+            get
+            {
+                if ((this.mNameEdit == null))
+                {
+                    this.mNameEdit = new WinEdit(this);
+                    #region Условия поиска
+                    this.mNameEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                            "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+                    #endregion
+                }
+                return this.mNameEdit;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinEdit mNameEdit;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class TypeContragenWindow : WinWindow
+    {
+
+        public TypeContragenWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Юридическое лицо";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                    "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public WinClient TypeContragentComboBox
+        {
+            get
+            {
+                if ((this.mTypeContragentComboBox == null))
+                {
+                    this.mTypeContragentComboBox = new WinClient(this);
+                    #region Условия поиска
+                    this.SearchProperties[WinWindow.PropertyNames.Name] = "Юридическое лицо";
+                    this.mTypeContragentComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                            "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+                    #endregion
+                }
+                return this.mTypeContragentComboBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinClient mTypeContragentComboBox;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class TypeConnectWindow : WinWindow
+    {
+
+        public TypeConnectWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                    "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public WinClient TypeConnectComboBox
+        {
+            get
+            {
+                if ((this.mTypeConnectComboBox == null))
+                {
+                    this.mTypeConnectComboBox = new WinClient(this);
+                    #region Условия поиска
+                    this.SearchProperties[WinWindow.PropertyNames.Name] = "";
+                    this.mTypeConnectComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                            "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+                    #endregion
+                }
+                return this.mTypeConnectComboBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinClient mTypeConnectComboBox;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class NextWindow : WinWindow
+    {
+
+        public NextWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Далее >";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                    "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton NextButton
+        {
+            get
+            {
+                if ((this.mNextButton == null))
+                {
+                    this.mNextButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mNextButton.SearchProperties[WinButton.PropertyNames.Name] = "Далее >";
+                    this.mNextButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                            "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+                    #endregion
+                }
+                return this.mNextButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mNextButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ReadyWindow : WinWindow
+    {
+
+        public ReadyWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Готово";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                    "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton ReadyButton
+        {
+            get
+            {
+                if ((this.mReadyButton == null))
+                {
+                    this.mReadyButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mReadyButton.SearchProperties[WinButton.PropertyNames.Name] = "Готово";
+                    this.mReadyButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                            "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+                    #endregion
+                }
+                return this.mReadyButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mReadyButton;
+        #endregion
+    }
+
+    public class AddAdressWindow : WinWindow
+    {
+
+        public AddAdressWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Ввод адреса";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVFRM_INPUT_ADDRESSForm";
+            this.WindowTitles.Add("Ввод адреса");
+            #endregion
+        }
+
+        #region Properties
+        public OKWindow2 OKWindow
+        {
+            get
+            {
+                if ((this.mOKWindow == null))
+                {
+                    this.mOKWindow = new OKWindow2(this);
+                }
+                return this.mOKWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private OKWindow2 mOKWindow;
+        #endregion
+    }
+
+
+
+    public class SelectAccBorrower : WinWindow
+    {
+
+        public SelectAccBorrower()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Form";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P4Form";
+            this.WindowTitles.Add("Form");
+            #endregion
+        }
+
+        #region Properties
+        public OKWindow OKWindow
+        {
+            get
+            {
+                if ((this.mOKWindow == null))
+                {
+                    this.mOKWindow = new OKWindow(this);
+                }
+                return this.mOKWindow;
+            }
+        }
+
+        public ShowAccountsWindow ShowAccountsWindow
+        {
+            get
+            {
+                if ((this.mShowAccountsWindow == null))
+                {
+                    this.mShowAccountsWindow = new ShowAccountsWindow(this);
+                }
+                return this.mShowAccountsWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private OKWindow mOKWindow;
+
+        private ShowAccountsWindow mShowAccountsWindow;
+        #endregion
+    }
+
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ShowAccountsWindow : WinWindow
+    {
+
+        public ShowAccountsWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Показать счета";
+            this.WindowTitles.Add("Form");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton ShowAccountButton
+        {
+            get
+            {
+                if ((this.mShowAccountButton == null))
+                {
+                    this.mShowAccountButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mShowAccountButton.SearchProperties[WinButton.PropertyNames.Name] = "Показать счета";
+                    this.mShowAccountButton.WindowTitles.Add("Form");
+                    #endregion
+                }
+                return this.mShowAccountButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mShowAccountButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class SelectDateAbsWindow : WinWindow
+    {
+
+        public SelectDateAbsWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Выбор даты";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVFRM_SELECT_DATEForm";
+            this.WindowTitles.Add("Выбор даты");
+            #endregion
+        }
+
+        #region Properties
+        public OnThatDayWindow OnThatDayWindow
+        {
+            get
+            {
+                if ((this.mOnThatDayWindow == null))
+                {
+                    this.mOnThatDayWindow = new OnThatDayWindow(this);
+                }
+                return this.mOnThatDayWindow;
+            }
+        }
+
+        public OKWindow2 OKWindow
+        {
+            get
+            {
+                if ((this.mOKWindow2 == null))
+                {
+                    this.mOKWindow2 = new OKWindow2(this);
+                }
+                return this.mOKWindow2;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private OnThatDayWindow mOnThatDayWindow;
+
+        private OKWindow2 mOKWindow2;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class OnThatDayWindow : WinWindow
+    {
+
+        public OnThatDayWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "На выбранную дату:";
+            this.WindowTitles.Add("Выбор даты");
+            #endregion
+        }
+
+        #region Properties
+        public WinRadioButton OnThatDayRadioButton
+        {
+            get
+            {
+                if ((this.mOnThatDayRadioButton == null))
+                {
+                    this.mOnThatDayRadioButton = new WinRadioButton(this);
+                    #region Условия поиска
+                    this.mOnThatDayRadioButton.SearchProperties[WinRadioButton.PropertyNames.Name] = "На выбранную дату:";
+                    this.mOnThatDayRadioButton.WindowTitles.Add("Выбор даты");
+                    #endregion
+                }
+                return this.mOnThatDayRadioButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinRadioButton mOnThatDayRadioButton;
+        #endregion
+    }
+    public class CalcFromAbsWindow : WinWindow
+    {
+
+        public CalcFromAbsWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Рассчитать по АБС";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                    "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton CalcFromAbsButon
+        {
+            get
+            {
+                if ((this.mCalcFromAbsButon == null))
+                {
+                    this.mCalcFromAbsButon = new WinButton(this);
+                    #region Условия поиска
+                    this.mCalcFromAbsButon.SearchProperties[WinButton.PropertyNames.Name] = "Рассчитать по АБС";
+                    this.mCalcFromAbsButon.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                            "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+                    #endregion
+                }
+                return this.mCalcFromAbsButon;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mCalcFromAbsButon;
+        #endregion
+    }
+
+    public class CreateReportWindow : WinWindow
+    {
+
+        public CreateReportWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Сформировать материалы по заемщику";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                    "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton CreateReportButton
+        {
+            get
+            {
+                if ((this.mCreateReportButton == null))
+                {
+                    this.mCreateReportButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mCreateReportButton.SearchProperties[WinButton.PropertyNames.Name] = "Сформировать материалы по заемщику";
+                    this.mCreateReportButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                            "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+                    #endregion
+                }
+                return this.mCreateReportButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mCreateReportButton;
+        #endregion
+    }
+
+    public class RefreshSheetBorrower : WpfWindow
+    {
+
+        public RefreshSheetBorrower()
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfWindow.PropertyNames.Name] = "Обновление листов материалов по заемщику...";
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Обновление листов материалов по заемщику...");
+            #endregion
+        }
+    }
+
+    public class ReportBorrower : WinWindow
+    {
+
+        public ReportBorrower()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "\"Материалы по заемщику 118_New (РИО)\" - Редактирование";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "AfxFrameOrView100u";
+            this.WindowTitles.Add("\"Материалы по заемщику 118_New (РИО)\" - Редактирование");
+            #endregion
+        }
     }
 }
