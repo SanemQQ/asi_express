@@ -295,6 +295,115 @@ namespace asi_express
                 return this.mReportBorrower;
             }
         }
+
+
+        public AttentionWindow AttentionWindow
+        {
+            get
+            {
+                if ((this.mAttentionWindow == null))
+                {
+                    this.mAttentionWindow = new AttentionWindow();
+                }
+                return this.mAttentionWindow;
+            }
+        }
+
+        public NameIndRepWindow NameIndRepWindow
+        {
+            get
+            {
+                if ((this.mNameIndRepWindow == null))
+                {
+                    this.mNameIndRepWindow = new NameIndRepWindow();
+                }
+                return this.mNameIndRepWindow;
+            }
+        }
+
+        public OpenEditor OpenEditor
+        {
+            get
+            {
+                if ((this.mOpenEditor == null))
+                {
+                    this.mOpenEditor = new OpenEditor();
+                }
+                return this.mOpenEditor;
+            }
+        }
+
+        public CreatingWindow CreatingWindow
+        {
+            get
+            {
+                if ((this.mCreatingWindow == null))
+                {
+                    this.mCreatingWindow = new CreatingWindow();
+                }
+                return this.mCreatingWindow;
+            }
+        }
+
+        public DocumentWindow DocumentWindow
+        {
+            get
+            {
+                if ((this.mDocumentWindow == null))
+                {
+                    this.mDocumentWindow = new DocumentWindow();
+                }
+                return this.mDocumentWindow;
+            }
+        }
+
+        public EndedCheckWindow EndedCheckWindow
+        {
+            get
+            {
+                if ((this.mEndedCheckWindow == null))
+                {
+                    this.mEndedCheckWindow = new EndedCheckWindow();
+                }
+                return this.mEndedCheckWindow;
+            }
+        }
+
+        public NameAktWindow NameAktWindow
+        {
+            get
+            {
+                if ((this.mNameAktWindow == null))
+                {
+                    this.mNameAktWindow = new NameAktWindow();
+                }
+                return this.mNameAktWindow;
+            }
+        }
+
+        public WarningWindow WarningWindow
+        {
+            get
+            {
+                if ((this.mWarningWindow == null))
+                {
+                    this.mWarningWindow = new WarningWindow();
+                }
+                return this.mWarningWindow;
+            }
+        }
+
+        public CreatedWindow CreatedWindow
+        {
+            get
+            {
+                if ((this.mCreatedWindow == null))
+                {
+                    this.mCreatedWindow = new CreatedWindow();
+                }
+                return this.mCreatedWindow;
+            }
+        }
         #endregion
 
         #region Fields
@@ -341,6 +450,24 @@ namespace asi_express
         private RefreshSheetBorrower mRefreshSheetBorrower;
 
         private ReportBorrower mReportBorrower;
+
+        private AttentionWindow mAttentionWindow;
+
+        private NameIndRepWindow mNameIndRepWindow;
+
+        private OpenEditor mOpenEditor;
+
+        private CreatingWindow mCreatingWindow;
+
+        private DocumentWindow mDocumentWindow;
+
+        private EndedCheckWindow mEndedCheckWindow;
+
+        private NameAktWindow mNameAktWindow;
+
+        private WarningWindow mWarningWindow;
+
+        private CreatedWindow mCreatedWindow;
         #endregion
     }
 
@@ -2886,6 +3013,40 @@ namespace asi_express
                 return this.mAddCustomBorrowerWindow;
             }
         }
+
+        public WinWindow IndReportWindow
+        {
+            get
+            {
+                if ((this.mIndReportWindow == null))
+                {
+                    this.mIndReportWindow = new WinWindow(this);
+                    #region Условия поиска
+                    this.SearchProperties.Add(new PropertyExpression(WinWindow.PropertyNames.AccessibleName, "Индивидуальный отчет", PropertyExpressionOperator.Contains));
+                    this.mIndReportWindow.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                            "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+                    #endregion
+                }
+                return this.mIndReportWindow;
+            }
+        }
+
+        public WinWindow AktReportWindow
+        {
+            get
+            {
+                if ((this.mAktReportWindow == null))
+                {
+                    this.mAktReportWindow = new WinWindow(this);
+                    #region Условия поиска 
+                    this.SearchProperties.Add(new PropertyExpression(WinWindow.PropertyNames.AccessibleName, "Акт проверки", PropertyExpressionOperator.Contains));
+                    this.mAktReportWindow.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Мобильная региональная | РИО | Руководство инспекц" +
+                            "ионного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.2015");
+                    #endregion
+                }
+                return this.mAktReportWindow;
+            }
+        }
         #endregion
 
         #region Fields
@@ -2904,6 +3065,10 @@ namespace asi_express
         private MaterialWindow mMaterialWindow;
 
         private AddCustomBorrowerWindow mAddCustomBorrowerWindow;
+
+        private WinWindow mIndReportWindow;
+
+        private WinWindow mAktReportWindow;
         #endregion
     }
 
@@ -4571,5 +4736,726 @@ namespace asi_express
             this.WindowTitles.Add("\"Материалы по заемщику 118_New (РИО)\" - Редактирование");
             #endregion
         }
+    }
+
+    public class AttentionWindow : WinWindow
+    {
+
+        public AttentionWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Внимание!";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "#32770";
+            this.WindowTitles.Add("Внимание!");
+            #endregion
+        }
+
+        #region Properties
+        public Att_YesWindow Att_YesWindow
+        {
+            get
+            {
+                if ((this.mAtt_YesWindow == null))
+                {
+                    this.mAtt_YesWindow = new Att_YesWindow(this);
+                }
+                return this.mAtt_YesWindow;
+            }
+        }
+
+        public Att_NoWindow Att_NoWindow
+        {
+            get
+            {
+                if ((this.mAtt_NoWindow == null))
+                {
+                    this.mAtt_NoWindow = new Att_NoWindow(this);
+                }
+                return this.mAtt_NoWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private Att_YesWindow mAtt_YesWindow;
+
+        private Att_NoWindow mAtt_NoWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class Att_YesWindow : WinWindow
+    {
+
+        public Att_YesWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Да";
+            this.WindowTitles.Add("Внимание!");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton YesButton
+        {
+            get
+            {
+                if ((this.mYesButton == null))
+                {
+                    this.mYesButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mYesButton.SearchProperties[WinButton.PropertyNames.Name] = "Да";
+                    this.mYesButton.WindowTitles.Add("Внимание!");
+                    #endregion
+                }
+                return this.mYesButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mYesButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class Att_NoWindow : WinWindow
+    {
+
+        public Att_NoWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Нет";
+            this.WindowTitles.Add("Внимание!");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton NoButton
+        {
+            get
+            {
+                if ((this.mNoButton == null))
+                {
+                    this.mNoButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mNoButton.SearchProperties[WinButton.PropertyNames.Name] = "Нет";
+                    this.mNoButton.WindowTitles.Add("Внимание!");
+                    #endregion
+                }
+                return this.mNoButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mNoButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class NameIndRepWindow : WpfWindow
+    {
+
+        public NameIndRepWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfWindow.PropertyNames.Name] = "Наименование индивидуального отчёта";
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Наименование индивидуального отчёта");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit NameIndRepEdit
+        {
+            get
+            {
+                if ((this.mNameIndRepEdit == null))
+                {
+                    this.mNameIndRepEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mNameIndRepEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "ValueTextBox";
+                    this.mNameIndRepEdit.WindowTitles.Add("Наименование индивидуального отчёта");
+                    #endregion
+                }
+                return this.mNameIndRepEdit;
+            }
+        }
+
+        public WpfButton OKButton
+        {
+            get
+            {
+                if ((this.mOKButton == null))
+                {
+                    this.mOKButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mOKButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "okButton";
+                    this.mOKButton.WindowTitles.Add("Наименование индивидуального отчёта");
+                    #endregion
+                }
+                return this.mOKButton;
+            }
+        }
+
+        public WpfButton CancelButton
+        {
+            get
+            {
+                if ((this.mCancelButton == null))
+                {
+                    this.mCancelButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mCancelButton.SearchProperties[WpfButton.PropertyNames.Name] = "Отмена";
+                    this.mCancelButton.WindowTitles.Add("Наименование индивидуального отчёта");
+                    #endregion
+                }
+                return this.mCancelButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mNameIndRepEdit;
+
+        private WpfButton mOKButton;
+
+        private WpfButton mCancelButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class OpenEditor : WpfWindow
+    {
+
+        public OpenEditor()
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfWindow.PropertyNames.Name] = "Открытие редактора документов...";
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Открытие редактора документов...");
+            #endregion
+        }
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class CreatingWindow : WpfWindow
+    {
+
+        public CreatingWindow()
+        {
+            #region Условия поиска            
+            //Формирование индивидуального отчета Индивидуальный отчет (РИО)_24122018_174332 завершено!
+           // this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.Name, "Формирование индивидуального отчета Индивидуальный отчет (РИО)_24122018_174332 завершено!", PropertyExpressionOperator.Contains));
+            // this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.Name, "Формир", PropertyExpressionOperator.Contains));
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Формирование индивидуального отчета Индивидуальный отчет (РИО) завершено!");
+            #endregion
+        }
+
+        #region Properties
+        public WpfProgressBar ProgressBar
+        {
+            get
+            {
+                if ((this.mProgressBar == null))
+                {
+                    this.mProgressBar = new WpfProgressBar(this);
+                    #region Условия поиска
+                    this.mProgressBar.WindowTitles.Add("Формируется документ Индивидуальный отчет (РИО)");
+                    #endregion
+                }
+                return this.mProgressBar;
+            }
+        }
+
+        public WpfButton OKButton
+        {
+            get
+            {
+                if ((this.mOKButton == null))
+                {
+                    this.mOKButton = new WpfButton(this);
+                    #region Условия поиска
+                 //   this.mOKButton.SearchProperties[WpfButton.PropertyNames.Name] = "OK";
+                    //this.SearchProperties.Add(new PropertyExpression(WpfButton.PropertyNames.ClassName, "Button", PropertyExpressionOperator.Contains));
+                    this.mOKButton.WindowTitles.Add("Формирование индивидуального отчета Индивидуальный отчет (РИО) завершено!");
+                    #endregion
+                }
+                return this.mOKButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfProgressBar mProgressBar;
+
+        private WpfButton mOKButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class DocumentWindow : WpfWindow
+    {
+
+        public DocumentWindow()
+        {
+            #region Условия поиска            
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.Name, "Конструктор фрагмента документа:", PropertyExpressionOperator.Contains));
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Конструктор фрагмента документа: Вводная часть");
+            #endregion
+        }
+
+        #region Properties
+        public WpfButton SaveButton
+        {
+            get
+            {
+                if ((this.mSaveButton == null))
+                {
+                    this.mSaveButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mSaveButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "SaveButton";
+                    this.mSaveButton.WindowTitles.Add("Конструктор фрагмента документа: Вводная часть");
+                    #endregion
+                }
+                return this.mSaveButton;
+            }
+        }
+
+        public ItemWordCustom ItemWordCustom
+        {
+            get
+            {
+                if ((this.mItemWordCustom == null))
+                {
+                    this.mItemWordCustom = new ItemWordCustom(this);
+                }
+                return this.mItemWordCustom;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfButton mSaveButton;
+
+        private ItemWordCustom mItemWordCustom;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class EndedCheckWindow : WpfWindow
+    {
+
+        public EndedCheckWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfWindow.PropertyNames.Name] = "Проверка уже завершена";
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Проверка уже завершена");
+            #endregion
+        }
+
+        #region Properties
+        public Panel Panel
+        {
+            get
+            {
+                if ((this.mPanel == null))
+                {
+                    this.mPanel = new Panel(this);
+                }
+                return this.mPanel;
+            }
+        }
+
+        public WpfButton OKButton
+        {
+            get
+            {
+                if ((this.mOKButton == null))
+                {
+                    this.mOKButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mOKButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "okButton";
+                    this.mOKButton.WindowTitles.Add("Проверка уже завершена");
+                    #endregion
+                }
+                return this.mOKButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private Panel mPanel;
+
+        private WpfButton mOKButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class Panel : WpfPane
+    {
+
+        public Panel(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.ScrollViewer";
+            this.WindowTitles.Add("Проверка уже завершена");
+            #endregion
+        }
+
+        #region Properties
+        public WpfRadioButton CreateAktRadioButton
+        {
+            get
+            {
+                if ((this.mCreateAktRadioButton == null))
+                {
+                    this.mCreateAktRadioButton = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mCreateAktRadioButton.SearchProperties[WpfRadioButton.PropertyNames.Name] = "Да, создать акт проверки";
+                    this.mCreateAktRadioButton.WindowTitles.Add("Проверка уже завершена");
+                    #endregion
+                }
+                return this.mCreateAktRadioButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfRadioButton mCreateAktRadioButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class NameAktWindow : WinWindow
+    {
+
+        public NameAktWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Наименование акта проверки";
+            this.SearchProperties.Add(new PropertyExpression(WinWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Наименование акта проверки");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit NameAktEdit
+        {
+            get
+            {
+                if ((this.mNameAktEdit == null))
+                {
+                    this.mNameAktEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mNameAktEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "ValueTextBox";
+                    this.mNameAktEdit.WindowTitles.Add("Наименование акта проверки");
+                    #endregion
+                }
+                return this.mNameAktEdit;
+            }
+        }
+
+        public WpfButton OKButton
+        {
+            get
+            {
+                if ((this.mOKButton == null))
+                {
+                    this.mOKButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mOKButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "okButton";
+                    this.mOKButton.WindowTitles.Add("Наименование акта проверки");
+                    #endregion
+                }
+                return this.mOKButton;
+            }
+        }
+
+        public WpfButton CancelButton
+        {
+            get
+            {
+                if ((this.mCancelButton == null))
+                {
+                    this.mCancelButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mCancelButton.SearchProperties[WpfButton.PropertyNames.Name] = "Отмена";
+                    this.mCancelButton.WindowTitles.Add("Наименование акта проверки");
+                    #endregion
+                }
+                return this.mCancelButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mNameAktEdit;
+
+        private WpfButton mOKButton;
+
+        private WpfButton mCancelButton;
+        #endregion
+    }
+
+    public class WarningWindow : WinWindow
+    {
+
+        public WarningWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Предупреждение";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "#32770";
+            this.WindowTitles.Add("Предупреждение");
+            #endregion
+        }
+
+        #region Properties
+        public WarnYes_Window WarnYes_Window
+        {
+            get
+            {
+                if ((this.mWarnYes_Window == null))
+                {
+                    this.mWarnYes_Window = new WarnYes_Window(this);
+                }
+                return this.mWarnYes_Window;
+            }
+        }
+
+        public WarnNo_Window WarnNo_Window
+        {
+            get
+            {
+                if ((this.mWarnNo_Window == null))
+                {
+                    this.mWarnNo_Window = new WarnNo_Window(this);
+                }
+                return this.mWarnNo_Window;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WarnYes_Window mWarnYes_Window;
+
+        private WarnNo_Window mWarnNo_Window;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class WarnYes_Window : WinWindow
+    {
+
+        public WarnYes_Window(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Да";
+            this.WindowTitles.Add("Предупреждение");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton YesButton
+        {
+            get
+            {
+                if ((this.mYesButton == null))
+                {
+                    this.mYesButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mYesButton.SearchProperties[WinButton.PropertyNames.Name] = "Да";
+                    this.mYesButton.WindowTitles.Add("Предупреждение");
+                    #endregion
+                }
+                return this.mYesButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mYesButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class WarnNo_Window : WinWindow
+    {
+
+        public WarnNo_Window(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Нет";
+            this.WindowTitles.Add("Предупреждение");
+            #endregion
+        }
+
+        #region Properties
+        public WinButton NoButton
+        {
+            get
+            {
+                if ((this.mNoButton == null))
+                {
+                    this.mNoButton = new WinButton(this);
+                    #region Условия поиска
+                    this.mNoButton.SearchProperties[WinButton.PropertyNames.Name] = "Нет";
+                    this.mNoButton.WindowTitles.Add("Предупреждение");
+                    #endregion
+                }
+                return this.mNoButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinButton mNoButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ItemWordCustom : WpfCustom
+    {
+
+        public ItemWordCustom(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.WordControl";
+            this.WindowTitles.Add("Конструктор фрагмента документа: Вводная часть");
+            #endregion
+        }
+
+        #region Properties
+        public WindowsFormsHost WindowsFormsHost
+        {
+            get
+            {
+                if ((this.mWindowsFormsHost == null))
+                {
+                    this.mWindowsFormsHost = new WindowsFormsHost(this);
+                }
+                return this.mWindowsFormsHost;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WindowsFormsHost mWindowsFormsHost;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class WindowsFormsHost : WpfPane
+    {
+
+        public WindowsFormsHost(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.WindowsFormsHost";
+            this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "WindowsFormsHost";
+            this.WindowTitles.Add("Конструктор фрагмента документа: Вводная часть");
+            #endregion
+        }
+
+        #region Properties
+        public TempWordFile TempWordFile
+        {
+            get
+            {
+                if ((this.mTempWordFile == null))
+                {
+                    this.mTempWordFile = new TempWordFile(this);
+                }
+                return this.mTempWordFile;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private TempWordFile mTempWordFile;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class TempWordFile : WinClient
+    {
+
+        public TempWordFile(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties.Add(new PropertyExpression(WinControl.PropertyNames.Name, "tmp", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Конструктор фрагмента документа: Вводная часть");
+            #endregion
+        }
+
+        #region Properties
+        public WinClient DocumentMSWord
+        {
+            get
+            {
+                if ((this.mDocumentMSWord == null))
+                {
+                    this.mDocumentMSWord = new WinClient(this);
+                    #region Условия поиска
+                    this.mDocumentMSWord.SearchProperties[WinControl.PropertyNames.ClassName] = "_WwG";
+                    this.mDocumentMSWord.WindowTitles.Add("Конструктор фрагмента документа: Вводная часть");
+                    #endregion
+                }
+                return this.mDocumentMSWord;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WinClient mDocumentMSWord;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class CreatedWindow : WpfWindow
+    {
+
+        public CreatedWindow()
+        {
+            #region Условия поиска
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "Формирование", PropertyExpressionOperator.Contains));
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Формирование акта Акт проверки (РИО)_24122018_184658 завершено!");
+            #endregion
+        }
+
+        #region Properties
+        public WpfButton OKCreatedButton
+        {
+            get
+            {
+                if ((this.mOKCreatedButton == null))
+                {
+                    this.mOKCreatedButton = new WpfButton(this);
+                    #region Условия поиска
+                    //this.mOKCreatedButton.SearchProperties[WpfButton.PropertyNames.Name] = "OK";
+                    this.mOKCreatedButton.WindowTitles.Add("Формирование акта Акт проверки (РИО)_24122018_184658 завершено!");
+                    #endregion
+                }
+                return this.mOKCreatedButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfButton mOKCreatedButton;
+        #endregion
     }
 }

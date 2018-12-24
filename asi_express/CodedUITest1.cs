@@ -14,6 +14,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
+using System.Runtime.InteropServices;
 
 
 namespace asi_express
@@ -40,6 +41,45 @@ namespace asi_express
         readonly string NameBorrower = "118_New";
         readonly string KppBorrower = "123456789";
         readonly string OgrnBorrower = "313132804400022";
+        ushort IdCurrentLanguage ;
+        readonly string lang_str = "00000409";
+        int ret;
+        readonly string Mode = "Debug";
+
+
+        #region SwapLang
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern bool PostMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        [DllImport("user32.dll")]
+        static extern int LoadKeyboardLayout(string pwszKLID, uint Flags);
+
+        private enum KeyboardLayoutFlags : uint
+        {
+            KLF_ACTIVATE = 0x00000001,
+            KLF_SETFORPROCESS = 0x00000100
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern uint ActivateKeyboardLayout(uint hkl, KeyboardLayoutFlags Flags);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern ushort GetKeyboardLayout([In] int idThread);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int GetWindowThreadProcessId(
+            [In] IntPtr hWnd,
+            [Out] [Optional] IntPtr lpdwProcessId);
+
+        private ushort GetKeyboardLayout()
+        {
+            return GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero));
+        }
+
+        #endregion SwapLang
 
         [TestInitialize]
         public void TestStartup()
@@ -50,7 +90,11 @@ namespace asi_express
             }
             if (!File.Exists(Temp + DirectoryName + @"\express.log"))
             {
-                File.AppendAllText(Temp + DirectoryName + @"\express.log", "");
+                File.AppendAllText(Temp + DirectoryName + @"\express.log", Temp + DirectoryName + " \r\n " +
+                                                                            LocalAppData + "\r\n" + InputLanguage.CurrentInputLanguage.ToString()
+                                                                            + "\r\n" + InputLanguage.DefaultInputLanguage.ToString()
+                                                                            + CultureInfo.CurrentCulture.ToString()
+                                                                            + CultureInfo.CurrentUICulture.ToString());
             }
             else
             {
@@ -64,11 +108,12 @@ namespace asi_express
                                                                             + CultureInfo.CurrentUICulture.ToString());
             }
             // Справочник точек, по которым будет проводиться взаимодействие с некоторыми объектами
-
             //RibbonUpperButtons
             Dots.Add("InfoManag", new Point(305, 45));
             Dots.Add("ProccesInfoStat", new Point(670, 45));
             Dots.Add("ProccesInfoMob", new Point(470, 45));
+            Dots.Add("PrepareResultMob", new Point(640, 45));
+
 
             //RibbonButtons
             Dots.Add("AFSBButton", new Point(165, 80));
@@ -76,6 +121,8 @@ namespace asi_express
             Dots.Add("InfoBorrower", new Point(745, 80));
             Dots.Add("AddBorrowerFromReports", new Point(60, 80));
             Dots.Add("AddCustomBorrower", new Point(125, 80));
+            Dots.Add("CreateIndRep", new Point(270, 80));
+            Dots.Add("CreateAkt", new Point(535, 80));
 
             //LeftPanel
             Dots.Add("Material", new Point(20, 335));
@@ -145,6 +192,14 @@ namespace asi_express
             //AddAccountsBorrower
             Dots.Add("AcceptAccountsBorrower", new Point(905, 840));
 
+            //FormIndReport
+            Dots.Add("IntroPart", new Point(140, 290)); 
+            Dots.Add("ChangeIntroPart", new Point(220, 345));
+
+            //FormAktReport
+            Dots.Add("EndingPart", new Point(160, 440));
+            Dots.Add("ChangeEndingPart", new Point(210, 495));
+            Dots.Add("OKButton", new Point(960, 345));
         }
 
         public void InputLog(string txt, int lvl)  // txt - строка, которую передают для логирования, а lvl - это уровень вложенности
@@ -389,14 +444,37 @@ namespace asi_express
         }
 
         public void AddCustomBorrower(int WaC, int lvl)
-        {
+        {    
             AddCustomBorrower1Stage(WaC, lvl + 1);
             AddCustomBorrower2Stage(WaC, lvl + 1);
+        }
+
+        public void CheckLanguage(int lvl)
+        {
+            if (Mode == "Debug")
+            {
+                InputLog("Проверим раскладку перед вводом данных", lvl);
+            }
+            IdCurrentLanguage = GetKeyboardLayout();
+            ret = LoadKeyboardLayout(lang_str, 1);
+            if (IdCurrentLanguage != 1033)
+            {
+                if (Mode == "Debug")
+                {
+                    InputLog("Придётся сменить раскладку на en-US, старая " + IdCurrentLanguage.ToString(), lvl + 1);
+                }
+                PostMessage(GetForegroundWindow(), 0x50, 1, ret);
+            }
+            if (Mode == "Debug")
+            {
+                InputLog("Вышли из проверки", lvl);
+            }
         }
 
         public void AddTextOnList(int WaC, int lvl,string txt)
         {
             Mouse.Click(Dots["SetText"]);
+            CheckLanguage(lvl + 1);
             Keyboard.SendKeys(txt);
             Thread.Sleep(1 * WaC);
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
@@ -406,6 +484,7 @@ namespace asi_express
         public void AddCustomBorrowerAbsData(int WaC, int lvl)
         {
             Mouse.Click(Dots["AddAccounts"]);
+            CheckLanguage(lvl + 1);
             this.UIMap.SelectAccBorrower.WaitForControlExist(60 * WaC);
             this.UIMap.SelectAccBorrower.SetFocus();
             Keyboard.SendKeys("{TAB}{TAB}{TAB}");
@@ -430,6 +509,7 @@ namespace asi_express
         {
             this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon.WaitForControlExist(60 * WaC);
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon);
+            CheckLanguage(lvl + 1);
             this.UIMap.SelectDateAbsWindow.WaitForControlExist(60 * WaC);
             Mouse.Click(this.UIMap.SelectDateAbsWindow.OnThatDayWindow.OnThatDayRadioButton);
             Mouse.Click(this.UIMap.SelectDateAbsWindow.OKWindow.OKButton);
@@ -446,15 +526,14 @@ namespace asi_express
                 Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton);
                 this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
                 Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
-                this.UIMap.AcceptWindow.WaitForControlNotExist(60 * WaC);
+                Thread.Sleep(2 * WaC);
                 this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
                 Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
                 this.UIMap.AcceptWindow.WaitForControlNotExist(60 * WaC);
                 this.UIMap.RefreshSheetBorrower.WaitForControlExist(60 * WaC);
                 this.UIMap.RefreshSheetBorrower.WaitForControlNotExist(600 * WaC);
-                this.UIMap.ReportBorrower.WaitForControlExist(120 * WaC);
-                Thread.Sleep(90 * WaC);
-               // this.UIMap.ReportBorrower.SetFocus();
+                this.UIMap.ReportBorrower.WaitForControlExist(400 * WaC);
+                Thread.Sleep(120 * WaC);
                 Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
                 this.UIMap.ReportBorrower.WaitForControlNotExist(120 * WaC);
                 Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
@@ -469,7 +548,7 @@ namespace asi_express
 
         public void AddCustomBorrower2Stage(int WaC,int lvl)
         {
-            for (int i = 0; i <=12; i++)
+            for (int i = 0; i <=13; i++)
             {
                 switch (i)
                 {
@@ -486,20 +565,23 @@ namespace asi_express
                         Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
                         break;
                     case 12:
+                        Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+                        break;
+                    case 13:
                         AddCustomBorrowerCreateReport(WaC, lvl + 1);
                         break;
                     default:
                         AddTextOnList(WaC, lvl + 1, "Hello World " + i.ToString());
                         break;
                 }
-                Thread.Sleep(1 * WaC);
-                InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(new System.Globalization.CultureInfo("en-US"));
+                Thread.Sleep(1 * WaC);                
             }
 
         }
 
         public void AddCustomBorrower1Stage(int WaC, int lvl)
         {
+            CheckLanguage(lvl + 1);
             Mouse.Click(Dots["ProccesInfoMob"]);
             Thread.Sleep(3 * WaC);
             Mouse.Click(Dots["InfoBorrower"]);
@@ -558,13 +640,123 @@ namespace asi_express
                 }
             }
             Mouse.Click(this.UIMap.AddAdressWindow.OKWindow.OKButton);
-
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+        }
+
+        public void OpenReport(int WaC,int lvl,string Report)
+        {
+            Mouse.Click(Dots["PrepareResultMob"]);
+            Thread.Sleep(1 * WaC);
+            Mouse.Click(Dots[Report]);
+            Thread.Sleep(5 * WaC);
+        }
+
+        public void CreateIndRep(int WaC, int lvl)
+        {
+            OpenReport(WaC, lvl + 1, "CreateIndRep");
+            if (this.UIMap.WarningWindow.Exists)
+            {
+                this.UIMap.WarningWindow.WarnNo_Window.NoButton.WaitForControlExist(60 * WaC);
+                Mouse.Click(this.UIMap.WarningWindow.WarnNo_Window.NoButton);
+                ConnectToWorkingARM(WaC, lvl + 1, "ASIMOB_UI", "RIO");
+                OpenReport(WaC, lvl + 1, "CreateIndRep");
+            }
+            this.UIMap.AttentionWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.AttentionWindow.Att_NoWindow.NoButton);
+            this.UIMap.NameIndRepWindow.WaitForControlExist(60 * WaC);
+            this.UIMap.NameIndRepWindow.NameIndRepEdit.Text = "Индивидуальный отчет (РИО)_" + DateTime.Now.ToString("ddMMyyyy_HHmmss");
+            Mouse.Click(this.UIMap.NameIndRepWindow.OKButton);
+            this.UIMap.OpenEditor.WaitForControlExist(120 * WaC);
+            this.UIMap.OpenEditor.WaitForControlNotExist(120 * WaC);
+            this.UIMap.ASI_Window.IndReportWindow.WaitForControlExist(120 * WaC);
+            this.UIMap.CreatingWindow.WaitForControlExist(60 * WaC);
+            this.UIMap.CreatingWindow.ProgressBar.WaitForControlNotExist(900 * WaC);
+            Thread.Sleep(5 * WaC);
+            if (this.UIMap.CreatingWindow.OKButton.Exists)
+            {
+                Mouse.Click(this.UIMap.CreatingWindow.OKButton);
+            }
+            else
+            {
+                Mouse.Click(Dots["OKButton"]);
+            }
+            Mouse.Click(MouseButtons.Right, ModifierKeys.None, Dots["IntroPart"]);
+            Thread.Sleep(1 * WaC);
+            Mouse.Click(Dots["ChangeIntroPart"]);
+            this.UIMap.DocumentWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(Dots["SetText"]);            
+            CheckLanguage(lvl + 1);
+            Keyboard.SendKeys("TODAY_" + DateTime.Now.ToString("ddMMyyyy_HHmmss"));
+            Mouse.Click(this.UIMap.DocumentWindow.SaveButton);
+            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            Thread.Sleep(8 * WaC);
+            GetScreen("Create_Changes");
+            this.UIMap.DocumentWindow.SetFocus(); // Постараемся установить фокус на окне конструктора
+            Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
+            this.UIMap.DocumentWindow.WaitForControlNotExist(60 * WaC);
+        }
+
+        public void CreateAkt(int WaC, int lvl)
+        {
+            OpenReport(WaC, lvl + 1, "CreateAkt");
+            this.UIMap.EndedCheckWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.EndedCheckWindow.Panel.CreateAktRadioButton);
+            this.UIMap.EndedCheckWindow.OKButton.WaitForControlEnabled(60 * WaC);
+            Mouse.Click(this.UIMap.EndedCheckWindow.OKButton);
+            Thread.Sleep(8 * WaC);
+            if (this.UIMap.WarningWindow.Exists)
+            {
+                this.UIMap.WarningWindow.WarnNo_Window.NoButton.WaitForControlExist(60 * WaC);
+                Mouse.Click(this.UIMap.WarningWindow.WarnNo_Window.NoButton);
+                ConnectToWorkingARM(WaC, lvl + 1, "ASIMOB_UI", "RIO");
+                OpenReport(WaC, lvl + 1, "CreateAkt");
+            }
+            this.UIMap.AttentionWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.AttentionWindow.Att_NoWindow.NoButton);
+            this.UIMap.NameAktWindow.WaitForControlExist(60 * WaC);
+            this.UIMap.NameAktWindow.NameAktEdit.Text = "Акт проверки (РИО)_" + DateTime.Now.ToString("ddMMyyyy_HHmmss");
+            Mouse.Click(this.UIMap.NameAktWindow.OKButton);
+            this.UIMap.OpenEditor.WaitForControlExist(120 * WaC);
+            this.UIMap.OpenEditor.WaitForControlNotExist(120 * WaC);
+            this.UIMap.ASI_Window.AktReportWindow.WaitForControlExist(120 * WaC);
+            this.UIMap.CreatingWindow.WaitForControlExist(60 * WaC);
+            this.UIMap.CreatingWindow.ProgressBar.WaitForControlNotExist(900 * WaC);
+            Thread.Sleep(5 * WaC);
+            if(this.UIMap.CreatingWindow.OKButton.Exists)
+            {
+                Mouse.Click(this.UIMap.CreatingWindow.OKButton);
+            }
+            else
+            {
+                Mouse.Click(Dots["OKButton"]);
+            }  
+            Mouse.Click(MouseButtons.Right, ModifierKeys.None, Dots["EndingPart"]);
+            Thread.Sleep(1 * WaC);
+            Mouse.Click(Dots["ChangeEndingPart"]);
+            this.UIMap.DocumentWindow.WaitForControlExist(60 * WaC);
+            Mouse.Click(Dots["SetText"]);            
+            CheckLanguage(lvl + 1);
+            Keyboard.SendKeys("TODAY_" + DateTime.Now.ToString("ddMMyyyy_HHmmss"));
+            Mouse.Click(this.UIMap.DocumentWindow.SaveButton);
+            Thread.Sleep(8 * WaC);
+            GetScreen("Create_Changes");
+            this.UIMap.DocumentWindow.SetFocus(); // Постараемся установить фокус на окне конструктора
+            Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
+            this.UIMap.DocumentWindow.WaitForControlNotExist(60 * WaC);
         }
 
         public void Shutdown_asi()
         {
-            Process[] p1 = Process.GetProcessesByName("P5");
+            Process[] p1;
+            if (this.TestContext.Properties["ControllerName"].ToString().Contains("localhost"))
+            {
+                 p1 = Process.GetProcessesByName("Studio");
+            }
+            else
+            {
+                p1 = Process.GetProcessesByName("P5");
+            }
             foreach(Process Proc in p1)
             {
                 Process[] p2 = Process.GetProcessesByName("ASIBusyIndicator_vas_" + Proc.Handle);
@@ -595,7 +787,7 @@ namespace asi_express
             {
                 InputLog(this.TestContext.Properties["AgentName"].ToString(), lvl);
                 Process.Start(@"C:\Program Files\JSC Prognoz\Prognoz 5.26\P5.exe");
-                InputLog("Открываем прогноз x64", lvl);
+                InputLog("Открываем прогноз x64", lvl);  
             }
             else
             {
@@ -640,9 +832,9 @@ namespace asi_express
             InputLog("Выберем ТУ", lvl);
             if (Environment.OSVersion.ToString() != "Microsoft Windows NT 6.1.7601 Service Pack 1")
             {
-          //     SelectTU(WaC, lvl + 1);
+               SelectTU(WaC, lvl + 1);
             }
-          //  SetAFSB(WaC, lvl + 1);
+            SetAFSB(WaC, lvl + 1);
             CreateUser(WaC, lvl + 1, this.UIMap.EmployeeWindow.EmployeeList.RIO_3ListItem, "RIO_3", 0, SchemaName);
             DeleteUser(WaC, lvl + 1, this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.UserList.RIO_3ListItem);
             CreateUser(WaC, lvl + 1, this.UIMap.EmployeeWindow.EmployeeList.RIO_4ListItem, "RIO_4", 1, SchemaName);
@@ -905,8 +1097,17 @@ namespace asi_express
             }
         }
 
-        #endregion
+        public void ConnectToWorkingARM (int WaC, int lvl, string SchemaName,string UserName)
+        {
+            Shutdown_asi();
+            Thread.Sleep(2 * WaC);
+            Clear_cache();
+            StartASI(WaC, lvl + 1, SchemaName, UserName);
+            this.UIMap.ASI_Window.WaitForControlExist(180 * WaC);
+            Thread.Sleep(10 * WaC);
+        }
 
+        #endregion
 
         [TestMethod]
         [TestProperty("AgentName", "ASI-TST-MS12")]
@@ -929,13 +1130,8 @@ namespace asi_express
 
             try
             {
-                InputLog(Temp + DirectoryName + " \r\n " +
-                    LocalAppData + "\r\n" + InputLanguage.CurrentInputLanguage.ToString()
-                    + "\r\n" + InputLanguage.DefaultInputLanguage.ToString()
-                    + CultureInfo.CurrentCulture.ToString() + "\r\n"
-                    + CultureInfo.CurrentUICulture.ToString() + "\r\n", 0);
                 InputLog("Начнём подготовку к экспресс-тестированию", 0);
-                InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(new System.Globalization.CultureInfo("en-US"));
+
 
                 //PrepareAsi(WaC, 1, "ASISTA_UI");
 
@@ -950,8 +1146,11 @@ namespace asi_express
                 // AddBorrower(WaC, 1);
 
                 // AddCustomBorrower(WaC, 1);
-
-                AddCustomBorrowerCreateReport(WaC, 1);
+                //  CheckLanguage(0);
+                //AddCustomBorrowerCreateReport(WaC, 1);
+                // AddCustomBorrower(WaC, 1);
+                //  CreateIndRep(WaC,1);
+                //  CreateAkt(WaC, 1);
             }
             catch (Exception e)
             {
