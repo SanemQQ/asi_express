@@ -24,7 +24,7 @@ namespace asi_express
     using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
     using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
     using MouseButtons = System.Windows.Forms.MouseButtons;
-    
+
 
 
     [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
@@ -43,6 +43,7 @@ namespace asi_express
                 return this.mStudioConnectWindow;
             }
         }
+
 
         public ARM_AdminWindow ARM_AdminWindow
         {
@@ -673,7 +674,7 @@ namespace asi_express
                     this.mOKButton = new WinButton(this);
                     #region Условия поиска
 
-                        this.mOKButton.SearchProperties[WinButton.PropertyNames.Name] = "OK";
+                    this.mOKButton.SearchProperties[WinButton.PropertyNames.Name] = "OK";
                     this.mOKButton.WindowTitles.Add("Регистрация");
                     #endregion
                 }
@@ -2890,7 +2891,7 @@ namespace asi_express
         public ASI_Window()
         {
             #region Условия поиска
-            this.SearchProperties.Add(WinWindow.PropertyNames.Name,"АС Инспектора ",PropertyExpressionOperator.Contains);
+            this.SearchProperties.Add(WinWindow.PropertyNames.Name, "АС Инспектора ", PropertyExpressionOperator.Contains);
             this.SearchProperties[WinWindow.PropertyNames.ClassName] = "P5FRAME_DEVWS_MAINFORMForm";
             this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
                     "екционного подразделения - [Импорт из АФСБ]");
@@ -3047,6 +3048,17 @@ namespace asi_express
                 return this.mAktReportWindow;
             }
         }
+        public InfoInspectWindow InfoInspectWindow
+        {
+            get
+            {
+                if ((this.mInfoInspectWindow == null))
+                {
+                    this.mInfoInspectWindow = new InfoInspectWindow(this);
+                }
+                return this.mInfoInspectWindow;
+            }
+        }
         #endregion
 
         #region Fields
@@ -3069,6 +3081,8 @@ namespace asi_express
         private WinWindow mIndReportWindow;
 
         private WinWindow mAktReportWindow;
+
+        private InfoInspectWindow mInfoInspectWindow;
         #endregion
     }
 
@@ -3314,9 +3328,9 @@ namespace asi_express
         #endregion
     }
 
-        public class SelectCode : WinWindow
+    public class SelectCode : WinWindow
     {
-        
+
         public SelectCode()
         {
             #region Условия поиска
@@ -3325,7 +3339,7 @@ namespace asi_express
             this.WindowTitles.Add("Выбор проверяемых кодов вопросов");
             #endregion
         }
-        
+
         #region Properties
         public OKWindow OKWindow
         {
@@ -3339,7 +3353,7 @@ namespace asi_express
             }
         }
         #endregion
-        
+
         #region Fields
         private OKWindow mOKWindow;
         #endregion
@@ -4949,7 +4963,7 @@ namespace asi_express
         {
             #region Условия поиска            
             //Формирование индивидуального отчета Индивидуальный отчет (РИО)_24122018_174332 завершено!
-           // this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.Name, "Формирование индивидуального отчета Индивидуальный отчет (РИО)_24122018_174332 завершено!", PropertyExpressionOperator.Contains));
+            // this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.Name, "Формирование индивидуального отчета Индивидуальный отчет (РИО)_24122018_174332 завершено!", PropertyExpressionOperator.Contains));
             // this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.Name, "Формир", PropertyExpressionOperator.Contains));
             this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
             this.WindowTitles.Add("Формирование индивидуального отчета Индивидуальный отчет (РИО) завершено!");
@@ -4980,7 +4994,7 @@ namespace asi_express
                 {
                     this.mOKButton = new WpfButton(this);
                     #region Условия поиска
-                 //   this.mOKButton.SearchProperties[WpfButton.PropertyNames.Name] = "OK";
+                    //   this.mOKButton.SearchProperties[WpfButton.PropertyNames.Name] = "OK";
                     //this.SearchProperties.Add(new PropertyExpression(WpfButton.PropertyNames.ClassName, "Button", PropertyExpressionOperator.Contains));
                     this.mOKButton.WindowTitles.Add("Формирование индивидуального отчета Индивидуальный отчет (РИО) завершено!");
                     #endregion
@@ -5456,6 +5470,2446 @@ namespace asi_express
 
         #region Fields
         private WpfButton mOKCreatedButton;
+        #endregion
+    }
+
+    public class InfoInspectWindow : WinWindow
+    {
+
+        public InfoInspectWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Информация о проверке";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WindowInInfoInspectWindow WindowInInfoInspectWindow
+        {
+            get
+            {
+                if ((this.mWindowInInfoInspectWindow == null))
+                {
+                    this.mWindowInInfoInspectWindow = new WindowInInfoInspectWindow(this);
+                }
+                return this.mWindowInInfoInspectWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WindowInInfoInspectWindow mWindowInInfoInspectWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class WindowInInfoInspectWindow : WinWindow
+    {
+
+        public WindowInInfoInspectWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ControlName] = "ControlAxSourcingSite";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public ClientInInfoInspectWindow ClientInInfoInspectWindow
+        {
+            get
+            {
+                if ((this.mClientInInfoInspectWindow == null))
+                {
+                    this.mClientInInfoInspectWindow = new ClientInInfoInspectWindow(this);
+                }
+                return this.mClientInInfoInspectWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ClientInInfoInspectWindow mClientInInfoInspectWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ClientInInfoInspectWindow : WinClient
+    {
+
+        public ClientInInfoInspectWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public PanelInInfoInsepctWindow PanelInInfoInsepctWindow
+        {
+            get
+            {
+                if ((this.mPanelInInfoInsepctWindow == null))
+                {
+                    this.mPanelInInfoInsepctWindow = new PanelInInfoInsepctWindow(this);
+                }
+                return this.mPanelInInfoInsepctWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private PanelInInfoInsepctWindow mPanelInInfoInsepctWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class PanelInInfoInsepctWindow : WpfPane
+    {
+
+        public PanelInInfoInsepctWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public CustomInInfoInspectWindow CustomInInfoInspectWindow
+        {
+            get
+            {
+                if ((this.mCustomInInfoInspectWindow == null))
+                {
+                    this.mCustomInInfoInspectWindow = new CustomInInfoInspectWindow(this);
+                }
+                return this.mCustomInInfoInspectWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private CustomInInfoInspectWindow mCustomInInfoInspectWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class CustomInInfoInspectWindow : WpfCustom
+    {
+
+        public CustomInInfoInspectWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.InspectionInfoView";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "InspectionInfoView";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WpfButton SaveInspecButton
+        {
+            get
+            {
+                if ((this.mSaveInspecButton == null))
+                {
+                    this.mSaveInspecButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mSaveInspecButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "SaveInspection_InspectionInfoView_bt";
+                    this.mSaveInspecButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSaveInspecButton;
+            }
+        }
+
+        public WpfComboBox InspectStateComboBox
+        {
+            get
+            {
+                if ((this.mInspectStateComboBox == null))
+                {
+                    this.mInspectStateComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mInspectStateComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "InspectionState_InspectionInfoView_cm";
+                    this.mInspectStateComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectStateComboBox;
+            }
+        }
+
+        public WpfText KOHyperLink
+        {
+            get
+            {
+                if ((this.mKOHyperLink == null))
+                {
+                    this.mKOHyperLink = new WpfText(this);
+                    #region Условия поиска
+                    this.mKOHyperLink.SearchProperties[WpfText.PropertyNames.Name] = "Не выбран";
+                    this.mKOHyperLink.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mKOHyperLink;
+            }
+        }
+
+        public WpfText TUHyperLink
+        {
+            get
+            {
+                if ((this.mTUHyperLink == null))
+                {
+                    this.mTUHyperLink = new WpfText(this);
+                    #region Условия поиска
+                    this.mTUHyperLink.SearchProperties[WpfText.PropertyNames.Name] = "ГУ Банка России по Краснодарскому краю (03)";
+                    this.mTUHyperLink.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mTUHyperLink;
+            }
+        }
+
+        public ItemsTabList ItemsTabList
+        {
+            get
+            {
+                if ((this.mItemsTabList == null))
+                {
+                    this.mItemsTabList = new ItemsTabList(this);
+                }
+                return this.mItemsTabList;
+            }
+        }
+
+        public WpfButton ApplyOKFilterKOButton
+        {
+            get
+            {
+                if ((this.mApplyOKFilterKOButton == null))
+                {
+                    this.mApplyOKFilterKOButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mApplyOKFilterKOButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "ApplyKOFilter_InspectionInfoView_bt";
+                    this.mApplyOKFilterKOButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mApplyOKFilterKOButton;
+            }
+        }
+
+        public WpfEdit KOFilterEdit
+        {
+            get
+            {
+                if ((this.mKOFilterEdit == null))
+                {
+                    this.mKOFilterEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mKOFilterEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Filter_InspectionInfoView_tb";
+                    this.mKOFilterEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mKOFilterEdit;
+            }
+        }
+
+        public SelectKOTreeList SelectKOTreeList
+        {
+            get
+            {
+                if ((this.mSelectKOTreeList == null))
+                {
+                    this.mSelectKOTreeList = new SelectKOTreeList(this);
+                }
+                return this.mSelectKOTreeList;
+            }
+        }
+
+        public WpfButton OKButton
+        {
+            get
+            {
+                if ((this.mOKButton == null))
+                {
+                    this.mOKButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mOKButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "SelectKOOK_InspectionInfoView_bt";
+                    this.mOKButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mOKButton;
+            }
+        }
+
+        public WpfButton CancelButton
+        {
+            get
+            {
+                if ((this.mCancelButton == null))
+                {
+                    this.mCancelButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mCancelButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "SelectKoCancel_InspectionInfoView_bt";
+                    this.mCancelButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mCancelButton;
+            }
+        }
+
+        public EmployeeList1 EmployeeList
+        {
+            get
+            {
+                if ((this.mEmployeeList == null))
+                {
+                    this.mEmployeeList = new EmployeeList1(this);
+                }
+                return this.mEmployeeList;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfButton mSaveInspecButton;
+
+        private WpfComboBox mInspectStateComboBox;
+
+        private WpfText mKOHyperLink;
+
+        private WpfText mTUHyperLink;
+
+        private ItemsTabList mItemsTabList;
+
+        private WpfButton mApplyOKFilterKOButton;
+
+        private WpfEdit mKOFilterEdit;
+
+        private SelectKOTreeList mSelectKOTreeList;
+
+        private WpfButton mOKButton;
+
+        private WpfButton mCancelButton;
+
+        private EmployeeList1 mEmployeeList;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ItemsTabList : WpfTabList
+    {
+
+        public ItemsTabList(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public ControlTabItem ControlTabItem
+        {
+            get
+            {
+                if ((this.mControlTabItem == null))
+                {
+                    this.mControlTabItem = new ControlTabItem(this);
+                }
+                return this.mControlTabItem;
+            }
+        }
+
+        public AssignDateInspectInfoDatePicker AssignDateInspectInfoDatePicker
+        {
+            get
+            {
+                if ((this.mAssignDateInspectInfoDatePicker == null))
+                {
+                    this.mAssignDateInspectInfoDatePicker = new AssignDateInspectInfoDatePicker(this);
+                }
+                return this.mAssignDateInspectInfoDatePicker;
+            }
+        }
+
+        public StartCheckPeriod StartCheckPeriod
+        {
+            get
+            {
+                if ((this.mStartCheckPeriod == null))
+                {
+                    this.mStartCheckPeriod = new StartCheckPeriod(this);
+                }
+                return this.mStartCheckPeriod;
+            }
+        }
+
+        public EndCheckPeriod EndCheckPeriod
+        {
+            get
+            {
+                if ((this.mEndCheckPeriod == null))
+                {
+                    this.mEndCheckPeriod = new EndCheckPeriod(this);
+                }
+                return this.mEndCheckPeriod;
+            }
+        }
+
+        public StartWorkPeriod StartWorkPeriod
+        {
+            get
+            {
+                if ((this.mStartWorkPeriod == null))
+                {
+                    this.mStartWorkPeriod = new StartWorkPeriod(this);
+                }
+                return this.mStartWorkPeriod;
+            }
+        }
+
+        public EndWorkPeriod EndWorkPeriod
+        {
+            get
+            {
+                if ((this.mEndWorkPeriod == null))
+                {
+                    this.mEndWorkPeriod = new EndWorkPeriod(this);
+                }
+                return this.mEndWorkPeriod;
+            }
+        }
+
+        public TaskTabItem TaskTabItem
+        {
+            get
+            {
+                if ((this.mTaskTabItem == null))
+                {
+                    this.mTaskTabItem = new TaskTabItem(this);
+                }
+                return this.mTaskTabItem;
+            }
+        }
+
+        public DateDocDatePicker DateDocDatePicker
+        {
+            get
+            {
+                if ((this.mDateDocDatePicker == null))
+                {
+                    this.mDateDocDatePicker = new DateDocDatePicker(this);
+                }
+                return this.mDateDocDatePicker;
+            }
+        }
+
+        public EmployeeTable EmployeeTable
+        {
+            get
+            {
+                if ((this.mEmployeeTable == null))
+                {
+                    this.mEmployeeTable = new EmployeeTable(this);
+                }
+                return this.mEmployeeTable;
+            }
+        }
+
+        public ObjectiveTabItem ObjectiveTabItem
+        {
+            get
+            {
+                if ((this.mObjectiveTabItem == null))
+                {
+                    this.mObjectiveTabItem = new ObjectiveTabItem(this);
+                }
+                return this.mObjectiveTabItem;
+            }
+        }
+
+        public DateObjectiveDatePicker DateObjectiveDatePicker
+        {
+            get
+            {
+                if ((this.mDateObjectiveDatePicker == null))
+                {
+                    this.mDateObjectiveDatePicker = new DateObjectiveDatePicker(this);
+                }
+                return this.mDateObjectiveDatePicker;
+            }
+        }
+
+        public BlockInspecTabItem BlockInspecTabItem
+        {
+            get
+            {
+                if ((this.mBlockInspecTabItem == null))
+                {
+                    this.mBlockInspecTabItem = new BlockInspecTabItem(this);
+                }
+                return this.mBlockInspecTabItem;
+            }
+        }
+
+        public FileABCITabItem FileABCITabItem
+        {
+            get
+            {
+                if ((this.mFileABCITabItem == null))
+                {
+                    this.mFileABCITabItem = new FileABCITabItem(this);
+                }
+                return this.mFileABCITabItem;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ControlTabItem mControlTabItem;
+
+        private AssignDateInspectInfoDatePicker mAssignDateInspectInfoDatePicker;
+
+        private StartCheckPeriod mStartCheckPeriod;
+
+        private EndCheckPeriod mEndCheckPeriod;
+
+        private StartWorkPeriod mStartWorkPeriod;
+
+        private EndWorkPeriod mEndWorkPeriod;
+
+        private TaskTabItem mTaskTabItem;
+
+        private DateDocDatePicker mDateDocDatePicker;
+
+        private EmployeeTable mEmployeeTable;
+
+        private ObjectiveTabItem mObjectiveTabItem;
+
+        private DateObjectiveDatePicker mDateObjectiveDatePicker;
+
+        private BlockInspecTabItem mBlockInspecTabItem;
+
+        private FileABCITabItem mFileABCITabItem;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ControlTabItem : WpfTabPage
+    {
+
+        public ControlTabItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfTabPage.PropertyNames.Name] = "System.Windows.Controls.TabItem Header: Content:";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfComboBox SelectedDocumentComboBox
+        {
+            get
+            {
+                if ((this.mSelectedDocumentComboBox == null))
+                {
+                    this.mSelectedDocumentComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mSelectedDocumentComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SelectedDocument_InspectionInfoView_cm";
+                    this.mSelectedDocumentComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSelectedDocumentComboBox;
+            }
+        }
+
+        public WpfButton CreateDocumentButton
+        {
+            get
+            {
+                if ((this.mCreateDocumentButton == null))
+                {
+                    this.mCreateDocumentButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mCreateDocumentButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "CreateDocument_InspectionInfoView_bt";
+                    this.mCreateDocumentButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mCreateDocumentButton;
+            }
+        }
+
+        public WpfEdit NumberInspectTextEdit
+        {
+            get
+            {
+                if ((this.mNumberInspectTextEdit == null))
+                {
+                    this.mNumberInspectTextEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mNumberInspectTextEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Number_InspectionInfoView_tb";
+                    this.mNumberInspectTextEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mNumberInspectTextEdit;
+            }
+        }
+
+        public WpfComboBox SignerInsepctionInfo
+        {
+            get
+            {
+                if ((this.mSignerInsepctionInfo == null))
+                {
+                    this.mSignerInsepctionInfo = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mSignerInsepctionInfo.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "Signer_InspectionInfoView_cm";
+                    this.mSignerInsepctionInfo.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSignerInsepctionInfo;
+            }
+        }
+
+        public WpfComboBox PrepareGroupComboBox
+        {
+            get
+            {
+                if ((this.mPrepareGroupComboBox == null))
+                {
+                    this.mPrepareGroupComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mPrepareGroupComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "GroupMaker_InspectionInfoView_cm";
+                    this.mPrepareGroupComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mPrepareGroupComboBox;
+            }
+        }
+
+        public WpfComboBox PrepareTaskComboBox
+        {
+            get
+            {
+                if ((this.mPrepareTaskComboBox == null))
+                {
+                    this.mPrepareTaskComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mPrepareTaskComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "TaskMaker_InspectionInfoView_cm";
+                    this.mPrepareTaskComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mPrepareTaskComboBox;
+            }
+        }
+
+        public WpfRadioButton ComplexInsepctionRadioButton
+        {
+            get
+            {
+                if ((this.mComplexInsepctionRadioButton == null))
+                {
+                    this.mComplexInsepctionRadioButton = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mComplexInsepctionRadioButton.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "InspectionForm_Complex_InspectionInfoView_rb";
+                    this.mComplexInsepctionRadioButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mComplexInsepctionRadioButton;
+            }
+        }
+
+        public WpfRadioButton ThematicalInspectionRadioButton
+        {
+            get
+            {
+                if ((this.mThematicalInspectionRadioButton == null))
+                {
+                    this.mThematicalInspectionRadioButton = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mThematicalInspectionRadioButton.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "InspectionForm_Thematical_InspectionInfoView_rb";
+                    this.mThematicalInspectionRadioButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mThematicalInspectionRadioButton;
+            }
+        }
+
+        public WpfRadioButton SpecialInspectionRadioButton
+        {
+            get
+            {
+                if ((this.mSpecialInspectionRadioButton == null))
+                {
+                    this.mSpecialInspectionRadioButton = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mSpecialInspectionRadioButton.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "InspectionForm_Special_InspectionInfoView_rb";
+                    this.mSpecialInspectionRadioButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSpecialInspectionRadioButton;
+            }
+        }
+
+        public WpfRadioButton RegionalCoverageRadioButton
+        {
+            get
+            {
+                if ((this.mRegionalCoverageRadioButton == null))
+                {
+                    this.mRegionalCoverageRadioButton = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mRegionalCoverageRadioButton.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "InspectionCoverage_Regional_InspectionInfoView_rb";
+                    this.mRegionalCoverageRadioButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mRegionalCoverageRadioButton;
+            }
+        }
+
+        public WpfRadioButton InterRegionalCoverageRadioButton
+        {
+            get
+            {
+                if ((this.mInterRegionalCoverageRadioButton == null))
+                {
+                    this.mInterRegionalCoverageRadioButton = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mInterRegionalCoverageRadioButton.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "InspectionCoverage_InterRegional_InspectionInfoView_rb";
+                    this.mInterRegionalCoverageRadioButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInterRegionalCoverageRadioButton;
+            }
+        }
+
+        public WpfRadioButton ArealInterRegionalCoverageRadioButton
+        {
+            get
+            {
+                if ((this.mArealInterRegionalCoverageRadioButton == null))
+                {
+                    this.mArealInterRegionalCoverageRadioButton = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mArealInterRegionalCoverageRadioButton.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "InspectionCoverage_ArealInterRegional_InspectionInfoView_rb";
+                    this.mArealInterRegionalCoverageRadioButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mArealInterRegionalCoverageRadioButton;
+            }
+        }
+
+        public WpfRadioButton PlannedReasonRadioButton
+        {
+            get
+            {
+                if ((this.mPlannedReasonRadioButton == null))
+                {
+                    this.mPlannedReasonRadioButton = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mPlannedReasonRadioButton.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "InspectionReason_Planned_InspectionInfoView_rb";
+                    this.mPlannedReasonRadioButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mPlannedReasonRadioButton;
+            }
+        }
+
+        public WpfRadioButton UnplannedReasonRadioButton
+        {
+            get
+            {
+                if ((this.mUnplannedReasonRadioButton == null))
+                {
+                    this.mUnplannedReasonRadioButton = new WpfRadioButton(this);
+                    #region Условия поиска
+                    this.mUnplannedReasonRadioButton.SearchProperties[WpfRadioButton.PropertyNames.AutomationId] = "InspectionReason_UnPlanned_InspectionInfoView_rb";
+                    this.mUnplannedReasonRadioButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mUnplannedReasonRadioButton;
+            }
+        }
+
+        public WpfComboBox SignOfParticipationComboBox
+        {
+            get
+            {
+                if ((this.mSignOfParticipationComboBox == null))
+                {
+                    this.mSignOfParticipationComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mSignOfParticipationComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SignOfParticipation_InspectionInfoView_cm";
+                    this.mSignOfParticipationComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSignOfParticipationComboBox;
+            }
+        }
+
+        public WpfCheckBox RepaetInspectCheckBox
+        {
+            get
+            {
+                if ((this.mRepaetInspectCheckBox == null))
+                {
+                    this.mRepaetInspectCheckBox = new WpfCheckBox(this);
+                    #region Условия поиска
+                    this.mRepaetInspectCheckBox.SearchProperties[WpfCheckBox.PropertyNames.AutomationId] = "IsRepeat_InspectionInfoView_cb";
+                    this.mRepaetInspectCheckBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mRepaetInspectCheckBox;
+            }
+        }
+
+        public WpfCheckBox IsInMonitoringComboBox
+        {
+            get
+            {
+                if ((this.mIsInMonitoringComboBox == null))
+                {
+                    this.mIsInMonitoringComboBox = new WpfCheckBox(this);
+                    #region Условия поиска
+                    this.mIsInMonitoringComboBox.SearchProperties[WpfCheckBox.PropertyNames.AutomationId] = "IsInMonitoring_InspectionInfoView_cb";
+                    this.mIsInMonitoringComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mIsInMonitoringComboBox;
+            }
+        }
+
+        public WpfButton SaveDocumentButton
+        {
+            get
+            {
+                if ((this.mSaveDocumentButton == null))
+                {
+                    this.mSaveDocumentButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mSaveDocumentButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "SaveDisposal_InspectionInfoView_bt";
+                    this.mSaveDocumentButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSaveDocumentButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfComboBox mSelectedDocumentComboBox;
+
+        private WpfButton mCreateDocumentButton;
+
+        private WpfEdit mNumberInspectTextEdit;
+
+        private WpfComboBox mSignerInsepctionInfo;
+
+        private WpfComboBox mPrepareGroupComboBox;
+
+        private WpfComboBox mPrepareTaskComboBox;
+
+        private WpfRadioButton mComplexInsepctionRadioButton;
+
+        private WpfRadioButton mThematicalInspectionRadioButton;
+
+        private WpfRadioButton mSpecialInspectionRadioButton;
+
+        private WpfRadioButton mRegionalCoverageRadioButton;
+
+        private WpfRadioButton mInterRegionalCoverageRadioButton;
+
+        private WpfRadioButton mArealInterRegionalCoverageRadioButton;
+
+        private WpfRadioButton mPlannedReasonRadioButton;
+
+        private WpfRadioButton mUnplannedReasonRadioButton;
+
+        private WpfComboBox mSignOfParticipationComboBox;
+
+        private WpfCheckBox mRepaetInspectCheckBox;
+
+        private WpfCheckBox mIsInMonitoringComboBox;
+
+        private WpfButton mSaveDocumentButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class AssignDateInspectInfoDatePicker : WpfCustom
+    {
+
+        public AssignDateInspectInfoDatePicker(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "AssighDate_InspectionInfoView_dp";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfButton ShowCalendar
+        {
+            get
+            {
+                if ((this.mShowCalendar == null))
+                {
+                    this.mShowCalendar = new WpfButton(this);
+                    #region Условия поиска
+                    this.mShowCalendar.SearchProperties[WpfButton.PropertyNames.AutomationId] = "PART_Button";
+                    this.mShowCalendar.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mShowCalendar;
+            }
+        }
+
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfButton mShowCalendar;
+
+        private WpfEdit mDateText;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class StartCheckPeriod : WpfCustom
+    {
+
+        public StartCheckPeriod(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "WatchPeriodStart_InspectionInfoView_dp";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+
+        public WpfButton ShowCalendar
+        {
+            get
+            {
+                if ((this.mShowCalendar == null))
+                {
+                    this.mShowCalendar = new WpfButton(this);
+                    #region Условия поиска
+                    this.mShowCalendar.SearchProperties[WpfButton.PropertyNames.AutomationId] = "PART_Button";
+                    this.mShowCalendar.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mShowCalendar;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mDateText;
+
+        private WpfButton mShowCalendar;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class EndCheckPeriod : WpfCustom
+    {
+
+        public EndCheckPeriod(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "WatchPeriodEnd_InspectionInfoView_dp";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+
+        public WpfButton ShowCalendar
+        {
+            get
+            {
+                if ((this.mShowCalendar == null))
+                {
+                    this.mShowCalendar = new WpfButton(this);
+                    #region Условия поиска
+                    this.mShowCalendar.SearchProperties[WpfButton.PropertyNames.AutomationId] = "PART_Button";
+                    this.mShowCalendar.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mShowCalendar;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mDateText;
+
+        private WpfButton mShowCalendar;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class StartWorkPeriod : WpfCustom
+    {
+
+        public StartWorkPeriod(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "WorkPeriodStart_InspectionInfoView_dp";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+
+        public WpfButton ShowCalendar
+        {
+            get
+            {
+                if ((this.mShowCalendar == null))
+                {
+                    this.mShowCalendar = new WpfButton(this);
+                    #region Условия поиска
+                    this.mShowCalendar.SearchProperties[WpfButton.PropertyNames.AutomationId] = "PART_Button";
+                    this.mShowCalendar.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mShowCalendar;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mDateText;
+
+        private WpfButton mShowCalendar;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class EndWorkPeriod : WpfCustom
+    {
+
+        public EndWorkPeriod(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "WorkPeriodEnd_InspectionInfoView_dp";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+
+        public WpfButton ShowCalendar
+        {
+            get
+            {
+                if ((this.mShowCalendar == null))
+                {
+                    this.mShowCalendar = new WpfButton(this);
+                    #region Условия поиска
+                    this.mShowCalendar.SearchProperties[WpfButton.PropertyNames.AutomationId] = "PART_Button";
+                    this.mShowCalendar.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mShowCalendar;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mDateText;
+
+        private WpfButton mShowCalendar;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class TaskTabItem : WpfTabPage
+    {
+
+        public TaskTabItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfTabPage.PropertyNames.Name] = "System.Windows.Controls.TabItem Header: Content:";
+            this.SearchProperties[WpfTabPage.PropertyNames.Instance] = "2";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfComboBox SelectedDocumentComboBox
+        {
+            get
+            {
+                if ((this.mSelectedDocumentComboBox == null))
+                {
+                    this.mSelectedDocumentComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mSelectedDocumentComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SelectedDocument_InspectionInfoView_cm";
+                    this.mSelectedDocumentComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSelectedDocumentComboBox;
+            }
+        }
+
+        public WpfEdit NumberEdit
+        {
+            get
+            {
+                if ((this.mNumberEdit == null))
+                {
+                    this.mNumberEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mNumberEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Number_InspectionInfoView_tb";
+                    this.mNumberEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mNumberEdit;
+            }
+        }
+
+        public WpfComboBox UserComboBox
+        {
+            get
+            {
+                if ((this.mUserComboBox == null))
+                {
+                    this.mUserComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mUserComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SignOfParticipation_InspectionInfoView_cm";
+                    this.mUserComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mUserComboBox;
+            }
+        }
+
+        public WpfButton SaveDocument
+        {
+            get
+            {
+                if ((this.mSaveDocument == null))
+                {
+                    this.mSaveDocument = new WpfButton(this);
+                    #region Условия поиска
+                    this.mSaveDocument.SearchProperties[WpfButton.PropertyNames.AutomationId] = "AssignmentSave_InspectionInfoView_bt";
+                    this.mSaveDocument.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSaveDocument;
+            }
+        }
+
+        public WpfButton ChangeGropButton
+        {
+            get
+            {
+                if ((this.mChangeGropButton == null))
+                {
+                    this.mChangeGropButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mChangeGropButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "SelectEmployees_InspectionInfoView_bt";
+                    this.mChangeGropButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mChangeGropButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfComboBox mSelectedDocumentComboBox;
+
+        private WpfEdit mNumberEdit;
+
+        private WpfComboBox mUserComboBox;
+
+        private WpfButton mSaveDocument;
+
+        private WpfButton mChangeGropButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class DateDocDatePicker : WpfCustom
+    {
+
+        public DateDocDatePicker(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "AssignmentSave_InspectionInfoView_dp";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+
+        public WpfButton ShowCalendar
+        {
+            get
+            {
+                if ((this.mShowCalendar == null))
+                {
+                    this.mShowCalendar = new WpfButton(this);
+                    #region Условия поиска
+                    this.mShowCalendar.SearchProperties[WpfButton.PropertyNames.AutomationId] = "PART_Button";
+                    this.mShowCalendar.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mShowCalendar;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mDateText;
+
+        private WpfButton mShowCalendar;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class EmployeeTable : WpfTable
+    {
+
+        public EmployeeTable(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public RIOTableItem RIOTableItem
+        {
+            get
+            {
+                if ((this.mRIOTableItem == null))
+                {
+                    this.mRIOTableItem = new RIOTableItem(this);
+                }
+                return this.mRIOTableItem;
+            }
+        }
+
+        public RIO_2TableItem RIO_2TableItem
+        {
+            get
+            {
+                if ((this.mRIO_2TableItem == null))
+                {
+                    this.mRIO_2TableItem = new RIO_2TableItem(this);
+                }
+                return this.mRIO_2TableItem;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private RIOTableItem mRIOTableItem;
+
+        private RIO_2TableItem mRIO_2TableItem;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class RIOTableItem : WpfControl
+    {
+
+        public RIOTableItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ControlType] = "DataItem";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "InspectionInfoView_РИО_lv";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public RoleItemCell RoleItemCell
+        {
+            get
+            {
+                if ((this.mRoleItemCell == null))
+                {
+                    this.mRoleItemCell = new RoleItemCell(this);
+                }
+                return this.mRoleItemCell;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private RoleItemCell mRoleItemCell;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class RoleItemCell : WpfCell
+    {
+
+        public RoleItemCell(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfCell.PropertyNames.ColumnHeader] = "Роль";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfComboBox RIORoleComboBox
+        {
+            get
+            {
+                if ((this.mRIORoleComboBox == null))
+                {
+                    this.mRIORoleComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mRIORoleComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "InspectionInfoView_РИО_cm";
+                    this.mRIORoleComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mRIORoleComboBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfComboBox mRIORoleComboBox;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class RIO_2TableItem : WpfControl
+    {
+
+        public RIO_2TableItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ControlType] = "DataItem";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "InspectionInfoView_РИО_2_lv";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public RoleItemCell1 RoleItemCell
+        {
+            get
+            {
+                if ((this.mRoleItemCell == null))
+                {
+                    this.mRoleItemCell = new RoleItemCell1(this);
+                }
+                return this.mRoleItemCell;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private RoleItemCell1 mRoleItemCell;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class RoleItemCell1 : WpfCell
+    {
+
+        public RoleItemCell1(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfCell.PropertyNames.ColumnHeader] = "Роль";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfComboBox RIO_2RoleComboBox
+        {
+            get
+            {
+                if ((this.mRIO_2RoleComboBox == null))
+                {
+                    this.mRIO_2RoleComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mRIO_2RoleComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "InspectionInfoView_РИО_2_cm";
+                    this.mRIO_2RoleComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mRIO_2RoleComboBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfComboBox mRIO_2RoleComboBox;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ObjectiveTabItem : WpfTabPage
+    {
+
+        public ObjectiveTabItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfTabPage.PropertyNames.Name] = "System.Windows.Controls.TabItem Header: Content:";
+            this.SearchProperties[WpfTabPage.PropertyNames.Instance] = "3";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WpfComboBox SelectedDocumentComboBox
+        {
+            get
+            {
+                if ((this.mSelectedDocumentComboBox == null))
+                {
+                    this.mSelectedDocumentComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mSelectedDocumentComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SelectedDocument_InspectionInfoView_cm";
+                    this.mSelectedDocumentComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSelectedDocumentComboBox;
+            }
+        }
+
+        public WpfComboBox UserComboBox
+        {
+            get
+            {
+                if ((this.mUserComboBox == null))
+                {
+                    this.mUserComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mUserComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "Signer_InspectionInfoView_cm";
+                    this.mUserComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mUserComboBox;
+            }
+        }
+
+        public WpfButton ChangeQuestListButton
+        {
+            get
+            {
+                if ((this.mChangeQuestListButton == null))
+                {
+                    this.mChangeQuestListButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mChangeQuestListButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "ChangeQuestions_InspectionInfoView_bt";
+                    this.mChangeQuestListButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mChangeQuestListButton;
+            }
+        }
+
+        public WpfButton CreateDocumentComboBox
+        {
+            get
+            {
+                if ((this.mCreateDocumentComboBox == null))
+                {
+                    this.mCreateDocumentComboBox = new WpfButton(this);
+                    #region Условия поиска
+                    this.mCreateDocumentComboBox.SearchProperties[WpfButton.PropertyNames.AutomationId] = "CreateDocument_InspectionInfoView_bt";
+                    this.mCreateDocumentComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mCreateDocumentComboBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfComboBox mSelectedDocumentComboBox;
+
+        private WpfComboBox mUserComboBox;
+
+        private WpfButton mChangeQuestListButton;
+
+        private WpfButton mCreateDocumentComboBox;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class DateObjectiveDatePicker : WpfCustom
+    {
+
+        public DateObjectiveDatePicker(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "JobDate_InspectionInfoView_dp";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+
+        public WpfButton ShowCalendar
+        {
+            get
+            {
+                if ((this.mShowCalendar == null))
+                {
+                    this.mShowCalendar = new WpfButton(this);
+                    #region Условия поиска
+                    this.mShowCalendar.SearchProperties[WpfButton.PropertyNames.AutomationId] = "PART_Button";
+                    this.mShowCalendar.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mShowCalendar;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mDateText;
+
+        private WpfButton mShowCalendar;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class BlockInspecTabItem : WpfTabPage
+    {
+
+        public BlockInspecTabItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfTabPage.PropertyNames.Name] = "System.Windows.Controls.TabItem Header: Content:";
+            this.SearchProperties[WpfTabPage.PropertyNames.Instance] = "4";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WpfButton CreateDocumentButton
+        {
+            get
+            {
+                if ((this.mCreateDocumentButton == null))
+                {
+                    this.mCreateDocumentButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mCreateDocumentButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "CreateDocument_InspectionInfoView_bt";
+                    this.mCreateDocumentButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mCreateDocumentButton;
+            }
+        }
+
+        public WpfComboBox SelectedDocumentComboBox
+        {
+            get
+            {
+                if ((this.mSelectedDocumentComboBox == null))
+                {
+                    this.mSelectedDocumentComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mSelectedDocumentComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SelectedDocument_InspectionInfoView_cm";
+                    this.mSelectedDocumentComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mSelectedDocumentComboBox;
+            }
+        }
+
+        public DateAktDatePicker DateAktDatePicker
+        {
+            get
+            {
+                if ((this.mDateAktDatePicker == null))
+                {
+                    this.mDateAktDatePicker = new DateAktDatePicker(this);
+                }
+                return this.mDateAktDatePicker;
+            }
+        }
+
+        public SignerList SignerList
+        {
+            get
+            {
+                if ((this.mSignerList == null))
+                {
+                    this.mSignerList = new SignerList(this);
+                }
+                return this.mSignerList;
+            }
+        }
+
+        public WpfEdit NumberActEdit
+        {
+            get
+            {
+                if ((this.mNumberActEdit == null))
+                {
+                    this.mNumberActEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mNumberActEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "ActNumber_InspectionInfoView_tb";
+                    this.mNumberActEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mNumberActEdit;
+            }
+        }
+
+        public WpfEdit ActTextEdit
+        {
+            get
+            {
+                if ((this.mActTextEdit == null))
+                {
+                    this.mActTextEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mActTextEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "ActText_InspectionInfoView_tb";
+                    this.mActTextEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mActTextEdit;
+            }
+        }
+
+        public WpfButton SaveDocumentButton
+        {
+            get
+            {
+                if ((this.mSaveDocumentButton == null))
+                {
+                    this.mSaveDocumentButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mSaveDocumentButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "SaveCounterAction_InspectionInfoView_bt";
+                    this.mSaveDocumentButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mSaveDocumentButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfButton mCreateDocumentButton;
+
+        private WpfComboBox mSelectedDocumentComboBox;
+
+        private DateAktDatePicker mDateAktDatePicker;
+
+        private SignerList mSignerList;
+
+        private WpfEdit mNumberActEdit;
+
+        private WpfEdit mActTextEdit;
+
+        private WpfButton mSaveDocumentButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class DateAktDatePicker : WpfCustom
+    {
+
+        public DateAktDatePicker(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "ActDate_InspectionInfoView_dp";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mDateText;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class SignerList : WpfText
+    {
+
+        public SignerList(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfText.PropertyNames.Name] = "Подписывают:";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public List List
+        {
+            get
+            {
+                if ((this.mList == null))
+                {
+                    this.mList = new List(this);
+                }
+                return this.mList;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private List mList;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class List : WpfList
+    {
+
+        public List(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public RIOListItem RIOListItem
+        {
+            get
+            {
+                if ((this.mRIOListItem == null))
+                {
+                    this.mRIOListItem = new RIOListItem(this);
+                }
+                return this.mRIOListItem;
+            }
+        }
+
+        public RIO_2ListItem RIO_2ListItem
+        {
+            get
+            {
+                if ((this.mRIO_2ListItem == null))
+                {
+                    this.mRIO_2ListItem = new RIO_2ListItem(this);
+                }
+                return this.mRIO_2ListItem;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private RIOListItem mRIOListItem;
+
+        private RIO_2ListItem mRIO_2ListItem;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class RIOListItem : WpfListItem
+    {
+
+        public RIOListItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfListItem.PropertyNames.AutomationId] = "InspectionInfoView_РИО_lv";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WpfCheckBox SignerRIOComboBox
+        {
+            get
+            {
+                if ((this.mSignerRIOComboBox == null))
+                {
+                    this.mSignerRIOComboBox = new WpfCheckBox(this);
+                    #region Условия поиска
+                    this.mSignerRIOComboBox.SearchProperties[WpfCheckBox.PropertyNames.AutomationId] = "SignerChecked_InspectionInfoView_cb";
+                    this.mSignerRIOComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mSignerRIOComboBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfCheckBox mSignerRIOComboBox;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class RIO_2ListItem : WpfListItem
+    {
+
+        public RIO_2ListItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfListItem.PropertyNames.AutomationId] = "InspectionInfoView_РИО_2_lv";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WpfCheckBox SignerRIO_2ComboBox
+        {
+            get
+            {
+                if ((this.mSignerRIO_2ComboBox == null))
+                {
+                    this.mSignerRIO_2ComboBox = new WpfCheckBox(this);
+                    #region Условия поиска
+                    this.mSignerRIO_2ComboBox.SearchProperties[WpfCheckBox.PropertyNames.AutomationId] = "SignerChecked_InspectionInfoView_cb";
+                    this.mSignerRIO_2ComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mSignerRIO_2ComboBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfCheckBox mSignerRIO_2ComboBox;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class FileABCITabItem : WpfTabPage
+    {
+
+        public FileABCITabItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfTabPage.PropertyNames.Name] = "System.Windows.Controls.TabItem Header: Content:";
+            this.SearchProperties[WpfTabPage.PropertyNames.Instance] = "5";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+            #endregion
+        }
+
+        #region Properties
+        public WpfButton CreateDocumentButton
+        {
+            get
+            {
+                if ((this.mCreateDocumentButton == null))
+                {
+                    this.mCreateDocumentButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mCreateDocumentButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "CreateDocument_InspectionInfoView_bt";
+                    this.mCreateDocumentButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mCreateDocumentButton;
+            }
+        }
+
+        public WpfComboBox SelectedDocumentComboBox
+        {
+            get
+            {
+                if ((this.mSelectedDocumentComboBox == null))
+                {
+                    this.mSelectedDocumentComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mSelectedDocumentComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SelectedDocument_InspectionInfoView_cm";
+                    this.mSelectedDocumentComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mSelectedDocumentComboBox;
+            }
+        }
+
+
+        public FileCustomView FileCustomView
+        {
+            get
+            {
+                if ((this.mFileCustomView == null))
+                {
+                    this.mFileCustomView = new FileCustomView(this);
+                }
+                return this.mFileCustomView;
+            }
+        }
+
+
+        public WpfButton RefreshButton
+        {
+            get
+            {
+                if ((this.mRefreshButton == null))
+                {
+                    this.mRefreshButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mRefreshButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "UpdateFileABCI_InspectionInfoView_bt";
+                    this.mRefreshButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mRefreshButton;
+            }
+        }
+
+        public WpfButton SaveDocumentButton
+        {
+            get
+            {
+                if ((this.mSaveDocumentButton == null))
+                {
+                    this.mSaveDocumentButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mSaveDocumentButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "SafeFile_InspectionInfoView_bt";
+                    this.mSaveDocumentButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20");
+                    #endregion
+                }
+                return this.mSaveDocumentButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfButton mCreateDocumentButton;
+
+        private WpfComboBox mSelectedDocumentComboBox;
+
+        private FileCustomView mFileCustomView;
+
+        private WpfButton mRefreshButton;
+
+        private WpfButton mSaveDocumentButton;
+        #endregion
+    }
+
+    public class FileCustomView : WpfCustom
+    {
+
+        public FileCustomView(UITestControl searchLimitContainer) :
+        base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.FileAView";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "FileAView";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        
+    }
+
+
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class SelectKOTreeList : WpfList
+    {
+
+        public SelectKOTreeList(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfList.PropertyNames.AutomationId] = "SelectKoOrDepartmentTreeView";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public OutCityTreeListItem OutCityTreeListItem
+        {
+            get
+            {
+                if ((this.mOutCityTreeListItem == null))
+                {
+                    this.mOutCityTreeListItem = new OutCityTreeListItem(this);
+                }
+                return this.mOutCityTreeListItem;
+            }
+        }
+
+        public KO918ListItem KO918ListItem
+        {
+            get
+            {
+                if ((this.mKO918ListItem == null))
+                {
+                    this.mKO918ListItem = new KO918ListItem(this);
+                }
+                return this.mKO918ListItem;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private OutCityTreeListItem mOutCityTreeListItem;
+
+        private KO918ListItem mKO918ListItem;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class OutCityTreeListItem : WpfListItem
+    {
+
+        public OutCityTreeListItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfListItem.PropertyNames.Name] = "Иногородние КО";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfToggleButton ExpandButton
+        {
+            get
+            {
+                if ((this.mExpandButton == null))
+                {
+                    this.mExpandButton = new WpfToggleButton(this);
+                    #region Условия поиска
+                    this.mExpandButton.SearchProperties[WpfToggleButton.PropertyNames.AutomationId] = "Expander";
+                    this.mExpandButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mExpandButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfToggleButton mExpandButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class KO918ListItem : WpfListItem
+    {
+
+        public KO918ListItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfListItem.PropertyNames.Name] = "Публичное акционерное общество \"Западно-Сибирский коммерческий банк\" (918)";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfToggleButton ExpandButton
+        {
+            get
+            {
+                if ((this.mExpandButton == null))
+                {
+                    this.mExpandButton = new WpfToggleButton(this);
+                    #region Условия поиска
+                    this.mExpandButton.SearchProperties[WpfToggleButton.PropertyNames.AutomationId] = "Expander";
+                    this.mExpandButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mExpandButton;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfToggleButton mExpandButton;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class EmployeeList1 : WpfList
+    {
+
+        public EmployeeList1(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfList.PropertyNames.AutomationId] = "SelectEmployeeListView";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public RIOListItem1 RIOListItem
+        {
+            get
+            {
+                if ((this.mRIOListItem == null))
+                {
+                    this.mRIOListItem = new RIOListItem1(this);
+                }
+                return this.mRIOListItem;
+            }
+        }
+
+        public RIO_2ListItem1 RIO_2ListItem
+        {
+            get
+            {
+                if ((this.mRIO_2ListItem == null))
+                {
+                    this.mRIO_2ListItem = new RIO_2ListItem1(this);
+                }
+                return this.mRIO_2ListItem;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private RIOListItem1 mRIOListItem;
+
+        private RIO_2ListItem1 mRIO_2ListItem;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class RIOListItem1 : WpfListItem
+    {
+
+        public RIOListItem1(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfListItem.PropertyNames.AutomationId] = "InspectionInfoView_РИО_lv";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfCheckBox RIOListItemCheckBox
+        {
+            get
+            {
+                if ((this.mRIOListItemCheckBox == null))
+                {
+                    this.mRIOListItemCheckBox = new WpfCheckBox(this);
+                    #region Условия поиска
+                    this.mRIOListItemCheckBox.SearchProperties[WpfCheckBox.PropertyNames.Name] = "РИО";
+                    this.mRIOListItemCheckBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mRIOListItemCheckBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfCheckBox mRIOListItemCheckBox;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class RIO_2ListItem1 : WpfListItem
+    {
+
+        public RIO_2ListItem1(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfListItem.PropertyNames.AutomationId] = "InspectionInfoView_РИО_2_lv";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfCheckBox RIO_2ListItemCheckBox
+        {
+            get
+            {
+                if ((this.mRIO_2ListItemCheckBox == null))
+                {
+                    this.mRIO_2ListItemCheckBox = new WpfCheckBox(this);
+                    #region Условия поиска
+                    this.mRIO_2ListItemCheckBox.SearchProperties[WpfCheckBox.PropertyNames.Name] = "РИО_2";
+                    this.mRIO_2ListItemCheckBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mRIO_2ListItemCheckBox;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfCheckBox mRIO_2ListItemCheckBox;
         #endregion
     }
 }

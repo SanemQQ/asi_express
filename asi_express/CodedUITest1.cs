@@ -872,7 +872,7 @@ namespace asi_express
             Mouse.Click(Dots["SetText"]);
             InputLog("Проверим язык", lvl);
             CheckLanguage(lvl + 1);
-            InputLog("Вводим текущее время", lvl)
+            InputLog("Вводим текущее время", lvl);
              Keyboard.SendKeys("TODAY_" + DateTime.Now.ToString("ddMMyyyy_HHmmss"));
             InputLog("Сохраним", lvl);
             Mouse.Click(this.UIMap.DocumentWindow.SaveButton);
@@ -1287,8 +1287,10 @@ namespace asi_express
 
 
                 PrepareAsi(WaC, 1, "ASISTA_UI");
+                ConnectToWorkingARM(WaC, 1, "ASISTA_UI", "RIO");
                 DownloadSpr(WaC, 1);
                 CalcSpr(WaC, 1);
+                Shutdown_asi();
                 CreateQuestions(WaC, 1);
                 DistribTask(WaC, 1);
 
