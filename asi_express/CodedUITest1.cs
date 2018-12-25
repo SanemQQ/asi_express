@@ -419,48 +419,73 @@ namespace asi_express
 
         public void AddFile(int WaC, int lvl)
         {
+            InputLog("Раскрываем дерево материалов", lvl);
             Mouse.Click(Dots["Material"]);
             Thread.Sleep(6 * WaC);
+            InputLog("Зафиксируем его, чтобы не убежал", lvl);
             Mouse.Click(Dots["PinMaterial"]);
+            InputLog("Раскроем контекстное меню", lvl);
             Mouse.Click(MouseButtons.Right, ModifierKeys.None, Dots["FirstFolderMaterial"]);
             if (this.UIMap.ContextMenuMaterial.Exists)
             {
+                InputLog("Ткнём в элемент загрузки файла из внешней среды", lvl);
                 Mouse.Click(this.UIMap.ContextMenuMaterial.MenuItem.UploadFileMenuItem);
             }
+            InputLog("Дождёмся диалога открытия файла", lvl);
             this.UIMap.OpenFileDialog.WaitForControlExist(60 * WaC);
+            InputLog("Ввёдем имя файла", lvl);
             Keyboard.SendKeys(this.UIMap.OpenFileDialog.FileNameWindow.FileNameEdit, this.TestContext.TestDeploymentDir + "\\" + this.TestContext.Properties["File"].ToString() + ".txt");
+            InputLog("Подтвердим выбор файла", lvl);
             Mouse.Click(this.UIMap.OpenFileDialog.OpenWindow.OpenButton);
             this.UIMap.OpenFileDialog.WaitForControlNotExist(60 * WaC);
+            InputLog("Ввёдем в фильтр имя файла", lvl);
+            Thread.Sleep(5 * WaC);
             this.UIMap.ASI_Window.MaterialWindow.MaterialClient.MaterialPanel.MaterialCustomTree.SearchEdit.Text = this.TestContext.Properties["File"].ToString();
             Thread.Sleep(5 * WaC);
+            InputLog("Убедимся, что файл, на втором уровне существует", lvl);
             this.UIMap.ASI_Window.MaterialWindow.MaterialClient.MaterialPanel.MaterialCustomTree.Tree.ASITreeFirstlvl.ASITreeSecondlvl.ItemInSecondlvl.WaitForControlExist(60 * WaC);
+            InputLog("Очистим фильтр", lvl);
             Mouse.Click(this.UIMap.ASI_Window.MaterialWindow.MaterialClient.MaterialPanel.MaterialCustomTree.ClearFilter);
             Thread.Sleep(5 * WaC);
+            InputLog("Сделаем скриншот", lvl);
             GetScreen("AddedFile");
+            InputLog("Снимем фиксацию с дерева материалов", lvl);
             Mouse.Click(Dots["PinMaterial"]);
-
         } // Добавление файла в дерево материалов
 
         public void AddBorrower(int WaC, int lvl)
         {
+            InputLog("Перейдем в раздел \"Обработка информации\"", lvl);
             Mouse.Click(Dots["ProccesInfoStat"]);
             Thread.Sleep(3 * WaC);
+            InputLog("Откроем форму с заёмщиками", lvl);
             Mouse.Click(Dots["InfoBorrower"]);
+            InputLog("Ждём", lvl);
             this.UIMap.ASI_Window.BorrowerWindow.WaitForControlExist(60 * WaC);
             Thread.Sleep(5 * WaC);
+            InputLog("Добавим заёмщиков из отчётности", lvl);
             Mouse.Click(Dots["AddBorrowerFromReports"]);
+            InputLog("Дождёмся формы с выбором дат", lvl);
             this.UIMap.SelectDateWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим выбор", lvl);
             Mouse.Click(this.UIMap.SelectDateWindow.OKWindow.OKButton);
+            InputLog("Ждём появления формы с заёмщиками из отчётности", lvl);
             this.UIMap.BorrowerListWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим выбор", lvl);
             Mouse.Click(this.UIMap.BorrowerListWindow.OKWindow.OKButton);
+            InputLog("Ждём информации по добавлению заёмщиков", lvl);
             this.UIMap.InfoWindow.OKWindow.OKButton.WaitForControlExist(300 * WaC);
+            InputLog("Подтвердим успешность операции", lvl);
             Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
+            InputLog("Сделаем снимок", lvl);
             GetScreen("Added_Borrower");
         } // Добавление заёмщиков из отчётности
 
         public void AddCustomBorrower(int WaC, int lvl)
-        {    
+        {
+            InputLog("Перейдем на первый этап создания заёмщика", lvl);
             AddCustomBorrower1Stage(WaC, lvl + 1);
+            InputLog("Перейдем на второй этап создания заёмщика", lvl);
             AddCustomBorrower2Stage(WaC, lvl + 1);
         } // Добавление заёмщика вручную
 
@@ -488,105 +513,143 @@ namespace asi_express
 
         public void AddTextOnList(int WaC, int lvl,string txt)
         {
+            InputLog("Ткнём в центр листа", lvl);
             Mouse.Click(Dots["SetText"]);
+            InputLog("Проверим язык", lvl);
             CheckLanguage(lvl + 1);
+            InputLog("Ввёдем текст", lvl);
             Keyboard.SendKeys(txt);
             Thread.Sleep(1 * WaC);
+            InputLog("Перейдем на следующую страницу", lvl);
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
 
         } // отдельный метод добавления текста на страницу
 
         public void AddCustomBorrowerAbsData(int WaC, int lvl)
         {
+            InputLog("Добавим счета для заёмщика", lvl);
             Mouse.Click(Dots["AddAccounts"]);
+            InputLog("Проверим язык", lvl);
             CheckLanguage(lvl + 1);
+            InputLog("Дождёмся появления формы добавления счетов", lvl);
             this.UIMap.SelectAccBorrower.WaitForControlExist(60 * WaC);
             this.UIMap.SelectAccBorrower.SetFocus();
             Keyboard.SendKeys("{TAB}{TAB}{TAB}");
+            InputLog("Ввёдем имя заёмщика", lvl);
             Keyboard.SendKeys(NameBorrower);
+            InputLog("Покажем все счета из данных", lvl);
             Mouse.Click(this.UIMap.SelectAccBorrower.ShowAccountsWindow.ShowAccountButton);
             Thread.Sleep(4 * WaC);
+            InputLog("Перенёсем все найденные счета в правую часть", lvl);
+            GetScreen("AllAccountFromAbs");
             Mouse.Click(Dots["AcceptAccountsBorrower"]);
+            InputLog("Согласимся с перенесенными данными", lvl);
             Mouse.Click(this.UIMap.SelectAccBorrower.OKWindow.OKButton);
             this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим действие", lvl);
             Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
             Thread.Sleep(5 * WaC);
-            if(this.UIMap.SelectAccBorrower.Exists)
+            InputLog("Проверим наличие окна", lvl);
+            if (this.UIMap.SelectAccBorrower.Exists)
             {
+                InputLog("Попросим закрыться ещё раз", lvl +1);
                 Mouse.Click(this.UIMap.SelectAccBorrower.OKWindow.OKButton);
             }
             Thread.Sleep(10 * WaC);
+            InputLog("Ждём когда форма исчезнет", lvl);
             this.UIMap.SelectAccBorrower.WaitForControlNotExist(60 * WaC);
+            InputLog("Перейдем на следующую страницу", lvl);
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
         } // метод добавления данных счетов заёмщика при создании заёмщика вручную
 
         public void AddCustomBorrowerCalcAbsData(int WaC, int lvl, string txt)
         {
+            InputLog("Дождёмся появления кнопки рассчитать на основе АБС", lvl);
             this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon.WaitForControlExist(60 * WaC);
+            InputLog("Произведём расчёт", lvl);
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon);
             CheckLanguage(lvl + 1);
+            InputLog("Ждём появления формы с выбором дат", lvl);
             this.UIMap.SelectDateAbsWindow.WaitForControlExist(60 * WaC);
+            InputLog("На эту отчётную дату", lvl);
             Mouse.Click(this.UIMap.SelectDateAbsWindow.OnThatDayWindow.OnThatDayRadioButton);
+            InputLog("Подтвердим", lvl);
             Mouse.Click(this.UIMap.SelectDateAbsWindow.OKWindow.OKButton);
             this.UIMap.InfoWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим выполнение расчёта", lvl);
             Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
+            InputLog("Сделам снимок", lvl);
+            GetScreen("Calc_From_Abs");
+            InputLog("Добавим текст", lvl);
             AddTextOnList(WaC, lvl + 1, txt);
         } // метод для расчета на листе добавленных счетов при создании заёмщика вручную
 
         public void AddCustomBorrowerCreateReport(int WaC, int lvl)
         {
-            try
-            {
-                this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton.WaitForControlExist(60 * WaC);
-                Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton);
-                this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
-                Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
-                Thread.Sleep(2 * WaC);
-                this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
-                Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
-                this.UIMap.AcceptWindow.WaitForControlNotExist(60 * WaC);
-                this.UIMap.RefreshSheetBorrower.WaitForControlExist(60 * WaC);
-                this.UIMap.RefreshSheetBorrower.WaitForControlNotExist(600 * WaC);
-                this.UIMap.ReportBorrower.WaitForControlExist(400 * WaC);
-                Thread.Sleep(120 * WaC);
-                Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
-                this.UIMap.ReportBorrower.WaitForControlNotExist(120 * WaC);
-                Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-                this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton.WaitForControlExist(60 * WaC);
-                Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            InputLog("Ждём открытия формы создания материалов заёмщика", lvl);
+            this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton.WaitForControlExist(60 * WaC);
+            InputLog("Создадим", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton);
+            this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим", lvl);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            Thread.Sleep(2 * WaC);
+            this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим ещё раз", lvl);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            this.UIMap.AcceptWindow.WaitForControlNotExist(60 * WaC);
+            InputLog("Ждём поялвения Waiter'а", lvl);
+            this.UIMap.RefreshSheetBorrower.WaitForControlExist(60 * WaC);
+            this.UIMap.RefreshSheetBorrower.WaitForControlNotExist(600 * WaC);
+            InputLog("Ждём появления отчёта", lvl);
+            this.UIMap.ReportBorrower.WaitForControlExist(400 * WaC);
+            InputLog("Заложили время на \"пролагивание отчёта\"", lvl);
+            Thread.Sleep(120 * WaC);
+            InputLog("Закроем отчёт", lvl);
+            Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
+            InputLog("Дождёмся его уничтожения", lvl);
+            this.UIMap.ReportBorrower.WaitForControlNotExist(120 * WaC);
+            InputLog("Перейдем на другую страницу", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+            InputLog("Завершим создание заёмщика", lvl);
+            this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton);
         } // метод для создания материалов по заёмщику
 
         public void AddCustomBorrower2Stage(int WaC,int lvl)
         {
             for (int i = 0; i <=13; i++)
             {
+                InputLog("Попали в цикл", lvl);
                 switch (i)
                 {
                     case 1:
+                        InputLog("Выполним добавление счетов", lvl);
                         AddCustomBorrowerAbsData(WaC, lvl + 1);
                         break;
                     case 2:
+                        InputLog("Рассчитаем значения по АБС", lvl);
                         AddCustomBorrowerCalcAbsData(WaC, lvl + 1,"Hello World " + i.ToString());
                         break;
                     case 10:
+                        InputLog("Просто перелистнём страницу, сделать ничего не сможем =(", lvl);
                         Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
                         break;
                     case 11:
+                        InputLog("Просто перелистнём страницу, сделать ничего не сможем =(", lvl);
                         Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
                         break;
                     case 12:
+                        InputLog("Просто перелистнём страницу, сделать ничего не сможем =(", lvl);
                         Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
                         break;
                     case 13:
+                        InputLog("Попытаемся сформировать материалы по заёмщику", lvl);
                         AddCustomBorrowerCreateReport(WaC, lvl + 1);
                         break;
                     default:
-                        AddTextOnList(WaC, lvl + 1, "Hello World " + i.ToString());
+                        InputLog("Добавим текст", lvl);
+                        AddTextOnList(WaC, lvl + 1, "Hello World " + i.ToString());                        
                         break;
                 }
                 Thread.Sleep(1 * WaC);                
