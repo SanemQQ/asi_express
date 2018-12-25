@@ -222,9 +222,9 @@ namespace asi_express
 
                 image.Save(Temp + DirectoryName + "\\" + imgName + ".jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
             }
-        }
+        } // Сделать скриншот
 
-        // [TestCleanup]
+         [TestCleanup]
         public void MyTestCleanup()
         {
             Shutdown_asi();
@@ -244,7 +244,7 @@ namespace asi_express
             Thread.Sleep(3 * WaC);
             InputLog("Дождёмся её появления", lvl);
             this.UIMap.ASI_Window.ImportAFSB.WaitForControlExist(60 * WaC);
-        }
+        } // Открытие формы загрузки из АФСБ
 
         public void DownloadSpr(int WaC, int lvl)
         {
@@ -273,9 +273,9 @@ namespace asi_express
             InputLog("Закрываем", lvl);
             Thread.Sleep(5 * WaC);
             Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
-        }
+        } // Загрузка справочной информации
 
-        public void CalcSpr(int WaC, int lvl)
+        public void CalcSpr(int WaC, int lvl) // Загрузка справочников из АФСБ
         {
             InputLog("Раскроем вкладку информационное обеспечение", lvl);
             Mouse.Click(Dots["InfoManag"]);
@@ -292,61 +292,76 @@ namespace asi_express
             InputLog("Ждём окно с логами", lvl);
             this.UIMap.LogWindow.WaitForControlExist(3000 * WaC);
             InputLog("Скриним", lvl);
-            GetScreen("FinishСфдс");
+            GetScreen("Finish_calc");
             InputLog("Закрываем", lvl);
             Thread.Sleep(5 * WaC);
             Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
-            Mouse.Click(Dots["SaveCode"]);
-            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(60 * WaC);
-            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
-            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlNotExist(60 * WaC);
-            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
         }
 
-        public void CreateQuestions(int WaC, int lvl)
+        public void CreateQuestions(int WaC, int lvl) // Создание вопросов
         {
+            InputLog("Дождёмся открытия формы Формирования заданий", lvl);
             this.UIMap.ASI_Window.CreateTaskWindow.WaitForControlExist(60 * WaC);
+            InputLog("Добавим задачу", lvl);
             Mouse.Click(Dots["AddTask"]);
             Thread.Sleep(1 * WaC);
+            InputLog("Выберем проверяемы код для этой задачи", lvl);
             Mouse.Click(Dots["ChangeCode"]);
             this.UIMap.SelectCode.WaitForControlExist(60 * WaC);
+            InputLog("Выбираем 131 код", lvl);
             Mouse.Click(Dots["131Code"]);
             Thread.Sleep(1 * WaC);
+            InputLog("Подтвердим выбор", lvl);
             Mouse.Click(this.UIMap.SelectCode.OKWindow.OKButton);
+            InputLog("Дождёмся уничтожения окна", lvl);
             this.UIMap.SelectCode.WaitForControlNotExist(60 * WaC);
+            InputLog("выберем сотрудников", lvl);
             Mouse.Click(Dots["ChangeEmp"]);
             this.UIMap.FormSprEmp.WaitForControlExist(60 * WaC);
+            InputLog("Выберем первого сотрудника", lvl);
             Mouse.Click(Dots["FirstEmp"]);
             Thread.Sleep(1 * WaC);
+            InputLog("Выберем второго сотрудника", lvl);
             Mouse.Click(Dots["SecondEmp"]);
+            InputLog("Подтвердим выбор", lvl);
             Mouse.Click(this.UIMap.FormSprEmp.OKWindow.OKButton);
             this.UIMap.FormSprEmp.WaitForControlNotExist(60 * WaC);
+            InputLog("Сохраним изменения", lvl);
             Mouse.Click(Dots["SaveCode"]);
+            InputLog("Подтвердим выбор", lvl);
             this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(60 * WaC);
             Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
         }
 
         public void DistribTask(int WaC, int lvl)
         {
+            InputLog("Дожидаемся открытия формы Распределения задач", lvl);
             this.UIMap.ASI_Window.GivingTaskWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтверждаем создание структуры акта по умолчанию", lvl);
             this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(60 * WaC);
             Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
             Thread.Sleep(5 * WaC);
+            InputLog("Раскрываем папку вводная часть", lvl);
             Mouse.DoubleClick(Dots["OpenFolder"]);
             Thread.Sleep(1 * WaC);
+            InputLog("Перетащим вопрос внутрь папки", lvl);
             Mouse.Move(Dots["FirstTask"]);
             Thread.Sleep(1 * WaC);
             Mouse.StartDragging();
             Mouse.StopDragging(Dots["FirstFolder"]);
+            InputLog("Перетащили", lvl);
+            InputLog("Ждём появления формы настройки задачи", lvl);
             this.UIMap.SettingTask.WaitForControlExist(60 * WaC);
             Keyboard.SendKeys(this.UIMap.SettingTask.ClarifTaskWindow.ClarifTaskMemo, "Hello World");
             GetScreen("HelloWorld_in_settingtask");
+            InputLog("Сохраним изменения в задаче", lvl);
             this.UIMap.SettingTask.SaveWindow.SaveButton.WaitForControlExist(60 * WaC);
             Mouse.Click(this.UIMap.SettingTask.SaveWindow.SaveButton);
             this.UIMap.SettingTask.WaitForControlNotExist(60 * WaC);
+            InputLog("Сохраним структуру", lvl);
             Mouse.Click(Dots["SaveDisk"]);
             Thread.Sleep(20 * WaC);
-        }
+        } //Распределение задач
 
         public void DownloadReports(int WaC, int lvl)
         {
@@ -400,7 +415,7 @@ namespace asi_express
             InputLog("Закрываем", lvl);
             Thread.Sleep(5 * WaC);
             Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
-        }
+        } // Загрузка форм отчётности
 
         public void AddFile(int WaC, int lvl)
         {
@@ -424,7 +439,7 @@ namespace asi_express
             GetScreen("AddedFile");
             Mouse.Click(Dots["PinMaterial"]);
 
-        }
+        } // Добавление файла в дерево материалов
 
         public void AddBorrower(int WaC, int lvl)
         {
@@ -441,13 +456,13 @@ namespace asi_express
             this.UIMap.InfoWindow.OKWindow.OKButton.WaitForControlExist(300 * WaC);
             Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
             GetScreen("Added_Borrower");
-        }
+        } // Добавление заёмщиков из отчётности
 
         public void AddCustomBorrower(int WaC, int lvl)
         {    
             AddCustomBorrower1Stage(WaC, lvl + 1);
             AddCustomBorrower2Stage(WaC, lvl + 1);
-        }
+        } // Добавление заёмщика вручную
 
         public void CheckLanguage(int lvl)
         {
@@ -469,7 +484,7 @@ namespace asi_express
             {
                 InputLog("Вышли из проверки", lvl);
             }
-        }
+        } // проверка языка
 
         public void AddTextOnList(int WaC, int lvl,string txt)
         {
@@ -479,7 +494,7 @@ namespace asi_express
             Thread.Sleep(1 * WaC);
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
 
-        }
+        } // отдельный метод добавления текста на страницу
 
         public void AddCustomBorrowerAbsData(int WaC, int lvl)
         {
@@ -503,7 +518,7 @@ namespace asi_express
             Thread.Sleep(10 * WaC);
             this.UIMap.SelectAccBorrower.WaitForControlNotExist(60 * WaC);
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-        }
+        } // метод добавления данных счетов заёмщика при создании заёмщика вручную
 
         public void AddCustomBorrowerCalcAbsData(int WaC, int lvl, string txt)
         {
@@ -516,7 +531,7 @@ namespace asi_express
             this.UIMap.InfoWindow.WaitForControlExist(60 * WaC);
             Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
             AddTextOnList(WaC, lvl + 1, txt);
-        }
+        } // метод для расчета на листе добавленных счетов при создании заёмщика вручную
 
         public void AddCustomBorrowerCreateReport(int WaC, int lvl)
         {
@@ -544,7 +559,7 @@ namespace asi_express
             {
                 throw e;
             }
-        }
+        } // метод для создания материалов по заёмщику
 
         public void AddCustomBorrower2Stage(int WaC,int lvl)
         {
@@ -577,7 +592,7 @@ namespace asi_express
                 Thread.Sleep(1 * WaC);                
             }
 
-        }
+        } // сгруппированный этап для всех листов, кроме первого
 
         public void AddCustomBorrower1Stage(int WaC, int lvl)
         {
@@ -641,7 +656,7 @@ namespace asi_express
             }
             Mouse.Click(this.UIMap.AddAdressWindow.OKWindow.OKButton);
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-        }
+        } // Первый этап создания заёмщика
 
         public void OpenReport(int WaC,int lvl,string Report)
         {
@@ -649,7 +664,7 @@ namespace asi_express
             Thread.Sleep(1 * WaC);
             Mouse.Click(Dots[Report]);
             Thread.Sleep(5 * WaC);
-        }
+        } // Открытие на влкадке информационное обеспечение индвидуального отчёта или акта
 
         public void CreateIndRep(int WaC, int lvl)
         {
@@ -695,7 +710,7 @@ namespace asi_express
             this.UIMap.DocumentWindow.SetFocus(); // Постараемся установить фокус на окне конструктора
             Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
             this.UIMap.DocumentWindow.WaitForControlNotExist(60 * WaC);
-        }
+        } // метод для создания индивидуального отчёта
 
         public void CreateAkt(int WaC, int lvl)
         {
@@ -744,7 +759,7 @@ namespace asi_express
             this.UIMap.DocumentWindow.SetFocus(); // Постараемся установить фокус на окне конструктора
             Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
             this.UIMap.DocumentWindow.WaitForControlNotExist(60 * WaC);
-        }
+        } // метод для создания акта
 
         public void Shutdown_asi()
         {
@@ -771,7 +786,7 @@ namespace asi_express
             { 
                 Proc.Kill();
             }
-        }
+        } // метод выключения АСИ
 
         public void Clear_cache()
         {
@@ -779,7 +794,7 @@ namespace asi_express
             {
                 Directory.Delete(LocalAppData + @"\JSC Prognoz", true);
             }
-        }
+        } // метод для чистки кэша
 
         public void Start_prognoz(int Wac, int lvl)
         {
@@ -796,7 +811,7 @@ namespace asi_express
                 InputLog("Открываем прогноз x86", lvl);
             }
 
-        }
+        } // метод запуска прогноза на различных машинах
 
         public void StartASI(int WaC, int lvl,string SchemaName, string User)
         {
@@ -823,26 +838,34 @@ namespace asi_express
                 InputLog("Подтвердим выбор", lvl);
                 Mouse.Click(this.UIMap.StudioConnectWindow.OKWindow.OKButton);
             }
-        }
-
+        } // метод запуска АСИ
+        
         public void StatsArm(int WaC, int lvl, string SchemaName)
         {
             InputLog("Ждём открытия АРМ Админа на стационарном уровне", lvl);
-            this.UIMap.ARM_AdminWindow.WaitForControlExist(60 * WaC);
-            InputLog("Выберем ТУ", lvl);
+            this.UIMap.ARM_AdminWindow.WaitForControlExist(60 * WaC);            
+            InputLog("Проверим версию системы, если она равна Microsoft Windows NT 6.1.7601 Service Pack 1 пропустим пункт выбора ТУ", lvl);
             if (Environment.OSVersion.ToString() != "Microsoft Windows NT 6.1.7601 Service Pack 1")
             {
-               SelectTU(WaC, lvl + 1);
+                InputLog("Выберем ТУ", lvl);
+                SelectTU(WaC, lvl + 1);
             }
+            InputLog("Создадим/Пересоздадим соединение с САФСБ", lvl);
             SetAFSB(WaC, lvl + 1);
+            InputLog("Создадим пользователя с именем RIO_3", lvl);
             CreateUser(WaC, lvl + 1, this.UIMap.EmployeeWindow.EmployeeList.RIO_3ListItem, "RIO_3", 0, SchemaName);
+            InputLog("Удалим пользователя", lvl);
             DeleteUser(WaC, lvl + 1, this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.UserList.RIO_3ListItem);
+            InputLog("Создадим пользователя с именем RIO_4", lvl);
             CreateUser(WaC, lvl + 1, this.UIMap.EmployeeWindow.EmployeeList.RIO_4ListItem, "RIO_4", 1, SchemaName);
+            InputLog("Удалим пользователя", lvl);
             DeleteUser(WaC, lvl + 1, this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.UserList.RIO_4ListItem);
+            InputLog("Пересоздадим объекты", lvl);
             RecreateObjects(WaC, lvl);
+            InputLog("Закроем АРМ Админа", lvl);
             this.UIMap.ARM_AdminWindow.SetFocus();
             Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
-        }
+        } // работа внутри АРМа на стационарном уровне
 
         public void DeleteUser(int WaC, int lvl, WpfListItem listitem)
         {
@@ -862,7 +885,7 @@ namespace asi_express
                 InputLog("Нажмём ОК", lvl + 1);
                 Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
             }
-        }
+        } // метод удаления пользователя из списка
 
         public void RecreateObjects(int WaC, int lvl)
         {
@@ -890,7 +913,7 @@ namespace asi_express
             this.UIMap.OKWindow.WaitForControlExist(15 * WaC);
 
             Mouse.Click(this.UIMap.OKWindow.OKButton);
-        }
+        } // метод для пересоздания объектов АСИ
 
         public void CreateUser(int WaC, int lvl, WpfListItem listitem, string UserName,int Try,string SchemaName) // Try - порядок запуска, если при 0 запуске вводятся данные АИБа, то при последующих уже нет
         {
@@ -991,12 +1014,12 @@ namespace asi_express
             this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.NameTextBlock.WaitForControlExist(1500 * WaC);
             InputLog("Дождёмся исчезновния дерева элементов", lvl);
             this.UIMap.ARM_AdminWindow.Tree.WaitForControlNotExist(10 * WaC);
-        }
+        } // метод для выбора ТУ
 
         private void WaiterForMSSQL(int Time)
         {
             if (this.TestContext.Properties["AgentName"].ToString() != "ASI-TST-12-2") { Thread.Sleep(Time*1000); }
-        }
+        } // специальная ожидалка для мсскл
 
         public void SetAFSB(int WaC, int lvl)
         {
@@ -1072,16 +1095,17 @@ namespace asi_express
                 GetScreen("Error_after_set_settings_AFSB" + this.TestContext.Properties["AgentName"].ToString());
                 // введено специально, для того чтобы  отловить ошибки при формировании
             }
-        }
+        } // настройка параметров для создания соединения с САФСБ
 
         public void MobArm(int WaC, int lvl, string SchemaName)
         {
             InputLog("Ждём открытия АРМ Админа на мобильном уровне", lvl);
             this.UIMap.ARM_AdminWindow.WaitForControlExist(30 * WaC);
-        }
+        } // работа внутри АРМа на мобильном уровне
 
         public void PrepareAsi(int WaC, int lvl, string SchemaName)
         {
+            InputLog("Почистим кэш", lvl);
             Clear_cache();
             InputLog("Запустим прогноз", lvl);
             Start_prognoz(WaC, lvl + 1);
@@ -1095,17 +1119,22 @@ namespace asi_express
             {
                 MobArm(WaC, lvl + 1, SchemaName);
             }
-        }
+        } // метод для подготовки АСИ к экспресс-тестированию
 
         public void ConnectToWorkingARM (int WaC, int lvl, string SchemaName,string UserName)
         {
+            InputLog("Вырубим АС Инспектора", lvl);
             Shutdown_asi();
             Thread.Sleep(2 * WaC);
+            InputLog("Почистим кэш", lvl);
             Clear_cache();
+            InputLog("Запустим АСИ ", lvl);
             StartASI(WaC, lvl + 1, SchemaName, UserName);
-            this.UIMap.ASI_Window.WaitForControlExist(180 * WaC);
+            InputLog("Дождёмся появления окна АРМа", lvl);
+            this.UIMap.ASI_Window.WaitForControlExist(240 * WaC);
+            InputLog("Дадим отстроится элементам", lvl);
             Thread.Sleep(10 * WaC);
-        }
+        } // метод для переподключения к АРМу пользователя/администратора
 
         #endregion
 
@@ -1133,24 +1162,22 @@ namespace asi_express
                 InputLog("Начнём подготовку к экспресс-тестированию", 0);
 
 
-                //PrepareAsi(WaC, 1, "ASISTA_UI");
+                PrepareAsi(WaC, 1, "ASISTA_UI");
+                DownloadSpr(WaC, 1);
+                CalcSpr(WaC, 1);
+                CreateQuestions(WaC, 1);
+                DistribTask(WaC, 1);
 
-                // DownloadSpr(WaC, 1);
+                DownloadReports(WaC, 1);
+                AddFile(WaC, 1);
+                AddBorrower(WaC, 1);
 
-                // CalcSpr(WaC, 1);
-                // CreateQuestions(WaC, 1);
-                // DistribTask(WaC, 1);
-
-                // DownloadReports(WaC, 1);
-                // AddFile(WaC, 1);
-                // AddBorrower(WaC, 1);
-
-                // AddCustomBorrower(WaC, 1);
-                //  CheckLanguage(0);
-                //AddCustomBorrowerCreateReport(WaC, 1);
-                // AddCustomBorrower(WaC, 1);
-                //  CreateIndRep(WaC,1);
-                //  CreateAkt(WaC, 1);
+                AddCustomBorrower(WaC, 1);
+                CheckLanguage(0);
+                AddCustomBorrowerCreateReport(WaC, 1);
+                AddCustomBorrower(WaC, 1);
+                CreateIndRep(WaC,1);
+                CreateAkt(WaC, 1);
             }
             catch (Exception e)
             {
