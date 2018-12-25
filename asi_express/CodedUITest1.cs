@@ -648,7 +648,7 @@ namespace asi_express
                         AddCustomBorrowerCreateReport(WaC, lvl + 1);
                         break;
                     default:
-                        InputLog("Добавим текст", lvl);
+                        InputLog("Добавим текст в " + i.ToString()+" раз", lvl);
                         AddTextOnList(WaC, lvl + 1, "Hello World " + i.ToString());                        
                         break;
                 }
@@ -659,46 +659,62 @@ namespace asi_express
 
         public void AddCustomBorrower1Stage(int WaC, int lvl)
         {
+            InputLog("Проверим язык", lvl);
             CheckLanguage(lvl + 1);
+            InputLog("Откроем вкладку обработка информации", lvl);
             Mouse.Click(Dots["ProccesInfoMob"]);
             Thread.Sleep(3 * WaC);
+            InputLog("Откроем информацию о заёмщиках", lvl);
             Mouse.Click(Dots["InfoBorrower"]);
             this.UIMap.ASI_Window.BorrowerWindow.WaitForControlExist(60 * WaC);
             Thread.Sleep(3 * WaC);
+            InputLog("Создадим своего заёмщика", lvl);
             Mouse.Click(Dots["AddCustomBorrower"]);
             this.UIMap.ASI_Window.AddCustomBorrowerWindow.WaitForControlExist(120 * WaC);
             Thread.Sleep(15 * WaC);
+            InputLog("Раскроем тип заёмщика", lvl);
             Mouse.Click(Dots["TypeBorrower"]);
             Thread.Sleep(5 * WaC);
+            InputLog("Выберем ЮЛ", lvl);
             Mouse.Click(Dots["TypeBorrowerYl"]);
             Mouse.Click(Dots["DropFocus"]);
             Thread.Sleep(5 * WaC);
+            InputLog("Введём имя", lvl);
             Mouse.Click(Dots["EditName"]);
             Thread.Sleep(5 * WaC);
             Keyboard.SendKeys(NameBorrower);
             Mouse.Click(Dots["DropFocus"]);
             Thread.Sleep(3 * WaC);
+            InputLog("Введём тип связи", lvl);
             Mouse.Click(Dots["TypeConnect"]);
             Thread.Sleep(5 * WaC);
+            InputLog("Выберем ссуды", lvl);
             Mouse.Click(Dots["TypeConnectSsyda"]);
             Mouse.Click(Dots["DropFocus"]);
             Thread.Sleep(5 * WaC);
+            InputLog("Введём полное имя", lvl);
             Mouse.Click(Dots["FullName"]);
             Thread.Sleep(2 * WaC);
             Keyboard.SendKeys(NameBorrower + "_Full");
             Mouse.Click(Dots["IP"]);
+            InputLog("Пускай это будет ИП", lvl);
             Thread.Sleep(6 * WaC);
+            InputLog("Физ. адрес совпадает с Юр. адресом", lvl);
             Mouse.Click(Dots["EqualAdress"]);
             Thread.Sleep(2 * WaC);
+            InputLog("Введём ИНН", lvl);
             Mouse.Click(Dots["INN"]);
             Thread.Sleep(2 * WaC);
             Keyboard.SendKeys(InnBorrower);
+            InputLog("Введём КПП", lvl);
             Mouse.Click(Dots["KPP"]);
             Thread.Sleep(2 * WaC);
             Keyboard.SendKeys(KppBorrower);
+            InputLog("Введём ОГРН", lvl);
             Mouse.Click(Dots["OGRN"]);
             Thread.Sleep(2 * WaC);
             Keyboard.SendKeys(OgrnBorrower);
+            InputLog("Введём адрес", lvl);
             Mouse.Click(Dots["SelectAdress"]);
             this.UIMap.AddAdressWindow.WaitForControlExist(60 * WaC);
 
@@ -706,120 +722,165 @@ namespace asi_express
             {
                 if(i<3)
                 {
+                    InputLog("Введем данные адреса", lvl+1);
                     Mouse.Click(Dots["Paremeter_" + i.ToString()]);
                     Keyboard.SendKeys("{DOWN}");
                     Thread.Sleep(1 * WaC);
                 }
                 else
                 {
+                    InputLog("Введем данные адреса", lvl + 1);
                     Mouse.Click(Dots["Paremeter_" + i.ToString()]);
                     Keyboard.SendKeys(i.ToString());
                     Thread.Sleep(1 * WaC);
                 }
             }
+            InputLog("Подтвердим введеные данные", lvl);
             Mouse.Click(this.UIMap.AddAdressWindow.OKWindow.OKButton);
+            InputLog("Перейдем на следующую страницу", lvl);
             Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
         } // Первый этап создания заёмщика
 
         public void OpenReport(int WaC,int lvl,string Report)
         {
+            InputLog("Раскроем вкладку подготовка результатов", lvl );
             Mouse.Click(Dots["PrepareResultMob"]);
             Thread.Sleep(1 * WaC);
+            InputLog("Отредактируем "+Report, lvl);
             Mouse.Click(Dots[Report]);
             Thread.Sleep(5 * WaC);
         } // Открытие на влкадке информационное обеспечение индвидуального отчёта или акта
 
         public void CreateIndRep(int WaC, int lvl)
         {
+            InputLog("Создадим индивидуальный отчёт", lvl );
             OpenReport(WaC, lvl + 1, "CreateIndRep");
+            InputLog("Проверим появление окна с предупреждением о требовании с перезапуском АСИ", lvl );
             if (this.UIMap.WarningWindow.Exists)
             {
+                InputLog("Отказываемся от формирования", lvl + 1);
                 this.UIMap.WarningWindow.WarnNo_Window.NoButton.WaitForControlExist(60 * WaC);
                 Mouse.Click(this.UIMap.WarningWindow.WarnNo_Window.NoButton);
+                InputLog("Перезайдем в АСИ", lvl + 1);
                 ConnectToWorkingARM(WaC, lvl + 1, "ASIMOB_UI", "RIO");
+                InputLog("Создадим индивидуальный отчёт", lvl + 1);
                 OpenReport(WaC, lvl + 1, "CreateIndRep");
             }
             this.UIMap.AttentionWindow.WaitForControlExist(60 * WaC);
+            InputLog("Игнорируем предупреждение о незагруженности данных", lvl);
             Mouse.Click(this.UIMap.AttentionWindow.Att_NoWindow.NoButton);
             this.UIMap.NameIndRepWindow.WaitForControlExist(60 * WaC);
+            InputLog("Введем имя нашего отчёта", lvl);
             this.UIMap.NameIndRepWindow.NameIndRepEdit.Text = "Индивидуальный отчет (РИО)_" + DateTime.Now.ToString("ddMMyyyy_HHmmss");
             Mouse.Click(this.UIMap.NameIndRepWindow.OKButton);
+            InputLog("Ждём его построения", lvl);
             this.UIMap.OpenEditor.WaitForControlExist(120 * WaC);
             this.UIMap.OpenEditor.WaitForControlNotExist(120 * WaC);
             this.UIMap.ASI_Window.IndReportWindow.WaitForControlExist(120 * WaC);
             this.UIMap.CreatingWindow.WaitForControlExist(60 * WaC);
             this.UIMap.CreatingWindow.ProgressBar.WaitForControlNotExist(900 * WaC);
+            InputLog("Отчёт должен был сформироваться", lvl);
             Thread.Sleep(5 * WaC);
             if (this.UIMap.CreatingWindow.OKButton.Exists)
             {
+                InputLog("Метод 1 для нажатия на кнопку ОК", lvl + 1);
                 Mouse.Click(this.UIMap.CreatingWindow.OKButton);
             }
             else
             {
+                InputLog("Метод 2 для нажатия на кнопку ОК", lvl + 1);
                 Mouse.Click(Dots["OKButton"]);
             }
+            InputLog("Раскроем первый раздел и воткнём туда какой-нибудь текст", lvl);
             Mouse.Click(MouseButtons.Right, ModifierKeys.None, Dots["IntroPart"]);
             Thread.Sleep(1 * WaC);
             Mouse.Click(Dots["ChangeIntroPart"]);
             this.UIMap.DocumentWindow.WaitForControlExist(60 * WaC);
-            Mouse.Click(Dots["SetText"]);            
+            InputLog("Ткнём в документ", lvl);
+            Mouse.Click(Dots["SetText"]);
+            InputLog("Проверим язык", lvl);
             CheckLanguage(lvl + 1);
+            InputLog("Вводим текущее время", lvl);
             Keyboard.SendKeys("TODAY_" + DateTime.Now.ToString("ddMMyyyy_HHmmss"));
+            InputLog("Сохраним", lvl);
             Mouse.Click(this.UIMap.DocumentWindow.SaveButton);
             this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(60 * WaC);
             Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            InputLog("Да, нужно перестроить зависимые объекты", lvl);
             Thread.Sleep(8 * WaC);
+            InputLog("Сделаем скриншот", lvl);
             GetScreen("Create_Changes");
             this.UIMap.DocumentWindow.SetFocus(); // Постараемся установить фокус на окне конструктора
+            InputLog("Закроем окно", lvl);
             Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
             this.UIMap.DocumentWindow.WaitForControlNotExist(60 * WaC);
         } // метод для создания индивидуального отчёта
 
         public void CreateAkt(int WaC, int lvl)
         {
+            InputLog("Создадим акт", lvl);
             OpenReport(WaC, lvl + 1, "CreateAkt");
             this.UIMap.EndedCheckWindow.WaitForControlExist(60 * WaC);
+            InputLog("Оказывается проверка завершена", lvl);
             Mouse.Click(this.UIMap.EndedCheckWindow.Panel.CreateAktRadioButton);
             this.UIMap.EndedCheckWindow.OKButton.WaitForControlEnabled(60 * WaC);
+            InputLog("Да, мы хотим создать акт", lvl);
             Mouse.Click(this.UIMap.EndedCheckWindow.OKButton);
             Thread.Sleep(8 * WaC);
+            InputLog("Проверим появление окна с предупреждением о требовании с перезапуском АСИ", lvl);
             if (this.UIMap.WarningWindow.Exists)
             {
+                InputLog("Отказываемся от формирования", lvl + 1);
                 this.UIMap.WarningWindow.WarnNo_Window.NoButton.WaitForControlExist(60 * WaC);
                 Mouse.Click(this.UIMap.WarningWindow.WarnNo_Window.NoButton);
+                InputLog("Перезайдем в АСИ", lvl + 1);
                 ConnectToWorkingARM(WaC, lvl + 1, "ASIMOB_UI", "RIO");
+                InputLog("Создадим акт", lvl + 1);
                 OpenReport(WaC, lvl + 1, "CreateAkt");
             }
             this.UIMap.AttentionWindow.WaitForControlExist(60 * WaC);
+            InputLog("Игнорируем предупреждение о незагруженности данных", lvl);
             Mouse.Click(this.UIMap.AttentionWindow.Att_NoWindow.NoButton);
             this.UIMap.NameAktWindow.WaitForControlExist(60 * WaC);
+            InputLog("Введем имя для акта", lvl);
             this.UIMap.NameAktWindow.NameAktEdit.Text = "Акт проверки (РИО)_" + DateTime.Now.ToString("ddMMyyyy_HHmmss");
             Mouse.Click(this.UIMap.NameAktWindow.OKButton);
+            InputLog("Ждём его построения", lvl);
             this.UIMap.OpenEditor.WaitForControlExist(120 * WaC);
             this.UIMap.OpenEditor.WaitForControlNotExist(120 * WaC);
             this.UIMap.ASI_Window.AktReportWindow.WaitForControlExist(120 * WaC);
             this.UIMap.CreatingWindow.WaitForControlExist(60 * WaC);
             this.UIMap.CreatingWindow.ProgressBar.WaitForControlNotExist(900 * WaC);
+            InputLog("Отчёт должен был сформироваться", lvl);
             Thread.Sleep(5 * WaC);
-            if(this.UIMap.CreatingWindow.OKButton.Exists)
+            if (this.UIMap.CreatingWindow.OKButton.Exists)
             {
+                InputLog("Метод 1 для нажатия на кнопку ОК", lvl + 1);
                 Mouse.Click(this.UIMap.CreatingWindow.OKButton);
             }
             else
             {
+                InputLog("Метод 2 для нажатия на кнопку ОК", lvl + 1);
                 Mouse.Click(Dots["OKButton"]);
-            }  
+            }
+            InputLog("Раскроем последний раздел и воткнём туда какой-нибудь текст", lvl);
             Mouse.Click(MouseButtons.Right, ModifierKeys.None, Dots["EndingPart"]);
             Thread.Sleep(1 * WaC);
             Mouse.Click(Dots["ChangeEndingPart"]);
             this.UIMap.DocumentWindow.WaitForControlExist(60 * WaC);
-            Mouse.Click(Dots["SetText"]);            
+            InputLog("Ткнём в документ", lvl);
+            Mouse.Click(Dots["SetText"]);
+            InputLog("Проверим язык", lvl);
             CheckLanguage(lvl + 1);
-            Keyboard.SendKeys("TODAY_" + DateTime.Now.ToString("ddMMyyyy_HHmmss"));
+            InputLog("Вводим текущее время", lvl)
+             Keyboard.SendKeys("TODAY_" + DateTime.Now.ToString("ddMMyyyy_HHmmss"));
+            InputLog("Сохраним", lvl);
             Mouse.Click(this.UIMap.DocumentWindow.SaveButton);
             Thread.Sleep(8 * WaC);
+            InputLog("Сделаем скриншот", lvl);
             GetScreen("Create_Changes");
             this.UIMap.DocumentWindow.SetFocus(); // Постараемся установить фокус на окне конструктора
+            InputLog("Закроем окно", lvl);
             Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
             this.UIMap.DocumentWindow.WaitForControlNotExist(60 * WaC);
         } // метод для создания акта
