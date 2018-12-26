@@ -6351,6 +6351,7 @@ namespace asi_express
         #endregion
 
         #region Fields
+
         private WpfComboBox mSelectedDocumentComboBox;
 
         private WpfButton mCreateDocumentButton;
@@ -7633,6 +7634,23 @@ namespace asi_express
                 return this.mSaveDocumentButton;
             }
         }
+
+        public WpfImage AddDocImage
+        {
+            get
+            {
+                if ((this.mAddDocImage == null))
+                {
+                    this.mAddDocImage = new WpfImage(this);
+                    #region Условия поиска
+                    this.mAddDocImage.SearchProperties[WpfImage.PropertyNames.AutomationId] = "AddDocument_InspectionInfoView_im";
+                    this.mAddDocImage.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mAddDocImage;
+            }
+        }
         #endregion
 
         #region Fields
@@ -7645,6 +7663,8 @@ namespace asi_express
         private WpfButton mRefreshButton;
 
         private WpfButton mSaveDocumentButton;
+
+        private WpfImage mAddDocImage;
         #endregion
     }
 
@@ -7662,10 +7682,1005 @@ namespace asi_express
             #endregion
         }
 
-        
+
+        #region Properties
+        public WpfEdit RegnumEdit
+        {
+            get
+            {
+                if ((this.mRegnumEdit == null))
+                {
+                    this.mRegnumEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mRegnumEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Regnum_FileAView_tb";
+                    this.mRegnumEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mRegnumEdit;
+            }
+        }
+
+        public WpfEdit TUValueEdit
+        {
+            get
+            {
+                if ((this.mTUValueEdit == null))
+                {
+                    this.mTUValueEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mTUValueEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "TUValue_FileAView_tb";
+                    this.mTUValueEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mTUValueEdit;
+            }
+        }
+
+
+        public WpfEdit InspectionPauseEdit
+        {
+            get
+            {
+                if ((this.mInspectionPauseEdit == null))
+                {
+                    this.mInspectionPauseEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionPauseEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionPauseBase_FileAView_tb";
+                    this.mInspectionPauseEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionPauseEdit;
+            }
+        }
+
+        public RegDatePicker RegDatePicker
+        {
+            get
+            {
+                if ((this.mRegDatePicker == null))
+                {
+                    this.mRegDatePicker = new RegDatePicker(this);
+                }
+                return this.mRegDatePicker;
+            }
+        }
+
+        public WpfComboBox TransportComboBox
+        {
+            get
+            {
+                if ((this.mTransportComboBox == null))
+                {
+                    this.mTransportComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mTransportComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "transport_FileAView_tb";
+                    this.mTransportComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mTransportComboBox;
+            }
+        }
+
+        public WpfEdit VersionEdit
+        {
+            get
+            {
+                if ((this.mVersionEdit == null))
+                {
+                    this.mVersionEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mVersionEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "version_FileAView_tb";
+                    this.mVersionEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mVersionEdit;
+            }
+        }
+
+
+
+        public WpfEdit NameFileEdit
+        {
+            get
+            {
+                if ((this.mNameFileEdit == null))
+                {
+                    this.mNameFileEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mNameFileEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "name_FileAView_tb";
+                    this.mNameFileEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mNameFileEdit;
+            }
+        }
+
+        public WpfEdit NameFile2Edit
+        {
+            get
+            {
+                if ((this.mNameFile2Edit == null))
+                {
+                    this.mNameFile2Edit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mNameFile2Edit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "name1_FileAView_tb";
+                    this.mNameFile2Edit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mNameFile2Edit;
+            }
+        }
+
+        public WpfEdit InspEdit
+        {
+            get
+            {
+                if ((this.mInspEdit == null))
+                {
+                    this.mInspEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "insp_FileAView_tb";
+                    this.mInspEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspEdit;
+            }
+        }
+
+        public WpfEdit KONameEdit
+        {
+            get
+            {
+                if ((this.mKONameEdit == null))
+                {
+                    this.mKONameEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mKONameEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "KOName_FileAView_tb";
+                    this.mKONameEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mKONameEdit;
+            }
+        }
+
+        /// <summary>
+        /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// </summary>
+
+        public WpfEdit KOFilNameEdit
+        {
+            get
+            {
+                if ((this.mKOFilNameEdit == null))
+                {
+                    this.mKOFilNameEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mKOFilNameEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "KOFilName_FileAView_tb";
+                    this.mKOFilNameEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mKOFilNameEdit;
+            }
+        }
+
+
+        public WpfEdit DeptNumEdit
+        {
+            get
+            {
+                if ((this.mDeptNumEdit == null))
+                {
+                    this.mDeptNumEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDeptNumEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "DeptNum_FileAView_tb";
+                    this.mDeptNumEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDeptNumEdit;
+            }
+        }
+
+        public WpfEdit PredstavEdit
+        {
+            get
+            {
+                if ((this.mPredstavEdit == null))
+                {
+                    this.mPredstavEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mPredstavEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Predstav_FileAView_tb";
+                    this.mPredstavEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mPredstavEdit;
+            }
+        }
+
+        public WpfComboBox InspObjTypeComboBox
+        {
+            get
+            {
+                if ((this.mInspObjTypeComboBox == null))
+                {
+                    this.mInspObjTypeComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mInspObjTypeComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "InspObjType_FileAView_cm";
+                    this.mInspObjTypeComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspObjTypeComboBox;
+            }
+        }
+
+        public WpfComboBox InspObjVidComboBox
+        {
+            get
+            {
+                if ((this.mInspObjVidComboBox == null))
+                {
+                    this.mInspObjVidComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mInspObjVidComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "InspObjVid_FileAView_cm";
+                    this.mInspObjVidComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspObjVidComboBox;
+            }
+        }
+
+        public WpfComboBox InspObjSignComboBox
+        {
+            get
+            {
+                if ((this.mInspObjSignComboBox == null))
+                {
+                    this.mInspObjSignComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mInspObjSignComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "InspObjSign_FileAView_cm";
+                    this.mInspObjSignComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspObjSignComboBox;
+            }
+        }
+
+        public WpfEdit RegnumOrdEdit
+        {
+            get
+            {
+                if ((this.mRegnumOrdEdit == null))
+                {
+                    this.mRegnumOrdEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mRegnumOrdEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "RegnumOrd_FileAView_tb";
+                    this.mRegnumOrdEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mRegnumOrdEdit;
+            }
+        }
+
+
+        public WpfEdit InspObjAddressEdit
+        {
+            get
+            {
+                if ((this.mInspObjAddressEdit == null))
+                {
+                    this.mInspObjAddressEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspObjAddressEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspObjAddress_FileAView_tb";
+                    this.mInspObjAddressEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspObjAddressEdit;
+            }
+        }
+
+        public WpfEdit KOAddressEdit
+        {
+            get
+            {
+                if ((this.mKOAddressEdit == null))
+                {
+                    this.mKOAddressEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mKOAddressEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "KOAddress_FileAView_tb";
+                    this.mKOAddressEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mKOAddressEdit;
+            }
+        }
+
+        public WpfComboBox InspectionVidComboBox
+        {
+            get
+            {
+                if ((this.mInspectionVidComboBox == null))
+                {
+                    this.mInspectionVidComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mInspectionVidComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "InspectionVid_FileAView_cm";
+                    this.mInspectionVidComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionVidComboBox;
+            }
+        }
+
+        public WpfComboBox InspectionTypeComboBox
+        {
+            get
+            {
+                if ((this.mInspectionTypeComboBox == null))
+                {
+                    this.mInspectionTypeComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mInspectionTypeComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "InspectionType_FileAView_cm";
+                    this.mInspectionTypeComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionTypeComboBox;
+            }
+        }
+
+        public WpfEdit InspectionBaseEdit
+        {
+            get
+            {
+                if ((this.mInspectionBaseEdit == null))
+                {
+                    this.mInspectionBaseEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionBaseEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionBase_FileAView_tb";
+                    this.mInspectionBaseEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionBaseEdit;
+            }
+        }
+
+        public WpfEdit AssignmentEdit
+        {
+            get
+            {
+                if ((this.mAssignmentEdit == null))
+                {
+                    this.mAssignmentEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mAssignmentEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Assignment_FileAView_tb";
+                    this.mAssignmentEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mAssignmentEdit;
+            }
+        }
+
+        public WpfEdit DisposalEdit
+        {
+            get
+            {
+                if ((this.mDisposalEdit == null))
+                {
+                    this.mDisposalEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDisposalEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Disposal_FileAView_tb";
+                    this.mDisposalEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDisposalEdit;
+            }
+        }
+
+        public WpfEdit JobEdit
+        {
+            get
+            {
+                if ((this.mJobEdit == null))
+                {
+                    this.mJobEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mJobEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Job_FileAView_tb";
+                    this.mJobEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mJobEdit;
+            }
+        }
+
+        public WpfEdit AssignmentDopEdit
+        {
+            get
+            {
+                if ((this.mAssignmentDopEdit == null))
+                {
+                    this.mAssignmentDopEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mAssignmentDopEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "AssignmentDop_FileAView_tb";
+                    this.mAssignmentDopEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mAssignmentDopEdit;
+            }
+        }
+        public WpfEdit InspectionStartEdit
+        {
+            get
+            {
+                if ((this.mInspectionStartEdit == null))
+                {
+                    this.mInspectionStartEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionStartEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionStart_FileAView_tb";
+                    this.mInspectionStartEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mAssignmentDopEdit;
+            }
+        }
+
+        public WpfEdit InspectionEndEdit
+        {
+            get
+            {
+                if ((this.mInspectionEndEdit == null))
+                {
+                    this.mInspectionEndEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionEndEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionEnd_FileAView_tb";
+                    this.mInspectionEndEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionEndEdit;
+            }
+        }
+
+        public WpfEdit InspectionDaysEdit
+        {
+            get
+            {
+                if ((this.mInspectionDaysEdit == null))
+                {
+                    this.mInspectionDaysEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionDaysEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionDays_FileAView_tb";
+                    this.mInspectionDaysEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionDaysEdit;
+            }
+        }
+
+        public WpfEdit InspectionEndChangedEdit
+        {
+            get
+            {
+                if ((this.mInspectionEndChangedEdit == null))
+                {
+                    this.mInspectionEndChangedEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionEndChangedEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionEndChanged_FileAView_tb";
+                    this.mInspectionEndChangedEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionEndChangedEdit;
+            }
+        }
+
+        public WpfEdit InspectionChangedDaysEdit
+        {
+            get
+            {
+                if ((this.mInspectionChangedDaysEdit == null))
+                {
+                    this.mInspectionChangedDaysEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionChangedDaysEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionChangedDays_FileAView_tb";
+                    this.mInspectionChangedDaysEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionChangedDaysEdit;
+            }
+        }
+
+        public WpfEdit InspectionPauseBaseEdit
+        {
+            get
+            {
+                if ((this.mInspectionPauseBaseEdit == null))
+                {
+                    this.mInspectionPauseBaseEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionPauseBaseEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionPauseBase_FileAView_tb";
+                    this.mInspectionPauseBaseEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionPauseBaseEdit;
+            }
+        }
+
+        public WpfEdit InspectionStartDelayBaseEdit
+        {
+            get
+            {
+                if ((this.mInspectionStartDelayBaseEdit == null))
+                {
+                    this.mInspectionStartDelayBaseEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionStartDelayBaseEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionStartDelayBase_FileAView_tb";
+                    this.mInspectionStartDelayBaseEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionStartDelayBaseEdit;
+            }
+        }
+
+        public WpfEdit InspectionPeriodEdit
+        {
+            get
+            {
+                if ((this.mInspectionPeriodEdit == null))
+                {
+                    this.mInspectionPeriodEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionPeriodEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionPeriod_FileAView_tb";
+                    this.mInspectionPeriodEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionPeriodEdit;
+            }
+        }
+
+        public WpfEdit InspectionPeriodDopEdit
+        {
+            get
+            {
+                if ((this.mInspectionPeriodDopEdit == null))
+                {
+                    this.mInspectionPeriodDopEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mInspectionPeriodDopEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "InspectionPeriodDop_FileAView_tb";
+                    this.mInspectionPeriodDopEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mInspectionPeriodDopEdit;
+            }
+        }
+
+        public WpfEdit QuestionsCountEdit
+        {
+            get
+            {
+                if ((this.mQuestionsCountEdit == null))
+                {
+                    this.mQuestionsCountEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mQuestionsCountEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "QuestionsCount_FileAView_tb";
+                    this.mQuestionsCountEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mQuestionsCountEdit;
+            }
+        }
+
+
+        public WpfEdit QuestionsCountDopEdit
+        {
+            get
+            {
+                if ((this.mQuestionsCountDopEdit == null))
+                {
+                    this.mQuestionsCountDopEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mQuestionsCountDopEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "QuestionsCountDop_FileAView_tb";
+                    this.mQuestionsCountDopEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mQuestionsCountDopEdit;
+            }
+        }
+
+        public WpfEdit LeadEdit
+        {
+            get
+            {
+                if ((this.mLeadEdit == null))
+                {
+                    this.mLeadEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mLeadEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Lead_FileAView_tb";
+                    this.mLeadEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mLeadEdit;
+            }
+        }
+
+        public WpfEdit OkatoEdit
+        {
+            get
+            {
+                if ((this.mOkatoEdit == null))
+                {
+                    this.mOkatoEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mOkatoEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "okato_FileAView_tb";
+                    this.mOkatoEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mOkatoEdit;
+            }
+        }
+
+        public WpfEdit ViceLeadEdit
+        {
+            get
+            {
+                if ((this.mViceLeadEdit == null))
+                {
+                    this.mViceLeadEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mViceLeadEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "ViceLead_FileAView_tb";
+                    this.mViceLeadEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mViceLeadEdit;
+            }
+        }
+
+        public WpfEdit ViceLeadOkatoEdit
+        {
+            get
+            {
+                if ((this.mViceLeadOkatoEdit == null))
+                {
+                    this.mViceLeadOkatoEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mViceLeadOkatoEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "ViceLeadOkato_FileAView_tb";
+                    this.mViceLeadOkatoEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mViceLeadOkatoEdit;
+            }
+        }
+        /*
+        public WpfEdit ViceLeadOkatoEdit
+        {
+            get
+            {
+                if ((this.mViceLeadOkatoEdit == null))
+                {
+                    this.mViceLeadOkatoEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mViceLeadOkatoEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "ViceLeadOkato_FileAView_tb";
+                    this.mViceLeadOkatoEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mViceLeadOkatoEdit;
+            }
+        }
+        */
+        public WpfEdit GroupCountEdit
+        {
+            get
+            {
+                if ((this.mGroupCountEdit == null))
+                {
+                    this.mGroupCountEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mGroupCountEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "GroupCount_FileAView_tb";
+                    this.mGroupCountEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mGroupCountEdit;
+            }
+        }
+
+        public WpfEdit UchastEdit
+        {
+            get
+            {
+                if ((this.mUchastEdit == null))
+                {
+                    this.mUchastEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mUchastEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Uchast_FileAView_tb";
+                    this.mUchastEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mUchastEdit;
+            }
+        }
+
+        public WpfEdit SignerPostEdit
+        {
+            get
+            {
+                if ((this.mSignerPostEdit == null))
+                {
+                    this.mSignerPostEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mSignerPostEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "signerpost_FileAView_tb";
+                    this.mSignerPostEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSignerPostEdit;
+            }
+        }
+
+        public WpfEdit SignerEdit
+        {
+            get
+            {
+                if ((this.mSignerEdit == null))
+                {
+                    this.mSignerEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mSignerEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "signer_FileAView_tb";
+                    this.mSignerEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mSignerEdit;
+            }
+        }
+
+        public WpfEdit FooterEdit
+        {
+            get
+            {
+                if ((this.mFooterEdit == null))
+                {
+                    this.mFooterEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mFooterEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Footer_FileAView_tb";
+                    this.mFooterEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mFooterEdit;
+            }
+        }
+
+        //Footer_FileAView_tb
+        #endregion
+
+
+
+
+        #region Fields
+        private WpfEdit mRegnumEdit;
+
+        private WpfEdit mTUValueEdit;
+
+        private WpfEdit mInspectionPauseEdit;
+
+        private RegDatePicker mRegDatePicker;
+
+        private WpfComboBox mTransportComboBox;
+
+        private WpfEdit mVersionEdit;
+
+        private WpfEdit mNameFileEdit;
+
+        private WpfEdit mNameFile2Edit;
+
+        private WpfEdit mInspEdit;
+
+        private WpfEdit mKONameEdit;
+
+        private WpfEdit mKOFilNameEdit;
+
+        private WpfEdit mDeptNumEdit;
+
+        private WpfEdit mPredstavEdit;
+
+        private WpfComboBox mInspObjTypeComboBox;
+
+        private WpfEdit mInspObjAddressEdit;
+
+        private WpfEdit mRegnumOrdEdit;
+
+        private WpfEdit mFooterEdit;
+
+        private WpfEdit mSignerEdit;
+
+        private WpfEdit mSignerPostEdit;
+
+        private WpfEdit mUchastEdit;
+
+        private WpfEdit mGroupCountEdit;
+
+        private WpfEdit mViceLeadOkatoEdit;
+
+        private WpfEdit mViceLeadEdit;
+
+        private WpfEdit mInspectionStartDelayBaseEdit;
+
+        private WpfEdit mOkatoEdit;
+
+        private WpfEdit mQuestionsCountDopEdit;
+
+        private WpfEdit mQuestionsCountEdit;
+
+        private WpfEdit mInspectionPeriodDopEdit;
+
+        private WpfEdit mInspectionPeriodEdit;
+
+        private WpfEdit mLeadEdit;
+
+        private WpfEdit mInspectionPauseBaseEdit;
+
+        private WpfEdit mInspectionChangedDaysEdit;
+
+        private WpfEdit mKOAddressEdit;
+
+        private WpfEdit mInspectionEndChangedEdit;
+
+        private WpfEdit mInspectionDaysEdit;
+
+        private WpfEdit mInspectionEndEdit;
+
+        private WpfEdit mInspectionStartEdit;
+
+        private WpfEdit mAssignmentDopEdit;
+
+        private WpfEdit mJobEdit;
+
+        private WpfEdit mDisposalEdit;
+
+        private WpfEdit mAssignmentEdit;
+
+        private WpfEdit mInspectionBaseEdit;
+
+        private WpfComboBox mInspectionTypeComboBox;
+
+        private WpfComboBox mInspectionVidComboBox;
+
+        private WpfComboBox mInspObjSignComboBox;
+
+        private WpfComboBox mInspObjVidComboBox;
+        #endregion
     }
 
 
+    public class RegDatePicker : WpfCustom
+    {
+
+        public RegDatePicker(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "regdate_FileAView_tb";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfButton ShowCalendar
+        {
+            get
+            {
+                if ((this.mShowCalendar == null))
+                {
+                    this.mShowCalendar = new WpfButton(this);
+                    #region Условия поиска
+                    this.mShowCalendar.SearchProperties[WpfButton.PropertyNames.AutomationId] = "PART_Button";
+                    this.mShowCalendar.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mShowCalendar;
+            }
+        }
+
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfButton mShowCalendar;
+
+        private WpfEdit mDateText;
+        #endregion
+    }
+
+    public class TransportComboBox : WpfCustom
+    {
+        public TransportComboBox(UITestControl searchLimitContainer) :
+        base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfList.PropertyNames.AutomationId] = "transport_FileAView_tb";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        public WpfEdit TransportTextBox
+        {
+            get
+            {
+                if ((this.mTransportTextBox == null))
+                {
+                    this.mTransportTextBox = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mTransportTextBox.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_Editable_FileAView_tb";
+                    this.mTransportTextBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mTransportTextBox;
+            }
+        }
+
+        #region Fields
+
+        private WpfEdit mTransportTextBox;
+        #endregion
+
+    }
 
     [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
     public class SelectKOTreeList : WpfList

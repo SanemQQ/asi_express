@@ -45,8 +45,7 @@ namespace asi_express
         readonly string lang_str = "00000409";
         int ret;
         readonly string Mode = "Debug";
-
-
+        #endregion
         #region SwapLang
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern bool PostMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
@@ -80,7 +79,36 @@ namespace asi_express
         }
 
         #endregion SwapLang
+        #region ClickHiddenElement
+        public void ClickHiddenElement(UITestControl elem, string Type)
+        {
+            if(elem.BoundingRectangle.Y>945)
+            {
+                Mouse.Click(Dots["SetFocusDocABCI"]);
+                Mouse.MoveScrollWheel(elem, elem.BoundingRectangle.Y - 945);
+            }
+            switch (Type)
+            {
+                case "Click":
+                    Mouse.Click(new Point(elem.BoundingRectangle.X + (int)elem.BoundingRectangle.Width / 2, elem.BoundingRectangle.Y + (int)elem.BoundingRectangle.Height / 2));
+                    break;
+                case "DbClick":
+                    Mouse.DoubleClick(new Point(elem.BoundingRectangle.X + (int)elem.BoundingRectangle.Width / 2, elem.BoundingRectangle.Y + (int)elem.BoundingRectangle.Height / 2));
+                    break;
+            }
+        }
 
+        public void ClickHiddenElement(UITestControl elem, string Type, string txt)
+        {
+            switch (Type)
+            {
+                case "SendKeys":
+                    Keyboard.SendKeys(elem, txt);
+                    break;
+            }
+        }
+        #endregion
+        #region PrepareAndFinishTest
         [TestInitialize]
         public void TestStartup()
         {
@@ -200,8 +228,23 @@ namespace asi_express
             Dots.Add("EndingPart", new Point(160, 440));
             Dots.Add("ChangeEndingPart", new Point(210, 495));
             Dots.Add("OKButton", new Point(960, 345));
+
+            //FormABCI
+            Dots.Add("SetFocusDocABCI", new Point(1200, 650));
         }
 
+        //  [TestCleanup]
+        public void MyTestCleanup()
+        {
+            Shutdown_asi();
+            Thread.Sleep(10000);
+            Clear_cache();
+            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString() + DateTime.Now.ToString("ddMMyyyy_HHmm") + this.TestContext.CurrentTestOutcome.ToString() + ".zip");
+            Directory.Delete(Temp + DirectoryName, true); // удаляем старые данные, так как они нам не нужны больше
+        }
+
+        #endregion
+        #region UsefulMethods
         public void InputLog(string txt, int lvl)  // txt - строка, которую передают для логирования, а lvl - это уровень вложенности
         {
             string tab = "";
@@ -212,7 +255,6 @@ namespace asi_express
 
             File.AppendAllText(Temp + DirectoryName + logfile, tab + txt + "\r\n");
         }
-
         public void GetScreen(string imgName)
         {
             using (var image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height))
@@ -223,16 +265,8 @@ namespace asi_express
                 image.Save(Temp + DirectoryName + "\\" + imgName + ".jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
             }
         } // Сделать скриншот
-
-         [TestCleanup]
-        public void MyTestCleanup()
-        {
-            Shutdown_asi();
-            Thread.Sleep(10000);
-            Clear_cache();
-            ZipFile.CreateFromDirectory(Temp + DirectoryName, Temp + DirectoryName + this.TestContext.Properties["AgentName"].ToString() + DateTime.Now.ToString("ddMMyyyy_HHmm") + this.TestContext.CurrentTestOutcome.ToString() + ".zip");
-            Directory.Delete(Temp + DirectoryName, true); // удаляем старые данные, так как они нам не нужны больше
-        }
+        #endregion UsefulMethods
+        #region AdditionalMethods
 
         public void OpenAFSB(int WaC, int lvl)
         {
@@ -246,57 +280,624 @@ namespace asi_express
             this.UIMap.ASI_Window.ImportAFSB.WaitForControlExist(60 * WaC);
         } // Открытие формы загрузки из АФСБ
 
-        public void DownloadSpr(int WaC, int lvl)
+        public void CheckLanguage(int lvl)
         {
-            InputLog("Открываем вкладку загрузки АФСБ", lvl);
-            OpenAFSB(WaC, lvl + 1);
-            InputLog("Перешли к первой точке", lvl);
-            Mouse.Move(Dots["FirstPointScroll"]);
-            InputLog("Тащим скролл", lvl);
-            Mouse.StartDragging();
-            InputLog("До этой точки", lvl);
-            Mouse.StopDragging(Dots["SecondPointScroll"]);
-            InputLog("Ждём пока отстроится", lvl);
-            Thread.Sleep(2 * WaC);
-            InputLog("Выделяем чекбокс справочной информации", lvl);
-            Mouse.Click(Dots["SPRF"]);
-            InputLog("Жмём кнопку загрузки", lvl);
-            Mouse.Click(this.UIMap.ASI_Window.ImportAFSB.ImportWindow.ImportButton);
-            InputLog("Ждём подтверждающего окна", lvl);
-            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(20 * WaC);
-            InputLog("Соглашаемся", lvl);
-            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
-            InputLog("Ждём окно протокола", lvl);
-            this.UIMap.LogWindow.WaitForControlExist(3000 * WaC);
-            InputLog("Скриним", lvl);
-            GetScreen("FinishDownload");
-            InputLog("Закрываем", lvl);
-            Thread.Sleep(5 * WaC);
-            Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
-        } // Загрузка справочной информации
+            if (Mode == "Debug")
+            {
+                InputLog("Проверим раскладку перед вводом данных", lvl);
+            }
+            IdCurrentLanguage = GetKeyboardLayout();
+            ret = LoadKeyboardLayout(lang_str, 1);
+            if (IdCurrentLanguage != 1033)
+            {
+                if (Mode == "Debug")
+                {
+                    InputLog("Придётся сменить раскладку на en-US, старая " + IdCurrentLanguage.ToString(), lvl + 1);
+                }
+                PostMessage(GetForegroundWindow(), 0x50, 1, ret);
+            }
+            if (Mode == "Debug")
+            {
+                InputLog("Вышли из проверки", lvl);
+            }
+        } // проверка языка
 
-        public void CalcSpr(int WaC, int lvl) // Загрузка справочников из АФСБ
+        public void AddTextOnList(int WaC, int lvl, string txt)
         {
-            InputLog("Раскроем вкладку информационное обеспечение", lvl);
-            Mouse.Click(Dots["InfoManag"]);
-            Thread.Sleep(3 * WaC);
-            InputLog("Нажмём на кнопку справочники", lvl);
-            Mouse.Click(Dots["SPRButton"]);
-            InputLog("Дождёмся появления формы расчета справочников", lvl);
-            this.UIMap.ASI_Window.CalcSpr.WaitForControlExist(60 * WaC);
-            Thread.Sleep(3 * WaC);
-            InputLog("Нажмём на чекбокс расчёта справочников на основании АФСБ", lvl);
-            Mouse.Click(Dots["SprAFSBCalc"]);
-            InputLog("Рассчитаем данные", lvl);
-            Mouse.Click(this.UIMap.ASI_Window.CalcSpr.UploadWindow.UploadButton);
-            InputLog("Ждём окно с логами", lvl);
-            this.UIMap.LogWindow.WaitForControlExist(3000 * WaC);
-            InputLog("Скриним", lvl);
-            GetScreen("Finish_calc");
-            InputLog("Закрываем", lvl);
+            InputLog("Ткнём в центр листа", lvl);
+            Mouse.Click(Dots["SetText"]);
+            InputLog("Проверим язык", lvl);
+            CheckLanguage(lvl + 1);
+            InputLog("Ввёдем текст", lvl);
+            Keyboard.SendKeys(txt);
+            Thread.Sleep(1 * WaC);
+            InputLog("Перейдем на следующую страницу", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+
+        } // отдельный метод добавления текста на страницу
+
+        public void AddCustomBorrowerAbsData(int WaC, int lvl)
+        {
+            InputLog("Добавим счета для заёмщика", lvl);
+            Mouse.Click(Dots["AddAccounts"]);
+            InputLog("Проверим язык", lvl);
+            CheckLanguage(lvl + 1);
+            InputLog("Дождёмся появления формы добавления счетов", lvl);
+            this.UIMap.SelectAccBorrower.WaitForControlExist(60 * WaC);
+            this.UIMap.SelectAccBorrower.SetFocus();
+            Keyboard.SendKeys("{TAB}{TAB}{TAB}");
+            InputLog("Ввёдем имя заёмщика", lvl);
+            Keyboard.SendKeys(NameBorrower);
+            InputLog("Покажем все счета из данных", lvl);
+            Mouse.Click(this.UIMap.SelectAccBorrower.ShowAccountsWindow.ShowAccountButton);
+            Thread.Sleep(4 * WaC);
+            InputLog("Перенёсем все найденные счета в правую часть", lvl);
+            GetScreen("AllAccountFromAbs");
+            Mouse.Click(Dots["AcceptAccountsBorrower"]);
+            InputLog("Согласимся с перенесенными данными", lvl);
+            Mouse.Click(this.UIMap.SelectAccBorrower.OKWindow.OKButton);
+            this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим действие", lvl);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
             Thread.Sleep(5 * WaC);
-            Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
+            InputLog("Проверим наличие окна", lvl);
+            if (this.UIMap.SelectAccBorrower.Exists)
+            {
+                InputLog("Попросим закрыться ещё раз", lvl + 1);
+                Mouse.Click(this.UIMap.SelectAccBorrower.OKWindow.OKButton);
+            }
+            Thread.Sleep(10 * WaC);
+            InputLog("Ждём когда форма исчезнет", lvl);
+            this.UIMap.SelectAccBorrower.WaitForControlNotExist(60 * WaC);
+            InputLog("Перейдем на следующую страницу", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+        } // метод добавления данных счетов заёмщика при создании заёмщика вручную
+
+        public void AddCustomBorrowerCalcAbsData(int WaC, int lvl, string txt)
+        {
+            InputLog("Дождёмся появления кнопки рассчитать на основе АБС", lvl);
+            this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon.WaitForControlExist(60 * WaC);
+            InputLog("Произведём расчёт", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon);
+            CheckLanguage(lvl + 1);
+            InputLog("Ждём появления формы с выбором дат", lvl);
+            this.UIMap.SelectDateAbsWindow.WaitForControlExist(60 * WaC);
+            InputLog("На эту отчётную дату", lvl);
+            Mouse.Click(this.UIMap.SelectDateAbsWindow.OnThatDayWindow.OnThatDayRadioButton);
+            InputLog("Подтвердим", lvl);
+            Mouse.Click(this.UIMap.SelectDateAbsWindow.OKWindow.OKButton);
+            this.UIMap.InfoWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим выполнение расчёта", lvl);
+            Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
+            InputLog("Сделам снимок", lvl);
+            GetScreen("Calc_From_Abs");
+            InputLog("Добавим текст", lvl);
+            AddTextOnList(WaC, lvl + 1, txt);
+        } // метод для расчета на листе добавленных счетов при создании заёмщика вручную
+
+        public void AddCustomBorrowerCreateReport(int WaC, int lvl)
+        {
+            InputLog("Ждём открытия формы создания материалов заёмщика", lvl);
+            this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton.WaitForControlExist(60 * WaC);
+            InputLog("Создадим", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton);
+            this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим", lvl);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            Thread.Sleep(2 * WaC);
+            this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
+            InputLog("Подтвердим ещё раз", lvl);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            this.UIMap.AcceptWindow.WaitForControlNotExist(60 * WaC);
+            InputLog("Ждём поялвения Waiter'а", lvl);
+            this.UIMap.RefreshSheetBorrower.WaitForControlExist(60 * WaC);
+            this.UIMap.RefreshSheetBorrower.WaitForControlNotExist(600 * WaC);
+            InputLog("Ждём появления отчёта", lvl);
+            this.UIMap.ReportBorrower.WaitForControlExist(400 * WaC);
+            InputLog("Заложили время на \"пролагивание отчёта\"", lvl);
+            Thread.Sleep(120 * WaC);
+            InputLog("Закроем отчёт", lvl);
+            Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
+            InputLog("Дождёмся его уничтожения", lvl);
+            this.UIMap.ReportBorrower.WaitForControlNotExist(120 * WaC);
+            InputLog("Перейдем на другую страницу", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+            InputLog("Завершим создание заёмщика", lvl);
+            this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton);
+        } // метод для создания материалов по заёмщику
+
+        public void AddCustomBorrower2Stage(int WaC, int lvl)
+        {
+            for (int i = 0; i <= 13; i++)
+            {
+                InputLog("Попали в цикл", lvl);
+                switch (i)
+                {
+                    case 1:
+                        InputLog("Выполним добавление счетов", lvl);
+                        AddCustomBorrowerAbsData(WaC, lvl + 1);
+                        break;
+                    case 2:
+                        InputLog("Рассчитаем значения по АБС", lvl);
+                        AddCustomBorrowerCalcAbsData(WaC, lvl + 1, "Hello World " + i.ToString());
+                        break;
+                    case 10:
+                        InputLog("Просто перелистнём страницу, сделать ничего не сможем =(", lvl);
+                        Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+                        break;
+                    case 11:
+                        InputLog("Просто перелистнём страницу, сделать ничего не сможем =(", lvl);
+                        Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+                        break;
+                    case 12:
+                        InputLog("Просто перелистнём страницу, сделать ничего не сможем =(", lvl);
+                        Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+                        break;
+                    case 13:
+                        InputLog("Попытаемся сформировать материалы по заёмщику", lvl);
+                        AddCustomBorrowerCreateReport(WaC, lvl + 1);
+                        break;
+                    default:
+                        InputLog("Добавим текст в " + i.ToString() + " раз", lvl);
+                        AddTextOnList(WaC, lvl + 1, "Hello World " + i.ToString());
+                        break;
+                }
+                Thread.Sleep(1 * WaC);
+            }
+
+        } // сгруппированный этап для всех листов, кроме первого
+
+        public void AddCustomBorrower1Stage(int WaC, int lvl)
+        {
+            InputLog("Проверим язык", lvl);
+            CheckLanguage(lvl + 1);
+            InputLog("Откроем вкладку обработка информации", lvl);
+            Mouse.Click(Dots["ProccesInfoMob"]);
+            Thread.Sleep(3 * WaC);
+            InputLog("Откроем информацию о заёмщиках", lvl);
+            Mouse.Click(Dots["InfoBorrower"]);
+            this.UIMap.ASI_Window.BorrowerWindow.WaitForControlExist(60 * WaC);
+            Thread.Sleep(3 * WaC);
+            InputLog("Создадим своего заёмщика", lvl);
+            Mouse.Click(Dots["AddCustomBorrower"]);
+            this.UIMap.ASI_Window.AddCustomBorrowerWindow.WaitForControlExist(120 * WaC);
+            Thread.Sleep(15 * WaC);
+            InputLog("Раскроем тип заёмщика", lvl);
+            Mouse.Click(Dots["TypeBorrower"]);
+            Thread.Sleep(5 * WaC);
+            InputLog("Выберем ЮЛ", lvl);
+            Mouse.Click(Dots["TypeBorrowerYl"]);
+            Mouse.Click(Dots["DropFocus"]);
+            Thread.Sleep(5 * WaC);
+            InputLog("Введём имя", lvl);
+            Mouse.Click(Dots["EditName"]);
+            Thread.Sleep(5 * WaC);
+            Keyboard.SendKeys(NameBorrower);
+            Mouse.Click(Dots["DropFocus"]);
+            Thread.Sleep(3 * WaC);
+            InputLog("Введём тип связи", lvl);
+            Mouse.Click(Dots["TypeConnect"]);
+            Thread.Sleep(5 * WaC);
+            InputLog("Выберем ссуды", lvl);
+            Mouse.Click(Dots["TypeConnectSsyda"]);
+            Mouse.Click(Dots["DropFocus"]);
+            Thread.Sleep(5 * WaC);
+            InputLog("Введём полное имя", lvl);
+            Mouse.Click(Dots["FullName"]);
+            Thread.Sleep(2 * WaC);
+            Keyboard.SendKeys(NameBorrower + "_Full");
+            Mouse.Click(Dots["IP"]);
+            InputLog("Пускай это будет ИП", lvl);
+            Thread.Sleep(6 * WaC);
+            InputLog("Физ. адрес совпадает с Юр. адресом", lvl);
+            Mouse.Click(Dots["EqualAdress"]);
+            Thread.Sleep(2 * WaC);
+            InputLog("Введём ИНН", lvl);
+            Mouse.Click(Dots["INN"]);
+            Thread.Sleep(2 * WaC);
+            Keyboard.SendKeys(InnBorrower);
+            InputLog("Введём КПП", lvl);
+            Mouse.Click(Dots["KPP"]);
+            Thread.Sleep(2 * WaC);
+            Keyboard.SendKeys(KppBorrower);
+            InputLog("Введём ОГРН", lvl);
+            Mouse.Click(Dots["OGRN"]);
+            Thread.Sleep(2 * WaC);
+            Keyboard.SendKeys(OgrnBorrower);
+            InputLog("Введём адрес", lvl);
+            Mouse.Click(Dots["SelectAdress"]);
+            this.UIMap.AddAdressWindow.WaitForControlExist(60 * WaC);
+
+            for (int i = 0; i < 7; i++) //i - 7, количество комбиков/эдиток на форме выбора адреса, так как с ними нельзя работать, приходится извращаться
+            {
+                if (i < 3)
+                {
+                    InputLog("Введем данные адреса", lvl + 1);
+                    Mouse.Click(Dots["Paremeter_" + i.ToString()]);
+                    Keyboard.SendKeys("{DOWN}");
+                    Thread.Sleep(1 * WaC);
+                }
+                else
+                {
+                    InputLog("Введем данные адреса", lvl + 1);
+                    Mouse.Click(Dots["Paremeter_" + i.ToString()]);
+                    Keyboard.SendKeys(i.ToString());
+                    Thread.Sleep(1 * WaC);
+                }
+            }
+            InputLog("Подтвердим введеные данные", lvl);
+            Mouse.Click(this.UIMap.AddAdressWindow.OKWindow.OKButton);
+            InputLog("Перейдем на следующую страницу", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
+        } // Первый этап создания заёмщика
+
+        public void OpenReport(int WaC, int lvl, string Report)
+        {
+            InputLog("Раскроем вкладку подготовка результатов", lvl);
+            Mouse.Click(Dots["PrepareResultMob"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Отредактируем " + Report, lvl);
+            Mouse.Click(Dots[Report]);
+            Thread.Sleep(5 * WaC);
+        } // Открытие на влкадке информационное обеспечение индвидуального отчёта или акта
+
+        public void Shutdown_asi()
+        {
+            Process[] p1;
+            if (this.TestContext.Properties["ControllerName"].ToString().Contains("localhost"))
+            {
+                p1 = Process.GetProcessesByName("Studio");
+            }
+            else
+            {
+                p1 = Process.GetProcessesByName("P5");
+            }
+            foreach (Process Proc in p1)
+            {
+                Process[] p2 = Process.GetProcessesByName("ASIBusyIndicator_vas_" + Proc.Handle);
+                foreach (Process ProcBusy in p2)
+                {
+                    ProcBusy.Kill();
+                }
+                Proc.Kill();
+            }
+            p1 = Process.GetProcessesByName("WINWORD");
+            foreach (Process Proc in p1)
+            {
+                Proc.Kill();
+            }
+        } // метод выключения АСИ
+
+        public void Clear_cache()
+        {
+            if (Directory.Exists(LocalAppData + @"\JSC Prognoz"))
+            {
+                Directory.Delete(LocalAppData + @"\JSC Prognoz", true);
+            }
+        } // метод для чистки кэша
+
+        public void Start_prognoz(int Wac, int lvl)
+        {
+            if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
+            {
+                InputLog(this.TestContext.Properties["AgentName"].ToString(), lvl);
+                Process.Start(@"C:\Program Files\JSC Prognoz\Prognoz 5.26\P5.exe");
+                InputLog("Открываем прогноз x64", lvl);
+            }
+            else
+            {
+                InputLog(this.TestContext.Properties["AgentName"].ToString(), lvl);
+                Process.Start(@"C:\Program Files (x86)\JSC Prognoz\Prognoz 5.26\P5.exe");
+                InputLog("Открываем прогноз x86", lvl);
+            }
+
+        } // метод запуска прогноза на различных машинах
+
+        public void StartASI(int WaC, int lvl, string SchemaName, string User)
+        {
+            this.UIMap.StudioConnectWindow.WaitForControlExist(4 * WaC);
+            if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
+            {
+                InputLog("Выберем схему " + SchemaName, lvl);
+                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + " @ ASITST11";
+                InputLog("Введём  логин", lvl);
+                this.UIMap.StudioConnectWindow.LoginWindow.LoginEdit.Text = User;
+                InputLog("Введём  Пароль", lvl);
+                this.UIMap.StudioConnectWindow.PasswordWindow.PasswordEdit.Text = User;
+                InputLog("Подтвердим выбор", lvl);
+                Mouse.Click(this.UIMap.StudioConnectWindow.OKWindow.OKButton);
+            }
+            else
+            {
+                InputLog("Выберем схему " + SchemaName, lvl);
+                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + " @ asi-tst-ms12\\MSSQLSERVER2012";
+                InputLog("Введём  логин", lvl);
+                this.UIMap.StudioConnectWindow.LoginWindow.LoginEdit.Text = User;
+                InputLog("Введём  Пароль", lvl);
+                this.UIMap.StudioConnectWindow.PasswordWindow.PasswordEdit.Text = User;
+                InputLog("Подтвердим выбор", lvl);
+                Mouse.Click(this.UIMap.StudioConnectWindow.OKWindow.OKButton);
+            }
+        } // метод запуска АСИ
+
+        public void StatsArm(int WaC, int lvl, string SchemaName)
+        {
+            InputLog("Ждём открытия АРМ Админа на стационарном уровне", lvl);
+            this.UIMap.ARM_AdminWindow.WaitForControlExist(60 * WaC);
+            InputLog("Проверим версию системы, если она равна Microsoft Windows NT 6.1.7601 Service Pack 1 пропустим пункт выбора ТУ", lvl);
+            if (Environment.OSVersion.ToString() != "Microsoft Windows NT 6.1.7601 Service Pack 1")
+            {
+                InputLog("Выберем ТУ", lvl);
+                SelectTU(WaC, lvl + 1);
+            }
+            InputLog("Создадим/Пересоздадим соединение с САФСБ", lvl);
+            SetAFSB(WaC, lvl + 1);
+            InputLog("Создадим пользователя с именем RIO_3", lvl);
+            CreateUser(WaC, lvl + 1, this.UIMap.EmployeeWindow.EmployeeList.RIO_3ListItem, "RIO_3", 0, SchemaName);
+            InputLog("Удалим пользователя", lvl);
+            DeleteUser(WaC, lvl + 1, this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.UserList.RIO_3ListItem);
+            InputLog("Создадим пользователя с именем RIO_4", lvl);
+            CreateUser(WaC, lvl + 1, this.UIMap.EmployeeWindow.EmployeeList.RIO_4ListItem, "RIO_4", 1, SchemaName);
+            InputLog("Удалим пользователя", lvl);
+            DeleteUser(WaC, lvl + 1, this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.UserList.RIO_4ListItem);
+            InputLog("Пересоздадим объекты", lvl);
+            RecreateObjects(WaC, lvl);
+            InputLog("Закроем АРМ Админа", lvl);
+            this.UIMap.ARM_AdminWindow.SetFocus();
+            Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
+        } // работа внутри АРМа на стационарном уровне
+
+        public void DeleteUser(int WaC, int lvl, WpfListItem listitem)
+        {
+            InputLog("Проверим существование пользователя", lvl);
+            if (listitem.Exists)
+            {
+                InputLog("Выберем его", lvl + 1);
+                Mouse.Click(listitem);
+                InputLog("Нажмём кнопку удалить", lvl + 1);
+                Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.DeleteUserButton);
+                InputLog("Дождёмся подтверждения", lvl + 1);
+                this.UIMap.AcceptWindow.WaitForControlExist(10 * WaC);
+                InputLog("Подтвердим удаление", lvl + 1);
+                Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+                InputLog("Ждём подтверждения удаления", lvl + 1);
+                this.UIMap.InfoWindow.WaitForControlExist(100 * WaC);
+                InputLog("Нажмём ОК", lvl + 1);
+                Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
+            }
+        } // метод удаления пользователя из списка
+
+        public void RecreateObjects(int WaC, int lvl)
+        {
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
+            this.UIMap.ARM_AdminWindow.RecreateButton.WaitForControlExist(15 * WaC);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.RecreateButton);
+
+            if (!this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateViewCheckBox.Checked)
+            {
+                this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateViewCheckBox.Checked = true;
+            }
+
+            if (!this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateProcedureCheckBox.Checked)
+            {
+                this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateProcedureCheckBox.Checked = true;
+            }
+
+            if (!this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.AddRigthsCheckBox.Checked)
+            {
+                this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.AddRigthsCheckBox.Checked = true;
+            }
+
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateButton);
+
+            this.UIMap.OKWindow.WaitForControlExist(15 * WaC);
+
+            Mouse.Click(this.UIMap.OKWindow.OKButton);
+        } // метод для пересоздания объектов АСИ
+
+        public void CreateUser(int WaC, int lvl, WpfListItem listitem, string UserName, int Try, string SchemaName) // Try - порядок запуска, если при 0 запуске вводятся данные АИБа, то при последующих уже нет
+        {
+            InputLog("Раскроем панель пользователей", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.UsersButton);
+            InputLog("Дождёмся появления кнопки Добавить пользователя", lvl);
+            this.UIMap.ARM_AdminWindow.AddUserButton.WaitForControlExist(10 * WaC);
+            InputLog("Нажмём кнопку Добавить пользователя", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.AddUserButton);
+            InputLog("Дождёмся отстройки формы создания пользователя", lvl);
+            this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.SelectPersonButton.WaitForControlExist(10 * WaC);
+            InputLog("Нажмём кнопку Выбор сотрудника", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.SelectPersonButton);
+            InputLog("Дождёмся появления формы создания сотрудника", lvl);
+            this.UIMap.EmployeeWindow.WaitForControlExist(10 * WaC);
+            InputLog("Проверим существует ли сотрудник " + UserName, lvl);
+            if (!listitem.Exists)
+            {
+                InputLog("Раскроем поле ввод ФИО", lvl);
+                Mouse.Click(this.UIMap.EmployeeWindow.AddEmployeeButton);
+                InputLog("Ввёдем ФИО", lvl);
+                this.UIMap.EmployeeWindow.FIOEmployeeEdit.Text = UserName;
+                InputLog("Добавим сотрудника", lvl);
+                Mouse.Click(this.UIMap.EmployeeWindow.AddUserButton);
+            }
+            InputLog("Выберем сотрудника", lvl);
+            Mouse.Click(listitem);
+            InputLog("Подтвердим выбор сотрудника", lvl);
+            Mouse.Click(this.UIMap.EmployeeWindow.SelectButton);
+            InputLog("Введем логин", lvl);
+            this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.LoginEdit.Text = UserName;
+            InputLog("Введем пароль", lvl);
+            this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.PasswordEdit.Text = UserName;
+            InputLog("Введем повторно пароль", lvl);
+            this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.RePasswordEdit.Text = UserName;
+            InputLog("Проверим RadioButton", lvl);
+            if (!this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.AsiAutoStartRadioButton.Selected)
+            {
+                InputLog("Установим значение на АС Инспектора", lvl);
+                this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.AsiAutoStartRadioButton.Selected = true;
+            }
+            InputLog("Сохраним пользователя", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.SaveUserButton);
+            if (Try == 0)
+            {
+                InputLog("Дождёмся окна ввода данных АИБа", lvl);
+                this.UIMap.ISA_Window.WaitForControlExist(30 * WaC);
+                InputLog("Ввёдем логин", lvl);
+                this.UIMap.ISA_Window.IsaLoginEdit.Text = SchemaName + "_ISA";
+                InputLog("Ввёдем пароль", lvl);
+                this.UIMap.ISA_Window.IsaPasswordEdit.Text = SchemaName + "_ISA";
+                InputLog("Подтвердим ввёденные данные", lvl);
+                GetScreen("BeforePressOK");
+                Mouse.Click(this.UIMap.ISA_Window.OKButton);
+            }
+            InputLog("Дождёмся создания пользователя", lvl);
+            this.UIMap.UserCreatedWindow.OKWindow2.OKButton.WaitForControlExist(30 * WaC);
+            InputLog("Подтвердим выполнение", lvl);
+            Mouse.Click(this.UIMap.UserCreatedWindow.OKWindow2.OKButton);
         }
+
+        public void SelectTU(int WaC, int lvl)
+        {
+            InputLog("Раскроем панель подготовки", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
+            InputLog("Выберем регион базирования", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.TuPropButton);
+            InputLog("Ждём появления комбобокса с регионами", lvl);
+            this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.WaitForControlExist(15 * WaC);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox);
+            InputLog("Ткнём в него", lvl);
+            this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.WaitForControlExist(15 * WaC);
+            InputLog("Ткнём в первый уровень дерева элементов", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.Tree.TreeLvL1);
+            InputLog("Спустимся ниже", lvl);
+            Keyboard.SendKeys("{DOWN}");
+            InputLog("Раскроем второй уровень дерева элементов", lvl);
+            Keyboard.SendKeys("{RIGHT}");
+            InputLog("Дождёмся его появления", lvl);
+            this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.TreeLvL2.WaitForControlExist(1 * WaC);
+            InputLog("В зависимости от выбранного элемента выберем 117 или 118 ID ", lvl);
+            if (this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.SelectedIndex == 118 ||
+                    this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.SelectedIndex == -1)
+            {
+                InputLog("Спустимся ниже", lvl);
+                Keyboard.SendKeys("{DOWN}");
+            }
+            else
+            {
+                InputLog("Спустимся ниже", lvl);
+                Keyboard.SendKeys("{DOWN}");
+                InputLog("Спустимся ниже", lvl);
+                Keyboard.SendKeys("{DOWN}");
+            }
+            InputLog("Подтвердим свой выбор", lvl);
+            Keyboard.SendKeys("{ENTER}");
+            InputLog("Дождёмся появления текстовой надписи на форме с названием региона", lvl);
+            this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.NameTextBlock.WaitForControlExist(1500 * WaC);
+            InputLog("Дождёмся исчезновния дерева элементов", lvl);
+            this.UIMap.ARM_AdminWindow.Tree.WaitForControlNotExist(10 * WaC);
+        } // метод для выбора ТУ
+
+        private void WaiterForMSSQL(int Time)
+        {
+            if (this.TestContext.Properties["AgentName"].ToString() != "ASI-TST-12-2") { Thread.Sleep(Time * 1000); }
+        } // специальная ожидалка для мсскл
+
+        public void SetAFSB(int WaC, int lvl)
+        {
+            InputLog("Нажмём кнопку подготовки системы", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
+            InputLog("Нажмём кнопку настройки соединения с САФСБ", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.SAFSBButton);
+            InputLog("Ждём появления элементов для ввода данных", lvl);
+            this.UIMap.ARM_AdminWindow.SAFSBData.WaitForControlExist(10 * WaC);
+            if (//Environment.OSVersion.ToString() != "Microsoft Windows NT 6.1.7601 Service Pack 1" // Пока такое условие, нужно придумать способо обхода
+                this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2"
+                )
+            {
+                InputLog("Ввёдем TCP", lvl);
+                this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.ProtocolEdit.Text = "TCP";
+                InputLog("Ввёдем HOST", lvl);
+                this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.HostEdit.Text = "10.7.0.33";
+                InputLog("Ввёдем Port", lvl);
+                this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.PortEdit.Text = "1521";
+                InputLog("Ввёдем SID", lvl);
+                this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.ServiceEdit.Text = "ASITST11";
+                InputLog("Ввёдем название схемы тех.пользователя", lvl);
+                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
+                InputLog("Ввёдем пароль схемы тех.пользователя", lvl);
+                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserPasswordEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
+            }
+            else
+            {
+                InputLog("Сбросим данные в IP сервера", lvl);
+                this.UIMap.ARM_AdminWindow.SAFSBData.ServerMSSQLEdit.Text = "";
+                Thread.Sleep(10000);
+                InputLog("Сбросим данные в названии схемы", lvl);
+                this.UIMap.ARM_AdminWindow.SAFSBData.SchemaNameEdit.Text = "";
+                InputLog("Ввёдем данные IP сервера", lvl);
+                Keyboard.SendKeys(this.UIMap.ARM_AdminWindow.SAFSBData.ServerMSSQLEdit, "10.7.0.32");
+                InputLog("Ввёдем данные названия схемы", lvl);
+                Keyboard.SendKeys(this.UIMap.ARM_AdminWindow.SAFSBData.SchemaNameEdit, "RDATU71_DATA");
+                InputLog("Ввёдем данные логина тех.пользователя", lvl);
+                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
+                InputLog("Ввёдем данные пароля тех.пользователя", lvl);
+                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserPasswordEdit.Text = "Qwerty1";
+            }
+
+            InputLog("Проверим выбран ли комбобокс на создания тех.пользователя", lvl);
+            if (!this.UIMap.ARM_AdminWindow.TechUserData.NeedCreateTechUserCheckBox.Checked)
+            {
+                InputLog("Выберем его", lvl);
+                Mouse.Click(this.UIMap.ARM_AdminWindow.TechUserData.NeedCreateTechUserCheckBox);
+                InputLog("Ждём появления поля для ввода системный параметров", lvl);
+                this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemLoginEdit.WaitForControlExist(1 * WaC);
+                InputLog("Ввёдем логин суперпользователя", lvl);
+                this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemLoginEdit.Text = this.TestContext.Properties["SysLogin"].ToString();
+                InputLog("Ввёдем пароль суперпользователя", lvl);
+                this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemPasswordEdit.Text = this.TestContext.Properties["SysPassword"].ToString();
+            }
+            InputLog("Создадим подключение", lvl);
+            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.SafsbPanel.CreateConnectSafsb);
+            InputLog("Ожидаем завершения создания подключения", lvl);
+            this.UIMap.OKWindow.OKButton.WaitForControlExist(120 * WaC);
+            Mouse.Click(this.UIMap.OKWindow.OKButton);
+            InputLog("Проверим, раскрыто ли окно с логами", lvl);
+            if (!this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.Expanded)
+            {
+                InputLog("Раскроем", lvl + 1);
+                this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.Expanded = true;
+            }
+            InputLog("Проверим, есть ли там ошибки", lvl);
+            if (this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.Text.Contains("Ошибка:"))
+            {
+                InputLog("Ошибки есть", lvl + 1);
+                InputLog(this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.Text, lvl + 1);
+                this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.WaitForControlNotExist(1 * WaC);
+                GetScreen("Error_after_set_settings_AFSB" + this.TestContext.Properties["AgentName"].ToString());
+                // введено специально, для того чтобы  отловить ошибки при формировании
+            }
+        } // настройка параметров для создания соединения с САФСБ
+
+        public void MobArm(int WaC, int lvl, string SchemaName)
+        {
+            InputLog("Ждём открытия АРМ Админа на мобильном уровне", lvl);
+            this.UIMap.ARM_AdminWindow.WaitForControlExist(30 * WaC);
+        } // работа внутри АРМа на мобильном уровне
+
+        public void ConnectToWorkingARM(int WaC, int lvl, string SchemaName, string UserName)
+        {
+            InputLog("Вырубим АС Инспектора", lvl);
+            Shutdown_asi();
+            Thread.Sleep(2 * WaC);
+            InputLog("Почистим кэш", lvl);
+            Clear_cache();
+            InputLog("Запустим АСИ ", lvl);
+            StartASI(WaC, lvl + 1, SchemaName, UserName);
+            InputLog("Дождёмся появления окна АРМа", lvl);
+            this.UIMap.ASI_Window.WaitForControlExist(240 * WaC);
+            InputLog("Дадим отстроится элементам", lvl);
+            Thread.Sleep(10 * WaC);
+        } // метод для переподключения к АРМу пользователя/администратора
 
         public void CreateQuestions(int WaC, int lvl) // Создание вопросов
         {
@@ -363,45 +964,20 @@ namespace asi_express
             Thread.Sleep(20 * WaC);
         } //Распределение задач
 
-        public void DownloadReports(int WaC, int lvl)
+        public void DownloadSpr(int WaC, int lvl)
         {
             InputLog("Открываем вкладку загрузки АФСБ", lvl);
             OpenAFSB(WaC, lvl + 1);
-            InputLog("Выбрали форму 101", lvl);
-            Mouse.Click(Dots["101F"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Выбрали форму 102", lvl);
-            Mouse.Click(Dots["102F"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Выбрали форму 117", lvl);
-            Mouse.Click(Dots["117F"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Выбрали форму 118", lvl);
-            Mouse.Click(Dots["118F"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Выбрали форму 501", lvl);
-            Mouse.Click(Dots["501F"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Открываем нижний календарь", lvl);
-            Mouse.Click(Dots["BottomCalendar"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Выбираем 2015 год", lvl);
-            Mouse.Click(Dots["Bottom2015"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Закрываем нижний календарь", lvl);
-            Mouse.Click(Dots["BottomCalendar"]);
-            Thread.Sleep(1 * WaC);
-
-            InputLog("Открываем верхний календарь", lvl);
-            Mouse.Click(Dots["UpperCalendar"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Выбираем Январь", lvl);
-            Mouse.Click(Dots["UpperJanuary"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Закрываем верхний календарь", lvl);
-            Mouse.Click(Dots["UpperCalendar"]);
-            Thread.Sleep(1 * WaC);
-
+            InputLog("Перешли к первой точке", lvl);
+            Mouse.Move(Dots["FirstPointScroll"]);
+            InputLog("Тащим скролл", lvl);
+            Mouse.StartDragging();
+            InputLog("До этой точки", lvl);
+            Mouse.StopDragging(Dots["SecondPointScroll"]);
+            InputLog("Ждём пока отстроится", lvl);
+            Thread.Sleep(2 * WaC);
+            InputLog("Выделяем чекбокс справочной информации", lvl);
+            Mouse.Click(Dots["SPRF"]);
             InputLog("Жмём кнопку загрузки", lvl);
             Mouse.Click(this.UIMap.ASI_Window.ImportAFSB.ImportWindow.ImportButton);
             InputLog("Ждём подтверждающего окна", lvl);
@@ -415,7 +991,51 @@ namespace asi_express
             InputLog("Закрываем", lvl);
             Thread.Sleep(5 * WaC);
             Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
-        } // Загрузка форм отчётности
+        } // Загрузка справочной информации
+
+        public void CalcSpr(int WaC, int lvl) // Загрузка справочников из АФСБ
+        {
+            InputLog("Раскроем вкладку информационное обеспечение", lvl);
+            Mouse.Click(Dots["InfoManag"]);
+            Thread.Sleep(3 * WaC);
+            InputLog("Нажмём на кнопку справочники", lvl);
+            Mouse.Click(Dots["SPRButton"]);
+            InputLog("Дождёмся появления формы расчета справочников", lvl);
+            this.UIMap.ASI_Window.CalcSpr.WaitForControlExist(60 * WaC);
+            Thread.Sleep(3 * WaC);
+            InputLog("Нажмём на чекбокс расчёта справочников на основании АФСБ", lvl);
+            Mouse.Click(Dots["SprAFSBCalc"]);
+            InputLog("Рассчитаем данные", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.CalcSpr.UploadWindow.UploadButton);
+            InputLog("Ждём окно с логами", lvl);
+            this.UIMap.LogWindow.WaitForControlExist(3000 * WaC);
+            InputLog("Скриним", lvl);
+            GetScreen("Finish_calc");
+            InputLog("Закрываем", lvl);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
+        }
+
+        #endregion
+        #region BasicTest
+
+        public void PrepareAsi(int WaC, int lvl, string SchemaName)
+        {
+            InputLog("Почистим кэш", lvl);
+            Clear_cache();
+            InputLog("Запустим прогноз", lvl);
+            Start_prognoz(WaC, lvl + 1);
+            InputLog("Подключимся под Администратором и проверим/восстановим все настройки", lvl);
+            StartASI(WaC, lvl + 1, SchemaName, SchemaName);
+            if (SchemaName == "ASISTA_UI")
+            {
+                StatsArm(WaC, lvl + 1, SchemaName);
+            }
+            else
+            {
+                MobArm(WaC, lvl + 1, SchemaName);
+            }
+        } // метод для подготовки АСИ к экспресс-тестированию
 
         public void AddFile(int WaC, int lvl)
         {
@@ -489,273 +1109,11 @@ namespace asi_express
             AddCustomBorrower2Stage(WaC, lvl + 1);
         } // Добавление заёмщика вручную
 
-        public void CheckLanguage(int lvl)
-        {
-            if (Mode == "Debug")
-            {
-                InputLog("Проверим раскладку перед вводом данных", lvl);
-            }
-            IdCurrentLanguage = GetKeyboardLayout();
-            ret = LoadKeyboardLayout(lang_str, 1);
-            if (IdCurrentLanguage != 1033)
-            {
-                if (Mode == "Debug")
-                {
-                    InputLog("Придётся сменить раскладку на en-US, старая " + IdCurrentLanguage.ToString(), lvl + 1);
-                }
-                PostMessage(GetForegroundWindow(), 0x50, 1, ret);
-            }
-            if (Mode == "Debug")
-            {
-                InputLog("Вышли из проверки", lvl);
-            }
-        } // проверка языка
-
-        public void AddTextOnList(int WaC, int lvl,string txt)
-        {
-            InputLog("Ткнём в центр листа", lvl);
-            Mouse.Click(Dots["SetText"]);
-            InputLog("Проверим язык", lvl);
-            CheckLanguage(lvl + 1);
-            InputLog("Ввёдем текст", lvl);
-            Keyboard.SendKeys(txt);
-            Thread.Sleep(1 * WaC);
-            InputLog("Перейдем на следующую страницу", lvl);
-            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-
-        } // отдельный метод добавления текста на страницу
-
-        public void AddCustomBorrowerAbsData(int WaC, int lvl)
-        {
-            InputLog("Добавим счета для заёмщика", lvl);
-            Mouse.Click(Dots["AddAccounts"]);
-            InputLog("Проверим язык", lvl);
-            CheckLanguage(lvl + 1);
-            InputLog("Дождёмся появления формы добавления счетов", lvl);
-            this.UIMap.SelectAccBorrower.WaitForControlExist(60 * WaC);
-            this.UIMap.SelectAccBorrower.SetFocus();
-            Keyboard.SendKeys("{TAB}{TAB}{TAB}");
-            InputLog("Ввёдем имя заёмщика", lvl);
-            Keyboard.SendKeys(NameBorrower);
-            InputLog("Покажем все счета из данных", lvl);
-            Mouse.Click(this.UIMap.SelectAccBorrower.ShowAccountsWindow.ShowAccountButton);
-            Thread.Sleep(4 * WaC);
-            InputLog("Перенёсем все найденные счета в правую часть", lvl);
-            GetScreen("AllAccountFromAbs");
-            Mouse.Click(Dots["AcceptAccountsBorrower"]);
-            InputLog("Согласимся с перенесенными данными", lvl);
-            Mouse.Click(this.UIMap.SelectAccBorrower.OKWindow.OKButton);
-            this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
-            InputLog("Подтвердим действие", lvl);
-            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
-            Thread.Sleep(5 * WaC);
-            InputLog("Проверим наличие окна", lvl);
-            if (this.UIMap.SelectAccBorrower.Exists)
-            {
-                InputLog("Попросим закрыться ещё раз", lvl +1);
-                Mouse.Click(this.UIMap.SelectAccBorrower.OKWindow.OKButton);
-            }
-            Thread.Sleep(10 * WaC);
-            InputLog("Ждём когда форма исчезнет", lvl);
-            this.UIMap.SelectAccBorrower.WaitForControlNotExist(60 * WaC);
-            InputLog("Перейдем на следующую страницу", lvl);
-            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-        } // метод добавления данных счетов заёмщика при создании заёмщика вручную
-
-        public void AddCustomBorrowerCalcAbsData(int WaC, int lvl, string txt)
-        {
-            InputLog("Дождёмся появления кнопки рассчитать на основе АБС", lvl);
-            this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon.WaitForControlExist(60 * WaC);
-            InputLog("Произведём расчёт", lvl);
-            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CalcFromAbsWindow.CalcFromAbsButon);
-            CheckLanguage(lvl + 1);
-            InputLog("Ждём появления формы с выбором дат", lvl);
-            this.UIMap.SelectDateAbsWindow.WaitForControlExist(60 * WaC);
-            InputLog("На эту отчётную дату", lvl);
-            Mouse.Click(this.UIMap.SelectDateAbsWindow.OnThatDayWindow.OnThatDayRadioButton);
-            InputLog("Подтвердим", lvl);
-            Mouse.Click(this.UIMap.SelectDateAbsWindow.OKWindow.OKButton);
-            this.UIMap.InfoWindow.WaitForControlExist(60 * WaC);
-            InputLog("Подтвердим выполнение расчёта", lvl);
-            Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
-            InputLog("Сделам снимок", lvl);
-            GetScreen("Calc_From_Abs");
-            InputLog("Добавим текст", lvl);
-            AddTextOnList(WaC, lvl + 1, txt);
-        } // метод для расчета на листе добавленных счетов при создании заёмщика вручную
-
-        public void AddCustomBorrowerCreateReport(int WaC, int lvl)
-        {
-            InputLog("Ждём открытия формы создания материалов заёмщика", lvl);
-            this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton.WaitForControlExist(60 * WaC);
-            InputLog("Создадим", lvl);
-            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.CreateReportWindow.CreateReportButton);
-            this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
-            InputLog("Подтвердим", lvl);
-            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
-            Thread.Sleep(2 * WaC);
-            this.UIMap.AcceptWindow.WaitForControlExist(60 * WaC);
-            InputLog("Подтвердим ещё раз", lvl);
-            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
-            this.UIMap.AcceptWindow.WaitForControlNotExist(60 * WaC);
-            InputLog("Ждём поялвения Waiter'а", lvl);
-            this.UIMap.RefreshSheetBorrower.WaitForControlExist(60 * WaC);
-            this.UIMap.RefreshSheetBorrower.WaitForControlNotExist(600 * WaC);
-            InputLog("Ждём появления отчёта", lvl);
-            this.UIMap.ReportBorrower.WaitForControlExist(400 * WaC);
-            InputLog("Заложили время на \"пролагивание отчёта\"", lvl);
-            Thread.Sleep(120 * WaC);
-            InputLog("Закроем отчёт", lvl);
-            Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
-            InputLog("Дождёмся его уничтожения", lvl);
-            this.UIMap.ReportBorrower.WaitForControlNotExist(120 * WaC);
-            InputLog("Перейдем на другую страницу", lvl);
-            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-            InputLog("Завершим создание заёмщика", lvl);
-            this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton.WaitForControlExist(60 * WaC);
-            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.ReadyWindow.ReadyButton);
-        } // метод для создания материалов по заёмщику
-
-        public void AddCustomBorrower2Stage(int WaC,int lvl)
-        {
-            for (int i = 0; i <=13; i++)
-            {
-                InputLog("Попали в цикл", lvl);
-                switch (i)
-                {
-                    case 1:
-                        InputLog("Выполним добавление счетов", lvl);
-                        AddCustomBorrowerAbsData(WaC, lvl + 1);
-                        break;
-                    case 2:
-                        InputLog("Рассчитаем значения по АБС", lvl);
-                        AddCustomBorrowerCalcAbsData(WaC, lvl + 1,"Hello World " + i.ToString());
-                        break;
-                    case 10:
-                        InputLog("Просто перелистнём страницу, сделать ничего не сможем =(", lvl);
-                        Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-                        break;
-                    case 11:
-                        InputLog("Просто перелистнём страницу, сделать ничего не сможем =(", lvl);
-                        Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-                        break;
-                    case 12:
-                        InputLog("Просто перелистнём страницу, сделать ничего не сможем =(", lvl);
-                        Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-                        break;
-                    case 13:
-                        InputLog("Попытаемся сформировать материалы по заёмщику", lvl);
-                        AddCustomBorrowerCreateReport(WaC, lvl + 1);
-                        break;
-                    default:
-                        InputLog("Добавим текст в " + i.ToString()+" раз", lvl);
-                        AddTextOnList(WaC, lvl + 1, "Hello World " + i.ToString());                        
-                        break;
-                }
-                Thread.Sleep(1 * WaC);                
-            }
-
-        } // сгруппированный этап для всех листов, кроме первого
-
-        public void AddCustomBorrower1Stage(int WaC, int lvl)
-        {
-            InputLog("Проверим язык", lvl);
-            CheckLanguage(lvl + 1);
-            InputLog("Откроем вкладку обработка информации", lvl);
-            Mouse.Click(Dots["ProccesInfoMob"]);
-            Thread.Sleep(3 * WaC);
-            InputLog("Откроем информацию о заёмщиках", lvl);
-            Mouse.Click(Dots["InfoBorrower"]);
-            this.UIMap.ASI_Window.BorrowerWindow.WaitForControlExist(60 * WaC);
-            Thread.Sleep(3 * WaC);
-            InputLog("Создадим своего заёмщика", lvl);
-            Mouse.Click(Dots["AddCustomBorrower"]);
-            this.UIMap.ASI_Window.AddCustomBorrowerWindow.WaitForControlExist(120 * WaC);
-            Thread.Sleep(15 * WaC);
-            InputLog("Раскроем тип заёмщика", lvl);
-            Mouse.Click(Dots["TypeBorrower"]);
-            Thread.Sleep(5 * WaC);
-            InputLog("Выберем ЮЛ", lvl);
-            Mouse.Click(Dots["TypeBorrowerYl"]);
-            Mouse.Click(Dots["DropFocus"]);
-            Thread.Sleep(5 * WaC);
-            InputLog("Введём имя", lvl);
-            Mouse.Click(Dots["EditName"]);
-            Thread.Sleep(5 * WaC);
-            Keyboard.SendKeys(NameBorrower);
-            Mouse.Click(Dots["DropFocus"]);
-            Thread.Sleep(3 * WaC);
-            InputLog("Введём тип связи", lvl);
-            Mouse.Click(Dots["TypeConnect"]);
-            Thread.Sleep(5 * WaC);
-            InputLog("Выберем ссуды", lvl);
-            Mouse.Click(Dots["TypeConnectSsyda"]);
-            Mouse.Click(Dots["DropFocus"]);
-            Thread.Sleep(5 * WaC);
-            InputLog("Введём полное имя", lvl);
-            Mouse.Click(Dots["FullName"]);
-            Thread.Sleep(2 * WaC);
-            Keyboard.SendKeys(NameBorrower + "_Full");
-            Mouse.Click(Dots["IP"]);
-            InputLog("Пускай это будет ИП", lvl);
-            Thread.Sleep(6 * WaC);
-            InputLog("Физ. адрес совпадает с Юр. адресом", lvl);
-            Mouse.Click(Dots["EqualAdress"]);
-            Thread.Sleep(2 * WaC);
-            InputLog("Введём ИНН", lvl);
-            Mouse.Click(Dots["INN"]);
-            Thread.Sleep(2 * WaC);
-            Keyboard.SendKeys(InnBorrower);
-            InputLog("Введём КПП", lvl);
-            Mouse.Click(Dots["KPP"]);
-            Thread.Sleep(2 * WaC);
-            Keyboard.SendKeys(KppBorrower);
-            InputLog("Введём ОГРН", lvl);
-            Mouse.Click(Dots["OGRN"]);
-            Thread.Sleep(2 * WaC);
-            Keyboard.SendKeys(OgrnBorrower);
-            InputLog("Введём адрес", lvl);
-            Mouse.Click(Dots["SelectAdress"]);
-            this.UIMap.AddAdressWindow.WaitForControlExist(60 * WaC);
-
-            for (int i = 0; i < 7; i++) //i - 7, количество комбиков/эдиток на форме выбора адреса, так как с ними нельзя работать, приходится извращаться
-            {
-                if(i<3)
-                {
-                    InputLog("Введем данные адреса", lvl+1);
-                    Mouse.Click(Dots["Paremeter_" + i.ToString()]);
-                    Keyboard.SendKeys("{DOWN}");
-                    Thread.Sleep(1 * WaC);
-                }
-                else
-                {
-                    InputLog("Введем данные адреса", lvl + 1);
-                    Mouse.Click(Dots["Paremeter_" + i.ToString()]);
-                    Keyboard.SendKeys(i.ToString());
-                    Thread.Sleep(1 * WaC);
-                }
-            }
-            InputLog("Подтвердим введеные данные", lvl);
-            Mouse.Click(this.UIMap.AddAdressWindow.OKWindow.OKButton);
-            InputLog("Перейдем на следующую страницу", lvl);
-            Mouse.Click(this.UIMap.ASI_Window.AddCustomBorrowerWindow.NextWindow.NextButton);
-        } // Первый этап создания заёмщика
-
-        public void OpenReport(int WaC,int lvl,string Report)
-        {
-            InputLog("Раскроем вкладку подготовка результатов", lvl );
-            Mouse.Click(Dots["PrepareResultMob"]);
-            Thread.Sleep(1 * WaC);
-            InputLog("Отредактируем "+Report, lvl);
-            Mouse.Click(Dots[Report]);
-            Thread.Sleep(5 * WaC);
-        } // Открытие на влкадке информационное обеспечение индвидуального отчёта или акта
-
         public void CreateIndRep(int WaC, int lvl)
         {
-            InputLog("Создадим индивидуальный отчёт", lvl );
+            InputLog("Создадим индивидуальный отчёт", lvl);
             OpenReport(WaC, lvl + 1, "CreateIndRep");
-            InputLog("Проверим появление окна с предупреждением о требовании с перезапуском АСИ", lvl );
+            InputLog("Проверим появление окна с предупреждением о требовании с перезапуском АСИ", lvl);
             if (this.UIMap.WarningWindow.Exists)
             {
                 InputLog("Отказываемся от формирования", lvl + 1);
@@ -873,7 +1231,7 @@ namespace asi_express
             InputLog("Проверим язык", lvl);
             CheckLanguage(lvl + 1);
             InputLog("Вводим текущее время", lvl);
-             Keyboard.SendKeys("TODAY_" + DateTime.Now.ToString("ddMMyyyy_HHmmss"));
+            Keyboard.SendKeys("TODAY_" + DateTime.Now.ToString("ddMMyyyy_HHmmss"));
             InputLog("Сохраним", lvl);
             Mouse.Click(this.UIMap.DocumentWindow.SaveButton);
             Thread.Sleep(8 * WaC);
@@ -885,383 +1243,61 @@ namespace asi_express
             this.UIMap.DocumentWindow.WaitForControlNotExist(60 * WaC);
         } // метод для создания акта
 
-        public void Shutdown_asi()
+        public void DownloadReports(int WaC, int lvl)
         {
-            Process[] p1;
-            if (this.TestContext.Properties["ControllerName"].ToString().Contains("localhost"))
-            {
-                 p1 = Process.GetProcessesByName("Studio");
-            }
-            else
-            {
-                p1 = Process.GetProcessesByName("P5");
-            }
-            foreach(Process Proc in p1)
-            {
-                Process[] p2 = Process.GetProcessesByName("ASIBusyIndicator_vas_" + Proc.Handle);
-                foreach(Process ProcBusy in p2)
-                {
-                    ProcBusy.Kill();
-                }
-                Proc.Kill();
-            }
-            p1 = Process.GetProcessesByName("WINWORD");
-            foreach (Process Proc in p1)
-            { 
-                Proc.Kill();
-            }
-        } // метод выключения АСИ
+            InputLog("Открываем вкладку загрузки АФСБ", lvl);
+            OpenAFSB(WaC, lvl + 1);
+            InputLog("Выбрали форму 101", lvl);
+            Mouse.Click(Dots["101F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбрали форму 102", lvl);
+            Mouse.Click(Dots["102F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбрали форму 117", lvl);
+            Mouse.Click(Dots["117F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбрали форму 118", lvl);
+            Mouse.Click(Dots["118F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбрали форму 501", lvl);
+            Mouse.Click(Dots["501F"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Открываем нижний календарь", lvl);
+            Mouse.Click(Dots["BottomCalendar"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбираем 2015 год", lvl);
+            Mouse.Click(Dots["Bottom2015"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Закрываем нижний календарь", lvl);
+            Mouse.Click(Dots["BottomCalendar"]);
+            Thread.Sleep(1 * WaC);
 
-        public void Clear_cache()
-        {
-            if (Directory.Exists(LocalAppData + @"\JSC Prognoz"))
-            {
-                Directory.Delete(LocalAppData + @"\JSC Prognoz", true);
-            }
-        } // метод для чистки кэша
+            InputLog("Открываем верхний календарь", lvl);
+            Mouse.Click(Dots["UpperCalendar"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Выбираем Январь", lvl);
+            Mouse.Click(Dots["UpperJanuary"]);
+            Thread.Sleep(1 * WaC);
+            InputLog("Закрываем верхний календарь", lvl);
+            Mouse.Click(Dots["UpperCalendar"]);
+            Thread.Sleep(1 * WaC);
 
-        public void Start_prognoz(int Wac, int lvl)
-        {
-            if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
-            {
-                InputLog(this.TestContext.Properties["AgentName"].ToString(), lvl);
-                Process.Start(@"C:\Program Files\JSC Prognoz\Prognoz 5.26\P5.exe");
-                InputLog("Открываем прогноз x64", lvl);  
-            }
-            else
-            {
-                InputLog(this.TestContext.Properties["AgentName"].ToString(), lvl);
-                Process.Start(@"C:\Program Files (x86)\JSC Prognoz\Prognoz 5.26\P5.exe");
-                InputLog("Открываем прогноз x86", lvl);
-            }
-
-        } // метод запуска прогноза на различных машинах
-
-        public void StartASI(int WaC, int lvl,string SchemaName, string User)
-        {
-            this.UIMap.StudioConnectWindow.WaitForControlExist(4 * WaC);
-            if (this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2")
-            {
-                InputLog("Выберем схему "+ SchemaName , lvl);
-                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + " @ ASITST11";
-                InputLog("Введём  логин", lvl);
-                this.UIMap.StudioConnectWindow.LoginWindow.LoginEdit.Text = User;
-                InputLog("Введём  Пароль", lvl);
-                this.UIMap.StudioConnectWindow.PasswordWindow.PasswordEdit.Text = User;
-                InputLog("Подтвердим выбор", lvl);
-                Mouse.Click(this.UIMap.StudioConnectWindow.OKWindow.OKButton);
-            }
-            else
-            {
-                InputLog("Выберем схему " + SchemaName, lvl);
-                this.UIMap.StudioConnectWindow.SchemaConnectWindow.SchemaConnectComboBox.SelectedItem = SchemaName + " @ asi-tst-ms12\\MSSQLSERVER2012";
-                InputLog("Введём  логин", lvl);
-                this.UIMap.StudioConnectWindow.LoginWindow.LoginEdit.Text = User;
-                InputLog("Введём  Пароль", lvl);
-                this.UIMap.StudioConnectWindow.PasswordWindow.PasswordEdit.Text = User;
-                InputLog("Подтвердим выбор", lvl);
-                Mouse.Click(this.UIMap.StudioConnectWindow.OKWindow.OKButton);
-            }
-        } // метод запуска АСИ
-        
-        public void StatsArm(int WaC, int lvl, string SchemaName)
-        {
-            InputLog("Ждём открытия АРМ Админа на стационарном уровне", lvl);
-            this.UIMap.ARM_AdminWindow.WaitForControlExist(60 * WaC);            
-            InputLog("Проверим версию системы, если она равна Microsoft Windows NT 6.1.7601 Service Pack 1 пропустим пункт выбора ТУ", lvl);
-            if (Environment.OSVersion.ToString() != "Microsoft Windows NT 6.1.7601 Service Pack 1")
-            {
-                InputLog("Выберем ТУ", lvl);
-                SelectTU(WaC, lvl + 1);
-            }
-            InputLog("Создадим/Пересоздадим соединение с САФСБ", lvl);
-            SetAFSB(WaC, lvl + 1);
-            InputLog("Создадим пользователя с именем RIO_3", lvl);
-            CreateUser(WaC, lvl + 1, this.UIMap.EmployeeWindow.EmployeeList.RIO_3ListItem, "RIO_3", 0, SchemaName);
-            InputLog("Удалим пользователя", lvl);
-            DeleteUser(WaC, lvl + 1, this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.UserList.RIO_3ListItem);
-            InputLog("Создадим пользователя с именем RIO_4", lvl);
-            CreateUser(WaC, lvl + 1, this.UIMap.EmployeeWindow.EmployeeList.RIO_4ListItem, "RIO_4", 1, SchemaName);
-            InputLog("Удалим пользователя", lvl);
-            DeleteUser(WaC, lvl + 1, this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.UserList.RIO_4ListItem);
-            InputLog("Пересоздадим объекты", lvl);
-            RecreateObjects(WaC, lvl);
-            InputLog("Закроем АРМ Админа", lvl);
-            this.UIMap.ARM_AdminWindow.SetFocus();
-            Keyboard.SendKeys("{F4}", ModifierKeys.Alt);
-        } // работа внутри АРМа на стационарном уровне
-
-        public void DeleteUser(int WaC, int lvl, WpfListItem listitem)
-        {
-            InputLog("Проверим существование пользователя", lvl); 
-            if (listitem.Exists)
-            {
-                InputLog("Выберем его", lvl + 1);
-                Mouse.Click(listitem);
-                InputLog("Нажмём кнопку удалить", lvl + 1);
-                Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.UserPanel.DeleteUserButton);
-                InputLog("Дождёмся подтверждения", lvl + 1);
-                this.UIMap.AcceptWindow.WaitForControlExist(10 * WaC);
-                InputLog("Подтвердим удаление", lvl + 1);
-                Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
-                InputLog("Ждём подтверждения удаления", lvl + 1);
-                this.UIMap.InfoWindow.WaitForControlExist(100 * WaC);
-                InputLog("Нажмём ОК", lvl + 1);
-                Mouse.Click(this.UIMap.InfoWindow.OKWindow.OKButton);
-            }
-        } // метод удаления пользователя из списка
-
-        public void RecreateObjects(int WaC, int lvl)
-        {
-            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
-            this.UIMap.ARM_AdminWindow.RecreateButton.WaitForControlExist(15 * WaC);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.RecreateButton);
-
-            if(!this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateViewCheckBox.Checked)
-            {
-                this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateViewCheckBox.Checked = true;
-            }
-
-            if (!this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateProcedureCheckBox.Checked)
-            {
-                this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateProcedureCheckBox.Checked = true;
-            }
-
-            if (!this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.AddRigthsCheckBox.Checked)
-            {
-                this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.AddRigthsCheckBox.Checked = true;
-            }
-
-            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.RecreateObjectsPanel.RecreateButton);
-
-            this.UIMap.OKWindow.WaitForControlExist(15 * WaC);
-
-            Mouse.Click(this.UIMap.OKWindow.OKButton);
-        } // метод для пересоздания объектов АСИ
-
-        public void CreateUser(int WaC, int lvl, WpfListItem listitem, string UserName,int Try,string SchemaName) // Try - порядок запуска, если при 0 запуске вводятся данные АИБа, то при последующих уже нет
-        {
-            InputLog("Раскроем панель пользователей", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.UsersButton);
-            InputLog("Дождёмся появления кнопки Добавить пользователя", lvl);
-            this.UIMap.ARM_AdminWindow.AddUserButton.WaitForControlExist(10 * WaC);
-            InputLog("Нажмём кнопку Добавить пользователя", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.AddUserButton);
-            InputLog("Дождёмся отстройки формы создания пользователя", lvl);
-            this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.SelectPersonButton.WaitForControlExist(10 * WaC);
-            InputLog("Нажмём кнопку Выбор сотрудника", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.SelectPersonButton);
-            InputLog("Дождёмся появления формы создания сотрудника", lvl);
-            this.UIMap.EmployeeWindow.WaitForControlExist(10 * WaC);
-            InputLog("Проверим существует ли сотрудник "+ UserName, lvl);
-            if (!listitem.Exists)
-            {
-                InputLog("Раскроем поле ввод ФИО", lvl);
-                Mouse.Click(this.UIMap.EmployeeWindow.AddEmployeeButton);
-                InputLog("Ввёдем ФИО", lvl);
-                this.UIMap.EmployeeWindow.FIOEmployeeEdit.Text = UserName;
-                InputLog("Добавим сотрудника", lvl);
-                Mouse.Click(this.UIMap.EmployeeWindow.AddUserButton);
-            }
-            InputLog("Выберем сотрудника", lvl);
-            Mouse.Click(listitem);
-            InputLog("Подтвердим выбор сотрудника", lvl);
-            Mouse.Click(this.UIMap.EmployeeWindow.SelectButton);
-            InputLog("Введем логин", lvl);
-            this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.LoginEdit.Text = UserName;
-            InputLog("Введем пароль", lvl);
-            this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.PasswordEdit.Text = UserName;
-            InputLog("Введем повторно пароль", lvl);
-            this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.RePasswordEdit.Text = UserName;
-            InputLog("Проверим RadioButton", lvl);
-            if (!this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.AsiAutoStartRadioButton.Selected)
-            {
-                InputLog("Установим значение на АС Инспектора", lvl);
-                this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.AsiAutoStartRadioButton.Selected = true;
-            }
-            InputLog("Сохраним пользователя", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.EditUserPanel.SaveUserButton);   
-            if (Try == 0)
-            {
-                InputLog("Дождёмся окна ввода данных АИБа", lvl);
-                this.UIMap.ISA_Window.WaitForControlExist(30 * WaC);
-                InputLog("Ввёдем логин", lvl);
-                this.UIMap.ISA_Window.IsaLoginEdit.Text = SchemaName + "_ISA";
-                InputLog("Ввёдем пароль", lvl);
-                this.UIMap.ISA_Window.IsaPasswordEdit.Text = SchemaName + "_ISA";
-                InputLog("Подтвердим ввёденные данные", lvl);
-                GetScreen("BeforePressOK");
-                Mouse.Click(this.UIMap.ISA_Window.OKButton);
-            }
-            InputLog("Дождёмся создания пользователя", lvl);
-            this.UIMap.UserCreatedWindow.OKWindow2.OKButton.WaitForControlExist(30 * WaC);
-            InputLog("Подтвердим выполнение", lvl);
-            Mouse.Click(this.UIMap.UserCreatedWindow.OKWindow2.OKButton);
-        }
-
-        public void SelectTU(int WaC, int lvl)
-        {
-            InputLog("Раскроем панель подготовки", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
-            InputLog("Выберем регион базирования", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.TuPropButton);
-            InputLog("Ждём появления комбобокса с регионами", lvl);
-            this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.WaitForControlExist(15 * WaC);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox);
-            InputLog("Ткнём в него", lvl);
-            this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.WaitForControlExist(15 * WaC);
-            InputLog("Ткнём в первый уровень дерева элементов", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.Tree.TreeLvL1);
-            InputLog("Спустимся ниже", lvl);
-            Keyboard.SendKeys("{DOWN}");
-            InputLog("Раскроем второй уровень дерева элементов", lvl);
-            Keyboard.SendKeys("{RIGHT}");
-            InputLog("Дождёмся его появления", lvl);
-            this.UIMap.ARM_AdminWindow.Tree.TreeLvL1.TreeLvL2.WaitForControlExist(1 * WaC);
-            InputLog("В зависимости от выбранного элемента выберем 117 или 118 ID ", lvl);
-            if (this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.SelectedIndex == 118 ||
-                    this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.RegionsComboBox.SelectedIndex == -1)
-            {
-                InputLog("Спустимся ниже", lvl);
-                Keyboard.SendKeys("{DOWN}");
-            }
-            else
-            {
-                InputLog("Спустимся ниже", lvl);
-                Keyboard.SendKeys("{DOWN}");
-                InputLog("Спустимся ниже", lvl);
-                Keyboard.SendKeys("{DOWN}");
-            }
-            InputLog("Подтвердим свой выбор", lvl);
-            Keyboard.SendKeys("{ENTER}");
-            InputLog("Дождёмся появления текстовой надписи на форме с названием региона", lvl);
-            this.UIMap.ARM_AdminWindow.MasterWindow.TuPropWindow.NameTextBlock.WaitForControlExist(1500 * WaC);
-            InputLog("Дождёмся исчезновния дерева элементов", lvl);
-            this.UIMap.ARM_AdminWindow.Tree.WaitForControlNotExist(10 * WaC);
-        } // метод для выбора ТУ
-
-        private void WaiterForMSSQL(int Time)
-        {
-            if (this.TestContext.Properties["AgentName"].ToString() != "ASI-TST-12-2") { Thread.Sleep(Time*1000); }
-        } // специальная ожидалка для мсскл
-
-        public void SetAFSB(int WaC, int lvl)
-        {
-            InputLog("Нажмём кнопку подготовки системы", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.NavigationPanel.PrepareButton);
-            InputLog("Нажмём кнопку настройки соединения с САФСБ", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.SAFSBButton);
-            InputLog("Ждём появления элементов для ввода данных", lvl);
-            this.UIMap.ARM_AdminWindow.SAFSBData.WaitForControlExist(10 * WaC);
-            if (//Environment.OSVersion.ToString() != "Microsoft Windows NT 6.1.7601 Service Pack 1" // Пока такое условие, нужно придумать способо обхода
-                this.TestContext.Properties["AgentName"].ToString() == "ASI-TST-12-2"
-                )
-            {
-                InputLog("Ввёдем TCP", lvl);
-                this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.ProtocolEdit.Text = "TCP";
-                InputLog("Ввёдем HOST", lvl);
-                this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.HostEdit.Text = "10.7.0.33";
-                InputLog("Ввёдем Port", lvl);
-                this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.PortEdit.Text = "1521";
-                InputLog("Ввёдем SID", lvl);
-                this.UIMap.ARM_AdminWindow.SAFSBData.ServerProperties.ServiceEdit.Text = "ASITST11";
-                InputLog("Ввёдем название схемы тех.пользователя", lvl);
-                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
-                InputLog("Ввёдем пароль схемы тех.пользователя", lvl);
-                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserPasswordEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
-            }
-            else
-            {
-                InputLog("Сбросим данные в IP сервера", lvl);
-                this.UIMap.ARM_AdminWindow.SAFSBData.ServerMSSQLEdit.Text = "";
-                Thread.Sleep(10000);
-                InputLog("Сбросим данные в названии схемы", lvl);
-                this.UIMap.ARM_AdminWindow.SAFSBData.SchemaNameEdit.Text = "";
-                InputLog("Ввёдем данные IP сервера", lvl);
-                Keyboard.SendKeys(this.UIMap.ARM_AdminWindow.SAFSBData.ServerMSSQLEdit, "10.7.0.32");
-                InputLog("Ввёдем данные названия схемы", lvl);
-                Keyboard.SendKeys(this.UIMap.ARM_AdminWindow.SAFSBData.SchemaNameEdit, "RDATU71_DATA");
-                InputLog("Ввёдем данные логина тех.пользователя", lvl);
-                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserLoginEdit.Text = "ASI_TECHUSER_UI_" + DateTime.Now.ToString("ddMMyyyy_HHmm");
-                InputLog("Ввёдем данные пароля тех.пользователя", lvl);
-                this.UIMap.ARM_AdminWindow.TechUserData.TechUserDataGroup.TechUserPasswordEdit.Text = "Qwerty1";
-            }
-
-            InputLog("Проверим выбран ли комбобокс на создания тех.пользователя", lvl);
-            if (!this.UIMap.ARM_AdminWindow.TechUserData.NeedCreateTechUserCheckBox.Checked)
-            {
-                InputLog("Выберем его", lvl);
-                Mouse.Click(this.UIMap.ARM_AdminWindow.TechUserData.NeedCreateTechUserCheckBox);
-                InputLog("Ждём появления поля для ввода системный параметров", lvl);
-                this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemLoginEdit.WaitForControlExist(1 * WaC);
-                InputLog("Ввёдем логин суперпользователя", lvl);
-                this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemLoginEdit.Text = this.TestContext.Properties["SysLogin"].ToString();
-                InputLog("Ввёдем пароль суперпользователя", lvl);
-                this.UIMap.ARM_AdminWindow.TechUserData.SYSTEMGroup.SystemPasswordEdit.Text = this.TestContext.Properties["SysPassword"].ToString();
-            }
-            InputLog("Создадим подключение", lvl);
-            Mouse.Click(this.UIMap.ARM_AdminWindow.MasterWindow.SafsbPanel.CreateConnectSafsb);
-            InputLog("Ожидаем завершения создания подключения", lvl);
-            this.UIMap.OKWindow.OKButton.WaitForControlExist(120 * WaC);
-            Mouse.Click(this.UIMap.OKWindow.OKButton);
-            InputLog("Проверим, раскрыто ли окно с логами", lvl);
-            if (!this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.Expanded)
-            {
-                InputLog("Раскроем", lvl+1);
-                this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.Expanded = true;
-            }
-            InputLog("Проверим, есть ли там ошибки", lvl);
-            if (this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.Text.Contains("Ошибка:"))
-            {
-                InputLog("Ошибки есть", lvl +1);
-                InputLog(this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.Text, lvl + 1);
-                this.UIMap.ARM_AdminWindow.TechUserData.LogWindow.TextLog.WaitForControlNotExist(1 * WaC);
-                GetScreen("Error_after_set_settings_AFSB" + this.TestContext.Properties["AgentName"].ToString());
-                // введено специально, для того чтобы  отловить ошибки при формировании
-            }
-        } // настройка параметров для создания соединения с САФСБ
-
-        public void MobArm(int WaC, int lvl, string SchemaName)
-        {
-            InputLog("Ждём открытия АРМ Админа на мобильном уровне", lvl);
-            this.UIMap.ARM_AdminWindow.WaitForControlExist(30 * WaC);
-        } // работа внутри АРМа на мобильном уровне
-
-        public void PrepareAsi(int WaC, int lvl, string SchemaName)
-        {
-            InputLog("Почистим кэш", lvl);
-            Clear_cache();
-            InputLog("Запустим прогноз", lvl);
-            Start_prognoz(WaC, lvl + 1);
-            InputLog("Подключимся под Администратором и проверим/восстановим все настройки", lvl);
-            StartASI(WaC, lvl + 1, SchemaName, SchemaName); 
-            if (SchemaName == "ASISTA_UI")
-            {
-                StatsArm(WaC, lvl + 1, SchemaName);
-            }
-            else
-            {
-                MobArm(WaC, lvl + 1, SchemaName);
-            }
-        } // метод для подготовки АСИ к экспресс-тестированию
-
-        public void ConnectToWorkingARM (int WaC, int lvl, string SchemaName,string UserName)
-        {
-            InputLog("Вырубим АС Инспектора", lvl);
-            Shutdown_asi();
-            Thread.Sleep(2 * WaC);
-            InputLog("Почистим кэш", lvl);
-            Clear_cache();
-            InputLog("Запустим АСИ ", lvl);
-            StartASI(WaC, lvl + 1, SchemaName, UserName);
-            InputLog("Дождёмся появления окна АРМа", lvl);
-            this.UIMap.ASI_Window.WaitForControlExist(240 * WaC);
-            InputLog("Дадим отстроится элементам", lvl);
-            Thread.Sleep(10 * WaC);
-        } // метод для переподключения к АРМу пользователя/администратора
-
-        #endregion
-
+            InputLog("Жмём кнопку загрузки", lvl);
+            Mouse.Click(this.UIMap.ASI_Window.ImportAFSB.ImportWindow.ImportButton);
+            InputLog("Ждём подтверждающего окна", lvl);
+            this.UIMap.AcceptWindow.Acc_YesWindow.YesButton.WaitForControlExist(20 * WaC);
+            InputLog("Соглашаемся", lvl);
+            Mouse.Click(this.UIMap.AcceptWindow.Acc_YesWindow.YesButton);
+            InputLog("Ждём окно протокола", lvl);
+            this.UIMap.LogWindow.WaitForControlExist(3000 * WaC);
+            InputLog("Скриним", lvl);
+            GetScreen("FinishDownload");
+            InputLog("Закрываем", lvl);
+            Thread.Sleep(5 * WaC);
+            Mouse.Click(this.UIMap.LogWindow.CloseWindow.CloseButton);
+        } // Загрузка форм отчётности
+        #endregion     
+      
         [TestMethod]
         [TestProperty("AgentName", "ASI-TST-MS12")]
         [TestProperty("File", "FileToDeploy")]
@@ -1284,7 +1320,7 @@ namespace asi_express
             try
             {
                 InputLog("Начнём подготовку к экспресс-тестированию", 0);
-
+                /*
 
                 PrepareAsi(WaC, 1, "ASISTA_UI");
                 ConnectToWorkingARM(WaC, 1, "ASISTA_UI", "RIO");
@@ -1304,6 +1340,28 @@ namespace asi_express
                 AddCustomBorrower(WaC, 1);
                 CreateIndRep(WaC,1);
                 CreateAkt(WaC, 1);
+
+                */
+
+                //      Mouse.Click(new Point(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.AddDocImage.Left,
+                //                  this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.AddDocImage.Top));
+
+                //this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.FlowDocumentScrollViewer.RegnumEdit.Text = "Hello";
+                //  ClickElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegnumEdit,"DbClick");
+                // this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegnumEdit.Text = "Hello";
+                //  Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegnumEdit, "1234");
+                ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.TransportComboBox,
+                                    "Click");
+                Keyboard.SendKeys("системы Ремарт");
+                Keyboard.SendKeys("{ENTER}");
+
+
+                ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegDatePicker.DateText,
+                    "SendKeys", "25.12.2018");
+                Keyboard.SendKeys("{ENTER}");
+                //WorkElementABCI(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.TransportComboBox,
+                //    "SendKeys","Hello");
+
             }
             catch (Exception e)
             {
@@ -1313,22 +1371,6 @@ namespace asi_express
             }
 
         }
-
-
-
-
-        #region UsefulMethods
-
-
-
-
-
-
-        #endregion UsefulMethods
-
-
-
-
 
         public TestContext TestContext
         {
