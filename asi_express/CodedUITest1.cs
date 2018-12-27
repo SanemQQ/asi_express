@@ -1350,8 +1350,9 @@ namespace asi_express
                 //  ClickElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegnumEdit,"DbClick");
                 // this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegnumEdit.Text = "Hello";
                 //  Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegnumEdit, "1234");
-                ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.TransportComboBox,
-                                    "Click");
+                ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem,
+                                    "DbClick");
+                /*
                 Keyboard.SendKeys("системы Ремарт");
                 Keyboard.SendKeys("{ENTER}");
 
@@ -1362,6 +1363,7 @@ namespace asi_express
                 //WorkElementABCI(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.TransportComboBox,
                 //    "SendKeys","Hello");
 
+                */
             }
             catch (Exception e)
             {
@@ -1369,6 +1371,12 @@ namespace asi_express
                 GetScreen("Error");
                 throw e;
             }
+            /*
+            finally
+            {
+                Shutdown_asi();
+            }
+            */
 
         }
 

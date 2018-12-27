@@ -6348,6 +6348,23 @@ namespace asi_express
                 return this.mSaveDocumentButton;
             }
         }
+
+        public WpfImage AddDocImage
+        {
+            get
+            {
+                if ((this.mAddDocImage == null))
+                {
+                    this.mAddDocImage = new WpfImage(this);
+                    #region Условия поиска
+                    this.mAddDocImage.SearchProperties[WpfImage.PropertyNames.AutomationId] = "AddDocument_InspectionInfoView_im";
+                    this.mAddDocImage.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mAddDocImage;
+            }
+        }
         #endregion
 
         #region Fields
@@ -6387,6 +6404,8 @@ namespace asi_express
         private WpfCheckBox mIsInMonitoringComboBox;
 
         private WpfButton mSaveDocumentButton;
+
+        private WpfImage mAddDocImage;
         #endregion
     }
 
@@ -6780,6 +6799,23 @@ namespace asi_express
                 return this.mChangeGropButton;
             }
         }
+
+        public WpfImage AddDocImage
+        {
+            get
+            {
+                if ((this.mAddDocImage == null))
+                {
+                    this.mAddDocImage = new WpfImage(this);
+                    #region Условия поиска
+                    this.mAddDocImage.SearchProperties[WpfImage.PropertyNames.AutomationId] = "AddDocument_InspectionInfoView_im";
+                    this.mAddDocImage.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mAddDocImage;
+            }
+        }
         #endregion
 
         #region Fields
@@ -6792,6 +6828,8 @@ namespace asi_express
         private WpfButton mSaveDocument;
 
         private WpfButton mChangeGropButton;
+
+        private WpfImage mAddDocImage;
         #endregion
     }
 
@@ -7128,6 +7166,23 @@ namespace asi_express
                 return this.mCreateDocumentComboBox;
             }
         }
+
+        public WpfImage AddDocImage
+        {
+            get
+            {
+                if ((this.mAddDocImage == null))
+                {
+                    this.mAddDocImage = new WpfImage(this);
+                    #region Условия поиска
+                    this.mAddDocImage.SearchProperties[WpfImage.PropertyNames.AutomationId] = "AddDocument_InspectionInfoView_im";
+                    this.mAddDocImage.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mAddDocImage;
+            }
+        }
         #endregion
 
         #region Fields
@@ -7138,6 +7193,8 @@ namespace asi_express
         private WpfButton mChangeQuestListButton;
 
         private WpfButton mCreateDocumentComboBox;
+
+        private WpfImage mAddDocImage;
         #endregion
     }
 
@@ -7323,6 +7380,23 @@ namespace asi_express
                 return this.mSaveDocumentButton;
             }
         }
+
+        public WpfImage AddDocImage
+        {
+            get
+            {
+                if ((this.mAddDocImage == null))
+                {
+                    this.mAddDocImage = new WpfImage(this);
+                    #region Условия поиска
+                    this.mAddDocImage.SearchProperties[WpfImage.PropertyNames.AutomationId] = "AddDocument_InspectionInfoView_im";
+                    this.mAddDocImage.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mAddDocImage;
+            }
+        }
         #endregion
 
         #region Fields
@@ -7339,6 +7413,8 @@ namespace asi_express
         private WpfEdit mActTextEdit;
 
         private WpfButton mSaveDocumentButton;
+
+        private WpfImage mAddDocImage;
         #endregion
     }
 
