@@ -2899,18 +2899,13 @@ namespace asi_express
         }
 
         #region Properties
-        public WinWindow ReestrWindow
+        public ReestrWindow ReestrWindow
         {
             get
             {
                 if ((this.mReestrWindow == null))
                 {
-                    this.mReestrWindow = new WinWindow(this);
-                    #region Условия поиска
-                    this.mReestrWindow.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Реестр проверок";
-                    this.mReestrWindow.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
-                            "екционного подразделения - [Реестр проверок]");
-                    #endregion
+                    this.mReestrWindow = new ReestrWindow(this);
                 }
                 return this.mReestrWindow;
             }
@@ -3062,7 +3057,7 @@ namespace asi_express
         #endregion
 
         #region Fields
-        private WinWindow mReestrWindow;
+        private ReestrWindow mReestrWindow;
 
         private WinWindow mGivingTaskWindow;
 
@@ -5834,6 +5829,7 @@ namespace asi_express
                 base(searchLimitContainer)
         {
             #region Условия поиска
+            this.SearchProperties[WpfTabList.PropertyNames.ClassName] = "Uia.TabControl";
             this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
                     "екционного подразделения - [Информация о проверке]");
             this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
@@ -6365,6 +6361,23 @@ namespace asi_express
                 return this.mAddDocImage;
             }
         }
+
+        public WpfComboBox ReasonsInspectionInComboBox
+        {
+            get
+            {
+                if ((this.mReasonsInspectionInComboBox == null))
+                {
+                    this.mReasonsInspectionInComboBox = new WpfComboBox(this);
+                    #region Условия поиска
+                    this.mReasonsInspectionInComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "Reasons_InspectionInfoView_cm";
+                    this.mReasonsInspectionInComboBox.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mReasonsInspectionInComboBox;
+            }
+        }
         #endregion
 
         #region Fields
@@ -6406,6 +6419,8 @@ namespace asi_express
         private WpfButton mSaveDocumentButton;
 
         private WpfImage mAddDocImage;
+
+        private WpfComboBox mReasonsInspectionInComboBox;
         #endregion
     }
 
@@ -6417,8 +6432,8 @@ namespace asi_express
                 base(searchLimitContainer)
         {
             #region Условия поиска
-            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
-            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "AssighDate_InspectionInfoView_dp";
+            this.SearchProperties[WpfCustom.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfCustom.PropertyNames.AutomationId] = "AssighDate_InspectionInfoView_dp";
             this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
                     "екционного подразделения - [Информация о проверке]");
             #endregion
@@ -8563,6 +8578,42 @@ namespace asi_express
             }
         }
 
+
+
+        public WpfEdit WorkerEmployeeEdit
+        {
+            get
+            {
+                if ((this.mWorkerEmployeeEdit == null))
+                {
+                    this.mWorkerEmployeeEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mWorkerEmployeeEdit.SearchProperties.Add(WpfEdit.PropertyNames.AutomationId, "Employee_РИО_2", PropertyExpressionOperator.Contains);
+                    this.mWorkerEmployeeEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mWorkerEmployeeEdit;
+            }
+        }
+
+        public WpfEdit WorkerEmployeeOkatoEdit
+        {
+            get
+            {
+                if ((this.mWorkerEmployeeOkatoEdit == null))
+                {
+                    this.mWorkerEmployeeOkatoEdit = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mWorkerEmployeeOkatoEdit.SearchProperties.Add(WpfEdit.PropertyNames.AutomationId, "Employee_T", PropertyExpressionOperator.Contains);
+                    this.mWorkerEmployeeOkatoEdit.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mWorkerEmployeeOkatoEdit;
+            }
+        }
+
         //Footer_FileAView_tb
         #endregion
 
@@ -8570,6 +8621,10 @@ namespace asi_express
 
 
         #region Fields
+        private WpfEdit mWorkerEmployeeEdit;
+
+        private WpfEdit mWorkerEmployeeOkatoEdit;
+
         private WpfEdit mRegnumEdit;
 
         private WpfEdit mTUValueEdit;
@@ -9001,6 +9056,310 @@ namespace asi_express
 
         #region Fields
         private WpfCheckBox mRIO_2ListItemCheckBox;
+        #endregion
+    }
+
+    public class ReestrWindow : WinWindow
+    {
+
+        public ReestrWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Реестр проверок";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Реестр проверок]");
+            #endregion
+        }
+
+        #region Properties
+        public ControlAxSourcingSitWindow ControlAxSourcingSitWindow
+        {
+            get
+            {
+                if ((this.mControlAxSourcingSitWindow == null))
+                {
+                    this.mControlAxSourcingSitWindow = new ControlAxSourcingSitWindow(this);
+                }
+                return this.mControlAxSourcingSitWindow;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ControlAxSourcingSitWindow mControlAxSourcingSitWindow;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ControlAxSourcingSitWindow : WinWindow
+    {
+
+        public ControlAxSourcingSitWindow(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ControlName] = "ControlAxSourcingSite";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Реестр проверок]");
+            #endregion
+        }
+
+        #region Properties
+        public ControlAxSourcingSitClient ControlAxSourcingSitClient
+        {
+            get
+            {
+                if ((this.mControlAxSourcingSitClient == null))
+                {
+                    this.mControlAxSourcingSitClient = new ControlAxSourcingSitClient(this);
+                }
+                return this.mControlAxSourcingSitClient;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ControlAxSourcingSitClient mControlAxSourcingSitClient;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ControlAxSourcingSitClient : WinClient
+    {
+
+        public ControlAxSourcingSitClient(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Реестр проверок]");
+            #endregion
+        }
+
+        #region Properties
+        public ItemPanel ItemPanel
+        {
+            get
+            {
+                if ((this.mItemPanel == null))
+                {
+                    this.mItemPanel = new ItemPanel(this);
+                }
+                return this.mItemPanel;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ItemPanel mItemPanel;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ItemPanel : WpfPane
+    {
+
+        public ItemPanel(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Реестр проверок]");
+            #endregion
+        }
+
+        #region Properties
+        public ItemCustom ItemCustom
+        {
+            get
+            {
+                if ((this.mItemCustom == null))
+                {
+                    this.mItemCustom = new ItemCustom(this);
+                }
+                return this.mItemCustom;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ItemCustom mItemCustom;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ItemCustom : WpfCustom
+    {
+
+        public ItemCustom(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.InspectionsView";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Реестр проверок]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfButton AddInspectButton
+        {
+            get
+            {
+                if ((this.mAddInspectButton == null))
+                {
+                    this.mAddInspectButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mAddInspectButton.SearchProperties[WpfButton.PropertyNames.Name] = "Добавить проверку";
+                    this.mAddInspectButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Реестр проверок]");
+                    #endregion
+                }
+                return this.mAddInspectButton;
+            }
+        }
+
+        public WpfButton OpenInspectButton
+        {
+            get
+            {
+                if ((this.mOpenInspectButton == null))
+                {
+                    this.mOpenInspectButton = new WpfButton(this);
+                    #region Условия поиска
+                    this.mOpenInspectButton.SearchProperties[WpfButton.PropertyNames.Name] = "Открыть проверку";
+                    this.mOpenInspectButton.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Реестр проверок]");
+                    #endregion
+                }
+                return this.mOpenInspectButton;
+            }
+        }
+
+        public InspectionsListViewTable InspectionsListViewTable
+        {
+            get
+            {
+                if ((this.mInspectionsListViewTable == null))
+                {
+                    this.mInspectionsListViewTable = new InspectionsListViewTable(this);
+                }
+                return this.mInspectionsListViewTable;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfButton mAddInspectButton;
+
+        private WpfButton mOpenInspectButton;
+
+        private InspectionsListViewTable mInspectionsListViewTable;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class InspectionsListViewTable : WpfTable
+    {
+
+        public InspectionsListViewTable(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfTable.PropertyNames.AutomationId] = "InspectionsListView";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Реестр проверок]");
+            #endregion
+        }
+
+        #region Properties
+        public DataItem DataItem
+        {
+            get
+            {
+                if ((this.mDataItem == null))
+                {
+                    this.mDataItem = new DataItem(this);
+                }
+                return this.mDataItem;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private DataItem mDataItem;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class DataItem : WpfControl
+    {
+
+        public DataItem(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ControlType] = "DataItem";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Реестр проверок]");
+            #endregion
+        }
+
+        #region Properties
+        public ItemCell ItemCell
+        {
+            get
+            {
+                if ((this.mItemCell == null))
+                {
+                    this.mItemCell = new ItemCell(this);
+                }
+                return this.mItemCell;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private ItemCell mItemCell;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class ItemCell : WpfCell
+    {
+
+        public ItemCell(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfCell.PropertyNames.ColumnHeader] = "Рег. №";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Реестр проверок]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfText RegNumberText
+        {
+            get
+            {
+                if ((this.mRegNumberText == null))
+                {
+                    this.mRegNumberText = new WpfText(this);
+                    #region Условия поиска
+                    this.mRegNumberText.SearchProperties[WpfText.PropertyNames.Name] = "918";
+                    this.mRegNumberText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Реестр проверок]");
+                    #endregion
+                }
+                return this.mRegNumberText;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfText mRegNumberText;
         #endregion
     }
 }

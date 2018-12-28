@@ -1350,9 +1350,11 @@ namespace asi_express
                 //  ClickElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegnumEdit,"DbClick");
                 // this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegnumEdit.Text = "Hello";
                 //  Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.FileABCITabItem.FileCustomView.RegnumEdit, "1234");
-                ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem,
-                                    "DbClick");
+
                 /*
+                 *                 ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem,
+                                    "DbClick");
+                 * 
                 Keyboard.SendKeys("системы Ремарт");
                 Keyboard.SendKeys("{ENTER}");
 
@@ -1364,6 +1366,9 @@ namespace asi_express
                 //    "SendKeys","Hello");
 
                 */
+
+                AddInspection(WaC, 1);
+
             }
             catch (Exception e)
             {
@@ -1378,6 +1383,46 @@ namespace asi_express
             }
             */
 
+        }
+
+
+
+
+        public void AddInspection(int WaC, int lvl)
+        {
+            /*
+            this.UIMap.ASI_Window.ReestrWindow.ControlAxSourcingSitWindow.ControlAxSourcingSitClient.ItemPanel.ItemCustom.AddInspectButton.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.ASI_Window.ReestrWindow.ControlAxSourcingSitWindow.ControlAxSourcingSitClient.ItemPanel.ItemCustom.AddInspectButton);
+            this.UIMap.ASI_Window.InfoInspectWindow.WaitForControlExist(60 * WaC);
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.KOHyperLink.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.KOHyperLink);
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.KOFilterEdit.WaitForControlExist(60 * WaC);
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.KOFilterEdit.Text = "918";
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ApplyOKFilterKOButton);
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.SelectKOTreeList.OutCityTreeListItem.WaitForControlExist(60 * WaC);
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.SelectKOTreeList.OutCityTreeListItem.ExpandButton);
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.SelectKOTreeList.KO918ListItem);
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.OKButton);
+            ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.AddDocImage, "Click");
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.NumberInspectTextEdit, DateTime.Now.ToString("ddMMyyyy_HHmmss"));
+            */
+            ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.AssignDateInspectInfoDatePicker,"Click");
+            Keyboard.SendKeys(DateTime.Now.ToString("dd.MM.yyyy"));
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.SignerInsepctionInfo.SelectedItem = "РИО";
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.StartCheckPeriod.DateText,"01.01.2015");
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.EndCheckPeriod.DateText, "01.01.2016");
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.StartWorkPeriod.DateText, DateTime.Now.ToString("dd.MM.yyyy"));
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.EndWorkPeriod.DateText, "01.01.2020");
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.PrepareGroupComboBox.SelectedItem = "РИО";
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.PrepareTaskComboBox.SelectedItem = "РИО";
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.SpecialInspectionRadioButton);
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.InterRegionalCoverageRadioButton);
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.UnplannedReasonRadioButton);
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.ReasonsInspectionInComboBox.SelectedIndex = 8;
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.SignOfParticipationComboBox.SelectedIndex = 11;
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.RepaetInspectCheckBox.Checked = true;
+            this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.IsInMonitoringComboBox.Checked = true;
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.SaveDocumentButton);
         }
 
         public TestContext TestContext

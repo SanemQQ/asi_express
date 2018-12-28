@@ -1484,6 +1484,7 @@
             <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
             <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Загрузка данных в cправочники]</WindowTitle>
             <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Импорт из АФСБ]</WindowTitle>
+            <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения | Проверка ВЛАДИМИРСКИЙ ПРОМЫШЛЕННЫЙ БАНК (870) за 01</WindowTitle>
           </WindowTitles>
           <SearchConfigurations>
             <SearchConfiguration>VisibleOnly</SearchConfiguration>
@@ -1508,12 +1509,152 @@
                 <PropertyCondition Name="ControlType">Window</PropertyCondition>
               </AndCondition>
               <SupportLevel>1</SupportLevel>
-              <Descendants />
+              <Descendants>
+                <UIObject ControlType="Window" Id="ControlAxSourcingSitWindow" FriendlyName="ControlAxSourcingSite" SpecialControlType="None">
+                  <TechnologyName>MSAA</TechnologyName>
+                  <WindowTitles>
+                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                  </WindowTitles>
+                  <SearchConfigurations>
+                    <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                  </SearchConfigurations>
+                  <AndCondition Id="SearchCondition">
+                    <PropertyCondition Name="ControlName">ControlAxSourcingSite</PropertyCondition>
+                    <PropertyCondition Name="ControlType">Window</PropertyCondition>
+                  </AndCondition>
+                  <SupportLevel>100</SupportLevel>
+                  <Descendants>
+                    <UIObject ControlType="Client" Id="ControlAxSourcingSitClient" FriendlyName="ControlAxSourcingSite" SpecialControlType="None">
+                      <TechnologyName>MSAA</TechnologyName>
+                      <WindowTitles>
+                        <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                      </WindowTitles>
+                      <SearchConfigurations>
+                        <SearchConfiguration>VisibleOnly</SearchConfiguration>
+                      </SearchConfigurations>
+                      <AndCondition Id="SearchCondition">
+                        <PropertyCondition Name="ControlType">Client</PropertyCondition>
+                      </AndCondition>
+                      <SupportLevel>100</SupportLevel>
+                      <Descendants>
+                        <UIObject ControlType="Pane" Id="ItemPanel" FriendlyName="" SpecialControlType="None">
+                          <TechnologyName>UIA</TechnologyName>
+                          <WindowTitles>
+                            <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                          </WindowTitles>
+                          <AndCondition>
+                            <PropertyCondition Name="ControlType">Pane</PropertyCondition>
+                            <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                          </AndCondition>
+                          <SupportLevel>0</SupportLevel>
+                          <Descendants>
+                            <UIObject ControlType="Custom" Id="ItemCustom" FriendlyName="" SpecialControlType="None">
+                              <TechnologyName>UIA</TechnologyName>
+                              <WindowTitles>
+                                <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                              </WindowTitles>
+                              <AndCondition>
+                                <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                <PropertyCondition Name="ControlType">Custom</PropertyCondition>
+                                <PropertyCondition Name="ClassName">Uia.InspectionsView</PropertyCondition>
+                              </AndCondition>
+                              <SupportLevel>0</SupportLevel>
+                              <Descendants>
+                                <UIObject ControlType="Button" Id="AddInspectButton" FriendlyName="Добавить проверку" SpecialControlType="None">
+                                  <TechnologyName>UIA</TechnologyName>
+                                  <WindowTitles>
+                                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                                  </WindowTitles>
+                                  <AndCondition>
+                                    <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                    <PropertyCondition Name="ControlType">Button</PropertyCondition>
+                                    <PropertyCondition Name="Name">Добавить проверку</PropertyCondition>
+                                  </AndCondition>
+                                  <SupportLevel>0</SupportLevel>
+                                  <Descendants />
+                                </UIObject>
+                                <UIObject ControlType="Button" Id="OpenInspectButton" FriendlyName="Открыть проверку" SpecialControlType="None">
+                                  <TechnologyName>UIA</TechnologyName>
+                                  <WindowTitles>
+                                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                                  </WindowTitles>
+                                  <AndCondition>
+                                    <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                    <PropertyCondition Name="ControlType">Button</PropertyCondition>
+                                    <PropertyCondition Name="Name">Открыть проверку</PropertyCondition>
+                                  </AndCondition>
+                                  <SupportLevel>0</SupportLevel>
+                                  <Descendants />
+                                </UIObject>
+                                <UIObject ControlType="Table" Id="InspectionsListViewTable" FriendlyName="InspectionsListView" SpecialControlType="None">
+                                  <TechnologyName>UIA</TechnologyName>
+                                  <WindowTitles>
+                                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                                  </WindowTitles>
+                                  <AndCondition>
+                                    <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                    <PropertyCondition Name="ControlType">Table</PropertyCondition>
+                                    <PropertyCondition Name="AutomationId">InspectionsListView</PropertyCondition>
+                                  </AndCondition>
+                                  <SupportLevel>0</SupportLevel>
+                                  <Descendants>
+                                    <UIObject ControlType="DataItem" Id="DataItem" FriendlyName="" SpecialControlType="None">
+                                      <TechnologyName>UIA</TechnologyName>
+                                      <WindowTitles>
+                                        <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                                      </WindowTitles>
+                                      <AndCondition>
+                                        <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                        <PropertyCondition Name="ControlType">DataItem</PropertyCondition>
+                                      </AndCondition>
+                                      <SupportLevel>0</SupportLevel>
+                                      <Descendants>
+                                        <UIObject ControlType="Cell" Id="ItemCell" FriendlyName="" SpecialControlType="None">
+                                          <TechnologyName>UIA</TechnologyName>
+                                          <WindowTitles>
+                                            <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                                          </WindowTitles>
+                                          <AndCondition>
+                                            <PropertyCondition Name="ColumnHeader">Рег. №</PropertyCondition>
+                                            <PropertyCondition Name="ControlType">Cell</PropertyCondition>
+                                            <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                          </AndCondition>
+                                          <SupportLevel>0</SupportLevel>
+                                          <Descendants>
+                                            <UIObject ControlType="Text" Id="RegNumberText" FriendlyName="918" SpecialControlType="None">
+                                              <TechnologyName>UIA</TechnologyName>
+                                              <WindowTitles>
+                                                <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+                                              </WindowTitles>
+                                              <AndCondition>
+                                                <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                                <PropertyCondition Name="ControlType">Text</PropertyCondition>
+                                                <PropertyCondition Name="Name">918</PropertyCondition>
+                                              </AndCondition>
+                                              <SupportLevel>0</SupportLevel>
+                                              <Descendants />
+                                            </UIObject>
+                                          </Descendants>
+                                        </UIObject>
+                                      </Descendants>
+                                    </UIObject>
+                                  </Descendants>
+                                </UIObject>
+                              </Descendants>
+                            </UIObject>
+                          </Descendants>
+                        </UIObject>
+                      </Descendants>
+                    </UIObject>
+                  </Descendants>
+                </UIObject>
+              </Descendants>
             </UIObject>
             <UIObject ControlType="Window" Id="CalcSpr" FriendlyName="Загрузка данных в cправочники" SpecialControlType="None">
               <TechnologyName>MSAA</TechnologyName>
               <WindowTitles>
                 <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Загрузка данных в cправочники]</WindowTitle>
+                <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения | Проверка ВЛАДИМИРСКИЙ ПРОМЫШЛЕННЫЙ БАНК (870) за 01</WindowTitle>
               </WindowTitles>
               <SearchConfigurations>
                 <SearchConfiguration>VisibleOnly</SearchConfiguration>
@@ -3186,6 +3327,8 @@
           <WindowTitles>
             <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Информация о проверке]</WindowTitle>
             <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения | Проверка ЗАПСИБКОМБАНК (918) за 01.01.2015-31.12.20</WindowTitle>
+            <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Реестр проверок]</WindowTitle>
+            <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения | Проверка ВЛАДИМИРСКИЙ ПРОМЫШЛЕННЫЙ БАНК (870) за 01</WindowTitle>
           </WindowTitles>
           <SearchConfigurations>
             <SearchConfiguration>VisibleOnly</SearchConfiguration>
@@ -3573,6 +3716,19 @@
                                             <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
                                             <PropertyCondition Name="ControlType">Button</PropertyCondition>
                                             <PropertyCondition Name="AutomationId">SaveDisposal_InspectionInfoView_bt</PropertyCondition>
+                                          </AndCondition>
+                                          <SupportLevel>0</SupportLevel>
+                                          <Descendants />
+                                        </UIObject>
+                                        <UIObject ControlType="ComboBox" Id="ReasonsInspectionInComboBox" FriendlyName="Reasons_InspectionInfoView_cm" SpecialControlType="None">
+                                          <TechnologyName>UIA</TechnologyName>
+                                          <WindowTitles>
+                                            <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Информация о проверке]</WindowTitle>
+                                          </WindowTitles>
+                                          <AndCondition>
+                                            <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                            <PropertyCondition Name="ControlType">ComboBox</PropertyCondition>
+                                            <PropertyCondition Name="AutomationId">Reasons_InspectionInfoView_cm</PropertyCondition>
                                           </AndCondition>
                                           <SupportLevel>0</SupportLevel>
                                           <Descendants />
