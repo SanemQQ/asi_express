@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 
 namespace asi_express
 {
-    //try to check_commit
+    //try to check_commit22
     //    Dictionary Dict 
     // Комментарии к параметрам методов
     // WaC - коэффициент ожидания в зависимости от  оракла/мсскл
