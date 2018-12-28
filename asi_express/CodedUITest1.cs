@@ -1386,11 +1386,17 @@ namespace asi_express
         }
 
 
-
-
         public void AddInspection(int WaC, int lvl)
         {
-            /*
+            WorkOnControlTab(WaC, lvl + 1);
+
+
+        }
+
+
+
+        public void WorkOnControlTab(int WaC, int lvl)
+        {
             this.UIMap.ASI_Window.ReestrWindow.ControlAxSourcingSitWindow.ControlAxSourcingSitClient.ItemPanel.ItemCustom.AddInspectButton.WaitForControlExist(60 * WaC);
             Mouse.Click(this.UIMap.ASI_Window.ReestrWindow.ControlAxSourcingSitWindow.ControlAxSourcingSitClient.ItemPanel.ItemCustom.AddInspectButton);
             this.UIMap.ASI_Window.InfoInspectWindow.WaitForControlExist(60 * WaC);
@@ -1405,18 +1411,17 @@ namespace asi_express
             Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.OKButton);
             ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.AddDocImage, "Click");
             Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.NumberInspectTextEdit, DateTime.Now.ToString("ddMMyyyy_HHmmss"));
-            */
-            ClickHiddenElement(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.AssignDateInspectInfoDatePicker,"Click");
-            Keyboard.SendKeys(DateTime.Now.ToString("dd.MM.yyyy"));
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.AssignDateInspectInfoDatePicker.DateText,
+                DateTime.Now.ToString("dd.MM.yyyy"));
             this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.SignerInsepctionInfo.SelectedItem = "РИО";
-            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.StartCheckPeriod.DateText,"01.01.2015");
-            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.EndCheckPeriod.DateText, "01.01.2016");
-            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.StartWorkPeriod.DateText, DateTime.Now.ToString("dd.MM.yyyy"));
-            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.EndWorkPeriod.DateText, "01.01.2020");
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.StartCheckPeriod.DateText,"01.01.2015");
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.EndCheckPeriod.DateText, "01.01.2016");
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.StartWorkPeriod.DateText, DateTime.Now.ToString("dd.MM.yyyy"));
+            Keyboard.SendKeys(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.EndWorkPeriod.DateText, "01.01.2020");
             this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.PrepareGroupComboBox.SelectedItem = "РИО";
             this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.PrepareTaskComboBox.SelectedItem = "РИО";
             Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.SpecialInspectionRadioButton);
-            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.InterRegionalCoverageRadioButton);
+            Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.ArealInterRegionalCoverageRadioButton);
             Mouse.Click(this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.UnplannedReasonRadioButton);
             this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.ReasonsInspectionInComboBox.SelectedIndex = 8;
             this.UIMap.ASI_Window.InfoInspectWindow.WindowInInfoInspectWindow.ClientInInfoInspectWindow.PanelInInfoInsepctWindow.CustomInInfoInspectWindow.ItemsTabList.ControlTabItem.SignOfParticipationComboBox.SelectedIndex = 11;

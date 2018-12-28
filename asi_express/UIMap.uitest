@@ -4760,6 +4760,47 @@
                                 </UIObject>
                               </Descendants>
                             </UIObject>
+                            <UIObject ControlType="TabList" Id="ItemTabList" FriendlyName="" SpecialControlType="None">
+                              <TechnologyName>UIA</TechnologyName>
+                              <WindowTitles>
+                                <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Информация о проверке]</WindowTitle>
+                              </WindowTitles>
+                              <AndCondition>
+                                <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                <PropertyCondition Name="ControlType">TabList</PropertyCondition>
+                              </AndCondition>
+                              <SupportLevel>0</SupportLevel>
+                              <Descendants>
+                                <UIObject ControlType="Custom" Id="AssighDate_InspectionCustom" FriendlyName="AssighDate_InspectionInfoView_dp" SpecialControlType="None">
+                                  <TechnologyName>UIA</TechnologyName>
+                                  <WindowTitles>
+                                    <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Информация о проверке]</WindowTitle>
+                                  </WindowTitles>
+                                  <AndCondition>
+                                    <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                    <PropertyCondition Name="ControlType">Custom</PropertyCondition>
+                                    <PropertyCondition Name="ClassName">Uia.DatePickerEx</PropertyCondition>
+                                    <PropertyCondition Name="AutomationId">AssighDate_InspectionInfoView_dp</PropertyCondition>
+                                  </AndCondition>
+                                  <SupportLevel>0</SupportLevel>
+                                  <Descendants>
+                                    <UIObject ControlType="Edit" Id="DateText" FriendlyName="PART_TextBox" SpecialControlType="None">
+                                      <TechnologyName>UIA</TechnologyName>
+                                      <WindowTitles>
+                                        <WindowTitle>АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инспекционного подразделения - [Информация о проверке]</WindowTitle>
+                                      </WindowTitles>
+                                      <AndCondition>
+                                        <PropertyCondition Name="FrameworkId">WPF</PropertyCondition>
+                                        <PropertyCondition Name="ControlType">Edit</PropertyCondition>
+                                        <PropertyCondition Name="AutomationId">PART_TextBox</PropertyCondition>
+                                      </AndCondition>
+                                      <SupportLevel>0</SupportLevel>
+                                      <Descendants />
+                                    </UIObject>
+                                  </Descendants>
+                                </UIObject>
+                              </Descendants>
+                            </UIObject>
                           </Descendants>
                         </UIObject>
                       </Descendants>

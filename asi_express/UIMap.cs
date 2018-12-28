@@ -5598,10 +5598,24 @@ namespace asi_express
                 return this.mCustomInInfoInspectWindow;
             }
         }
+
+        public ItemTabList ItemTabList
+        {
+            get
+            {
+                if ((this.mItemTabList == null))
+                {
+                    this.mItemTabList = new ItemTabList(this);
+                }
+                return this.mItemTabList;
+            }
+        }
         #endregion
 
         #region Fields
         private CustomInInfoInspectWindow mCustomInInfoInspectWindow;
+
+        private ItemTabList mItemTabList;
         #endregion
     }
 
@@ -5849,66 +5863,7 @@ namespace asi_express
                 return this.mControlTabItem;
             }
         }
-
-        public AssignDateInspectInfoDatePicker AssignDateInspectInfoDatePicker
-        {
-            get
-            {
-                if ((this.mAssignDateInspectInfoDatePicker == null))
-                {
-                    this.mAssignDateInspectInfoDatePicker = new AssignDateInspectInfoDatePicker(this);
-                }
-                return this.mAssignDateInspectInfoDatePicker;
-            }
-        }
-
-        public StartCheckPeriod StartCheckPeriod
-        {
-            get
-            {
-                if ((this.mStartCheckPeriod == null))
-                {
-                    this.mStartCheckPeriod = new StartCheckPeriod(this);
-                }
-                return this.mStartCheckPeriod;
-            }
-        }
-
-        public EndCheckPeriod EndCheckPeriod
-        {
-            get
-            {
-                if ((this.mEndCheckPeriod == null))
-                {
-                    this.mEndCheckPeriod = new EndCheckPeriod(this);
-                }
-                return this.mEndCheckPeriod;
-            }
-        }
-
-        public StartWorkPeriod StartWorkPeriod
-        {
-            get
-            {
-                if ((this.mStartWorkPeriod == null))
-                {
-                    this.mStartWorkPeriod = new StartWorkPeriod(this);
-                }
-                return this.mStartWorkPeriod;
-            }
-        }
-
-        public EndWorkPeriod EndWorkPeriod
-        {
-            get
-            {
-                if ((this.mEndWorkPeriod == null))
-                {
-                    this.mEndWorkPeriod = new EndWorkPeriod(this);
-                }
-                return this.mEndWorkPeriod;
-            }
-        }
+     
 
         public TaskTabItem TaskTabItem
         {
@@ -5997,16 +5952,6 @@ namespace asi_express
 
         #region Fields
         private ControlTabItem mControlTabItem;
-
-        private AssignDateInspectInfoDatePicker mAssignDateInspectInfoDatePicker;
-
-        private StartCheckPeriod mStartCheckPeriod;
-
-        private EndCheckPeriod mEndCheckPeriod;
-
-        private StartWorkPeriod mStartWorkPeriod;
-
-        private EndWorkPeriod mEndWorkPeriod;
 
         private TaskTabItem mTaskTabItem;
 
@@ -6378,9 +6323,78 @@ namespace asi_express
                 return this.mReasonsInspectionInComboBox;
             }
         }
+
+        public AssignDateInspectInfoDatePicker AssignDateInspectInfoDatePicker
+        {
+            get
+            {
+                if ((this.mAssignDateInspectInfoDatePicker == null))
+                {
+                    this.mAssignDateInspectInfoDatePicker = new AssignDateInspectInfoDatePicker(this);
+                }
+                return this.mAssignDateInspectInfoDatePicker;
+            }
+        }
+
+        public StartCheckPeriod StartCheckPeriod
+        {
+            get
+            {
+                if ((this.mStartCheckPeriod == null))
+                {
+                    this.mStartCheckPeriod = new StartCheckPeriod(this);
+                }
+                return this.mStartCheckPeriod;
+            }
+        }
+
+        public EndCheckPeriod EndCheckPeriod
+        {
+            get
+            {
+                if ((this.mEndCheckPeriod == null))
+                {
+                    this.mEndCheckPeriod = new EndCheckPeriod(this);
+                }
+                return this.mEndCheckPeriod;
+            }
+        }
+
+        public StartWorkPeriod StartWorkPeriod
+        {
+            get
+            {
+                if ((this.mStartWorkPeriod == null))
+                {
+                    this.mStartWorkPeriod = new StartWorkPeriod(this);
+                }
+                return this.mStartWorkPeriod;
+            }
+        }
+
+        public EndWorkPeriod EndWorkPeriod
+        {
+            get
+            {
+                if ((this.mEndWorkPeriod == null))
+                {
+                    this.mEndWorkPeriod = new EndWorkPeriod(this);
+                }
+                return this.mEndWorkPeriod;
+            }
+        }
         #endregion
 
         #region Fields
+        private AssignDateInspectInfoDatePicker mAssignDateInspectInfoDatePicker;
+
+        private StartCheckPeriod mStartCheckPeriod;
+
+        private EndCheckPeriod mEndCheckPeriod;
+
+        private StartWorkPeriod mStartWorkPeriod;
+
+        private EndWorkPeriod mEndWorkPeriod;
 
         private WpfComboBox mSelectedDocumentComboBox;
 
@@ -9073,6 +9087,8 @@ namespace asi_express
         }
 
         #region Properties
+
+
         public ControlAxSourcingSitWindow ControlAxSourcingSitWindow
         {
             get
@@ -9084,6 +9100,7 @@ namespace asi_express
                 return this.mControlAxSourcingSitWindow;
             }
         }
+
         #endregion
 
         #region Fields
@@ -9360,6 +9377,76 @@ namespace asi_express
 
         #region Fields
         private WpfText mRegNumberText;
+        #endregion
+    }
+
+    public class ItemTabList : WpfTabList
+    {
+
+        public ItemTabList(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public AssighDate_InspectionCustom AssighDate_InspectionCustom
+        {
+            get
+            {
+                if ((this.mAssighDate_InspectionCustom == null))
+                {
+                    this.mAssighDate_InspectionCustom = new AssighDate_InspectionCustom(this);
+                }
+                return this.mAssighDate_InspectionCustom;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private AssighDate_InspectionCustom mAssighDate_InspectionCustom;
+        #endregion
+    }
+
+    [GeneratedCode("Построитель кодированных тестов ИП", "15.0.26208.0")]
+    public class AssighDate_InspectionCustom : WpfCustom
+    {
+
+        public AssighDate_InspectionCustom(UITestControl searchLimitContainer) :
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatePickerEx";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "AssighDate_InspectionInfoView_dp";
+            this.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                    "екционного подразделения - [Информация о проверке]");
+            #endregion
+        }
+
+        #region Properties
+        public WpfEdit DateText
+        {
+            get
+            {
+                if ((this.mDateText == null))
+                {
+                    this.mDateText = new WpfEdit(this);
+                    #region Условия поиска
+                    this.mDateText.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mDateText.WindowTitles.Add("АС Инспектора. Версия 2.3.1.0. Стационарная региональная | РИО | Руководство инсп" +
+                            "екционного подразделения - [Информация о проверке]");
+                    #endregion
+                }
+                return this.mDateText;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private WpfEdit mDateText;
         #endregion
     }
 }
